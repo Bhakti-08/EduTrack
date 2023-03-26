@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Results</h1>
+  <br>
+  <h3>Tests taken by {{ name }}</h3>
+  <br>
+  {% if results %}
+    <table class="table table-bordered table-striped table-hover">
+    <thead class="table-dark">
+      <tr>
+        <th>Test Name</th>
+        <th>Subject</th>
+        <th>Date of Exam</th>
+        <th>Correct Answers</th>
+        <th>Wrong Answers</th>
+        <th>Score</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for result in results %}
+        <tr>
+          <td>{{ result.test_name }}</td>
+          <td>{{ result.subject }}</td>
+          <th>{{ result.date }}</th>
+          <th>{{ result.correct_ans }}</th>
+          <th>{{ result.wrong_ans }}</th>
+          <td>{{ result.score }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+    <p>You haven't attempted any tests yet.</p>
+  {% endif %}
+
+{% endblock %}
+

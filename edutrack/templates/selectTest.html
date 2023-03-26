@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% block title %}Select Test{% endblock %}
+{% block content %}
+{% if upcoming_tests or active_tests or resume_tests %}
+    <br>
+    {% if upcoming_tests %}
+        <div class='row'>
+            <h3>Upcoming Tests</h3>
+            <br>
+            <br>
+            {% for d in upcoming_tests %}
+                <div class='col-md-5'>
+                    <div class='card mt-4'>
+                        <div class='card-body border-dark shadow'>
+                            <h4 class='test-name'>{{d.testName}}</h4>
+                            <h5>{{ d.subject}}</h5>
+                            <p>{{ d.DateOfExam}}</p>
+                            <p>{{ d.StartTime}} to  {{ d.EndTime}}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    <br>
+    {% if active_tests %}
+        <div class='row'>
+            <h3>Active Tests</h3>
+            <br>
+            <br>
+            {% for d in active_tests %}
+                <div class='col-md-6'>
+                    <div class='card'>
+                        <div class='card-body border-dark shadow'>
+                            <h4 class='test-name'><a href="{% url 'test_question' d.id %}">{{d.testName}}</a></h4>
+                            <h5>{{ d.subject}}</h5>
+                            <p>{{ d.DateOfExam}}</p>
+                            <p>{{ d.StartTime}} to  {{ d.EndTime}}</p>    
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    <br>
+    {% if resume_tests %}
+        <div class='row'>
+            <h3>Resume Tests</h3>
+            <br>
+            <br>
+            {% for d in resume_tests %}
+                <div class='col-md-6'>
+                    <div class='card'>
+                        <div class='card-body border-dark shadow'>
+                            <h4 class='test-name'><a href="{% url 'test_question' d.id %}">{{d.testName}}</a></h4>
+                            <h5>{{ d.subject}}</h5>
+                            <p>{{ d.DateOfExam}}</p>
+                            <p>{{ d.StartTime}} to  {{ d.EndTime}}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    <br>
+{% else %}
+    <h3>Tests are not arranged </h3>
+{% endif %}
+{% if submitted_tests %}
+    <div class='row'>
+        <h3>Submitted Tests</h3>
+        <br>
+        <br>
+        {% for d in submitted_tests %}
+            <div class='col-md-6'>
+                <div class='card'>
+                    <div class='card-body border-dark shadow'>
+                        <h4 class='test-name'>{{d.testName}}</a></h4>
+                        <h5>{{ d.subject}}</h5>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+{% if deactive_tests %}
+    <div class='row'>
+        <h3>Recent Tests</h3>
+        <br>
+        <br>
+        {% for d in deactive_tests %}
+            <div class='col-md-6'>
+                <div class='card'>
+                    <div class='card-body border-dark shadow'>
+                        <h4 class='test-name'>{{d.testName}}</h4>
+                        <h5>{{ d.subject}}</h5>
+                        <p>{{ d.DateOfExam}}</p>
+                        <p>{{ d.StartTime}} to  {{ d.EndTime}}</p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+{% endblock %}

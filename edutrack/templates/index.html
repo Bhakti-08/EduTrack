@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" , content="with =device-width, initial-scale=1.0" />
+    <title>EduTrack</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/static/index.css" />
+    <meta charset="UTF-8" />
+  </head>
+
+  <body>
+    <section class="header">
+      <h2>EduTrack</h2>
+      <nav>
+        <div class="nav-links" id="navLinks">
+          <ul>
+            <li><a href="#about">ABOUT</a></li>
+            <li><a href="#FAQs">FAQs</a></li>
+            <li><a href="{% url 'login' %}">LOGIN</a></li>
+          </ul>
+        </div>
+      </nav>
+    </section>
+      <div class=login>
+      <form action="" method='POST'>
+          {% csrf_token %}
+        <h4>
+          <b>Login </b>
+        </h4>
+        <div class="mb-3">
+          <label>Enter Your User Name</label>
+          <input type="username" name='username'/>
+        </div>
+        <div class="mb-3">
+          <label>Enter The Password</label>
+          <input type="password" name="password"/>
+        </div>
+        <div class="mb-3">
+          <label>Select Your Role</label>
+          <br />
+          <div class="dropdown">
+            <select name="role" id="role">
+              <option>Select Your Role</option>
+              <option value="Student">Student</option>
+              <option value="Professor">Professor</option>
+              <!--option value="Head Of Department">Head Of Department</option-->
+            </select>
+          </div>
+        </div>
+        <br />
+        <button type="submit" class="btn btn-primary">Login</button>
+        <br />
+        <br />
+        <h5>Not a member? Register Here,
+        </br><a href="{% url 'profRegistrationForm' %}">As a Professor</a>
+        </br><a href="{% url 'studentRegistrationForm' %}">As a Student</a></h5>
+      </form>
+    </div>
+    <div class="aboutus" id="about">
+      <div class="block">
+      <h2><b>ABOUT US<b></h2></br>
+      <p>An online test platform is a web-based tool that allows users to create, manage, and grade exams online. It offers remote testing, minimizing the need for a teacher's physical presence, making it convenient for students and instructors to assess students regardless of their location. 
+        Reports about student performance are detailed, giving valuable insights to educators and administrators, identifying areas to improve teaching approaches. Online test platforms are cost-effective, and offer immediate feedback to students, improving their subject knowledge. Educators can also upload question banks, select random questions, and customize grading schemes, providing customized feedback to students.</p>
+			</div>
+      <div class="slider">
+				<div id="img">
+					<img src="https://www.sggs.ac.in/uploads/home_banner/1665387599.png" />
+				</div>
+			</div>
+    </div>
+    
+    <footer >
+      <div class="container">
+        <h3 style="font-size: 30px; padding-bottom: 15px; color:#fff; text-align: center;">Syllabus</h3>
+          <div class="row">
+            <div class="footer-col">
+              <h4>Production Engineering</h4>
+              <ul>
+                <li><a href="https://sggs.ac.in/source/uploads/2018/11/FY-Syllabus-Final-Version_1.pdf" >First Year</a></li>
+                <li><a href="https://sggs.ac.in/source/uploads/2019/10/Syllabus-SY-Production-Engineering.pdf" >Second Year</a></li>
+                <li><a href="https://sggs.ac.in/source/uploads/2020/08/Revised-Syllabus-TY-Production-w.e.f.AY-2020-21.pdf" >Third Year</a></li>
+                <li><a href="https://sggs.ac.in//source/1%20new%20B-Tech%20(Production%20Engineering).pdf" >Final Year</a></li>
+              </ul>
+            </div>
+            <div class="footer-col">
+              <h4>Textile Engineering</h4>
+              <ul>
+                <li><a href="https://sggs.ac.in/source/uploads/2018/11/FY-Syllabus-Final-Version_1.pdf" >First Year</a></li>
+                <li><a href="https://sggs.ac.in/source/uploads/2019/10/Textile-Technology.pdf" >Second Year</a></li>
+                <li><a href="https://sggs.ac.in/source/uploads/2020/08/Revised-Syllabus-TY-Textile-w.e.f.-AY-2020-21.pdf" >Third Year</a></li>
+                <li><a href="https://sggs.ac.in//source/B%20Tech%20(Textile%20Technology)Revised.pdf" >Final Year</a></li>
+              </ul>
+            </div>
+            <div class="footer-col">
+              <h4>Electrical Engineering</h4>
+              <ul>
+                <li><a href="https://sggs.ac.in/source/uploads/2018/11/FY-Syllabus-Final-Version_1.pdf" >First Year</a></li>
+                <li><a href="https://sggs.ac.in/source/uploads/2019/10/Syllabus-SY-Electrical-Engineering.pdf" >Second Year</a></li>
+                <li><a href="https://sggs.ac.in/source/uploads/2020/08/Revised-Syllabus-TY-Electrical-AY-2020-21-Modified-2020_04.08.2020.pdf" >Third Year</a></li>
+                <li><a href="https://sggs.ac.in//source/1%20B%20Tech%20%20(Electrical%20Engineering).pdf" >Final Year</a></li>
+              </ul>
+            </div>
+            <div class="footer-col">
+              <h4>Mechanical Engineering</h4>
+              <ul>
+                <li><a href="https://sggs.ac.in/source/uploads/2018/11/FY-Syllabus-Final-Version_1.pdf" >First Year</a></li>
+                <li><a href="https://sggs.ac.in/source/uploads/2020/07/SY_detailed-syllabus_Mech_Engg_SemI_20_21.pdf" >Second Year</a></li>
+                <li><a href="https://sggs.ac.in/source/uploads/2020/08/Revised-Syllabus-TY-Mechanical-Engineering-w.e.f.AY-2020-21.pdf" >Third Year</a></li>
+                <li><a href="https://sggs.ac.in//source/1%20B-Tech%20(Mechanical%20Engineering).pdf" >Final Year</a></li>
+              </ul>
+            </div>
+            <div class="footer-col">
+              <h4>Chemical Engineering</h4>
+              <ul>
+                <li><a href="https://sggs.ac.in/source/uploads/2018/11/FY-Syllabus-Final-Version_1.pdf" >First Year</a></li>
+                <li><a href="https://sggs.ac.in/source/uploads/2019/10/Syllabus-SY-Chemical-Engineering.pdf" >Second Year</a></li>
+                <li><a href="https://sggs.ac.in/source/uploads/2020/08/Revised-Syllabus-TY-Chemical-w.e.f.-AY-2020-21.pdf" >Third Year</a></li>
+                <li><a href="https://sggs.ac.in//source/1%20B-%20Tech%20(Chemical%20Engineering).pdf" >Final Year</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="row">
+            <div class="footer-col">
+              <h4>Computer Science and Engineering</h4>
+              <ul>
+                  <li><a href="https://sggs.ac.in/source/uploads/2018/11/FY-Syllabus-Final-Version_1.pdf" >First Year</a></li>
+                <li><a href="https://sggs.ac.in/source/uploads/2019/10/Syllabus-SY-Computer-Science-and-Engineering.pdf" >Second Year</a></li>
+                <li><a href="https://sggs.ac.in/source/uploads/2020/08/Revised-Syllabus-TY-Coputer-Science-w.e.f.AY-2020-21.pdf" >Third Year</a></li>
+                <li><a href="https://sggs.ac.in//source/deparments/Computer%20Science/B-%20Tech%20Syllabus%202021-22.pdf" >Final Year</a></li>
+              </ul>
+            </div>
+            <div class="footer-col">
+              <h4>Information Technology</h4>
+              <ul>
+                <li><a href="https://sggs.ac.in/source/uploads/2018/11/FY-Syllabus-Final-Version_1.pdf" >First Year</a></li>
+                <li><a href="https://sggs.ac.in/source/uploads/2019/10/Syllabus-SY-Information-Technology.pdf" >Second Year</a></li>
+                <li><a href="https://sggs.ac.in/source/uploads/2020/08/Revised-Syllabus-TY-Information-Technology-w.e.f.AY-2020-21.pdf" >Third Year</a></li>
+                <li><a href="https://sggs.ac.in//source/1%20B%20Tech%20(Information%20Technology).pdf" >Final Year</a></li>
+              </ul>
+            </div>
+            <div class="footer-col">
+              <h4>Electronics and Telecommunication Engineering</h4>
+              <ul>
+                <li><a href="https://sggs.ac.in/source/uploads/2018/11/FY-Syllabus-Final-Version_1.pdf" >First Year</a></li>
+                <li><a href="https://sggs.ac.in/source/uploads/2019/10/Syllabus-SY-Electronics-and-Telecommunication.pdf" >Second Year</a></li>
+                <li><a href="https://sggs.ac.in/source/uploads/2020/08/Revised-Syllabus-TY-Electronics-w.e.f.AY-2020-21.pdf" >Third Year</a></li>
+                <li><a href="https://sggs.ac.in//source/1%20B-%20Tech%20(Electronics%20and%20Telecommunication%20Engineering).pdf" >Final Year</a></li>
+              </ul>
+            </div>
+            <div class="footer-col">
+              <h4>Civil Engineering</h4>
+              <ul>
+                <li><a href="https://sggs.ac.in/source/uploads/2018/11/FY-Syllabus-Final-Version_1.pdf" >First Year</a></li>
+                <li><a href="https://sggs.ac.in/source/uploads/2019/10/Syllabus-SY-Civil-Engineering.pdf" >Second Year</a></li>
+                <li><a href="https://sggs.ac.in/source/uploads/2020/08/Revised-Syllabus-TY-Civil-w.e.f.-AY-2020-21.pdf" >Third Year</a></li>
+                <li><a href="https://sggs.ac.in//source/1%20B-Tech%20(Civil%20Engineering).pdf" >Final Year</a></li>
+              </ul>
+            </div>
+            <div class="footer-col">
+              <h4>Instrumentation Engineering</h4>
+              <ul>
+                <li><a href="https://sggs.ac.in/source/uploads/2018/11/FY-Syllabus-Final-Version_1.pdf" >First Year</a></li>
+                <li><a href="https://sggs.ac.in/source/uploads/2019/10/Syllabus-SY-Instrumentation-Engineering.pdf" >Second Year</a></li>
+                <li><a href="https://sggs.ac.in//source/Academics/Revised%20T-Y-%20B-Tech%20Instrumentation%20Syllabus%202020-21.pdf" >Third Year</a></li>
+                <li><a href="https://sggs.ac.in//source/1%20B%20Tech%20(Instrumentation%20Engineering).pdf" >Final Year</a></li>
+              </ul>
+            </div>
+          </div>             
+        </div>
+  </footer> 
+  <script>
+    var navLinks = getElementById("naviLinks");
+    function showMenu() {
+      navLinks.style.right = "0";
+    }
+    function hideMenu() {
+      navLinks.style.right = "-200px";
+    }
+  </script> 
+  <script >
+var img = document.getElementById("img");
+
+var slides = [
+"https://qph.cf2.quoracdn.net/main-qimg-686bbafcef027b88217c25d5012f776b-lq",
+"https://images.shiksha.com/mediadata/images/1488262957phpSRuUj0.jpeg",
+"data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAoHCBYWFRgVFhYYGRgYGBoaGBwcHBwcGhkaGBwaGhwaGBocIS4lHB4rIRoaJjgmKy8xNTU1GiU7QDs0Py40NTEBDAwMEA8QHhISHzQkISE0NDQ0NDQ0NzQ0NDQ0NDQ0MTQ0NDQ1NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0ND40NP/AABEIAJ8BPgMBIgACEQEDEQH/xAAcAAABBQEBAQAAAAAAAAAAAAADAAECBAYFBwj/xABGEAABAwICBAkLAgQEBgMAAAABAAIRAyESMQRBUWEFFiJxgZGS0eEGExQyQlJiobHB8FSiFYKy0lNyk/EXIzNDc+JEY2T/xAAZAQEBAQEBAQAAAAAAAAAAAAABAAIDBAX/xAAmEQACAgICAgICAgMAAAAAAAAAAQIRElETIUFhAzGBkSLwQqHh/9oADAMBAAIRAxEAPwD0/jBS+Ls+KXGCl8XZ8VlElEavjBS+Ls+KX8fpfF1eKyaeVEav+P0vi6vFL+P0vi6vFZSU5RZGq4wUvi7Pim4w0fj7PisqQmLVWhpmq4xUfj7Pilxio/H2fFZPCnhTaKmazjFR+Ls+KbjHR+Ps+KyiaEKRUazjHR+Ps+KbjJR+Ps+KyeBIMKrKjXcYqPxdnxTHyio/H2fFZTCpYEZFRqOMlH4+z4p+MdH4+z4rKFiWFWRUavjHR2P7Pim4yUfj7PisqWJsKcio1fGSj8fZ8U/GOj8fZ8Vki1KE2BreMdH4+z4pcY6Px9nxWRKZJGuPlJR+Ps+KbjLR+Ps+KyMJi1JGv4y0fj7Pilxlo/H2fFY+EoUBsOM1D4+z4puM1D4+z4rIEKOFaSiDs2PGah8fZ8UuM1D4+z4rG4U4anGJWzY8ZqHx9nxS4z0Pj7PiscWpsKMUFs2PGeh8fZ8UuM9D4+z4rHYUsKcYk3I2PGeh8fZ8U3Gih8fZ8Vj8KbCrGIZSNlxoobH9nxTcaaGx/Z8VjgxSDFYxFORaSlPCULmaEkknQIkgnTIYoSaE6Sy+jQyZOQmlZsaECpKCdApEsKUJk6rKhBSBTAqbQiyoWFO2misarNKiVWTiUjTUXMXTOioD9HVZlo57moZCuPpoDmJTCgJCiilqjC2pBRGEoTwmWkwFCbCppLQEIShOnhNkQTQiYU4YmyBAJ4RcA2piAqyIBifCFKAnACLIGY2KKNgCWAKsgSUI0BNZVkGwpoRoSwrNiCwp4RMKYtVZEITYUTCmLVMgZamhFhLAVmRpAiFGEUhKFhs2kCSUy1LCsWINOFLClhWbEZpRWKLWojAhki1o7V1KFJcuguxoZyVH7KRdp6MIuq2k6PuXSQtI9VeiUUkcVJtmb0mgqD2LtaSuXWC890zqkU3BQKM5iGWrakDQMpKWFLCtKRhpg1JSwJ8C6ZIMWDlOCpwnDUqSCiCSnCeE2QMJ1NLCqwIQlhU4ShJEIShShKFEQITEKcJiFEXsKWFcfgvymoVWF+NrYEw5zG2vFg4nVBnWsZwn5e1XFxoua2nbCfNnHcXaS5xBi4kNWGxPSyoMe13quBjODMTcTszXilfh/SHgOFV7cToJDi0Za7xt603BXCTtF0hlQOxxhc8DEMQeA5zTIBxXz27VWws9p0qsGMc91msaXHmFysjwl5XOANXR2l9Om5uOWiHse2SWuDpBbLdXtTEXXP07yuGkuApNfSawF1Vz3ENNNpg+pyjdwEfFvXI0XR2BtRnnWBtZ0BlJtZwDnQRZ+Ehtxeb4YJN4lY9G70nygDtD9IptcXPEMbrDza8bLm2cdKscHcJHzVJ1Yhr3gZCGza27Obry2lo2i08baj6rqgJa0hoaGOESbOdJtGYHyI6/8WbUY2i6q57WsLWjzXLJzBPKzAgCBNuhTg7/AOipG30/hwUqzKb2Qx4s+Zk6oAGWbechdkBeT6dws2oxjH1zjpnkHA8W5JIe3M+qIMjN3Rr+A/KFvmBil5YIcWACb25BdiJ5ghwf9ZpSNRhTYFk9H8uKTmkEcs2YG4y0nfLJB3AOV2h5TNBiowgm7AyXEgwRySBqOqdVlzcGaUkd7AlgXB0nhqsBjbTAZIgvDx6xDRiIFrkdJGWuTOHHhpc9j2sOIte1rnEgm3rABsAjasYsbR3QxR0WqHtDgHAGbOEGxjJcPQeH7gPxODmFwwsJec5IyBbIPUrGh8MMZTHIqknXghpJgATM7AqhNBTXQ0erCy+icKPJLn0q5BFgyk4tvrxEAnV1lXW8MD/A0r/Rch9fQ1ZrWaWIuhV9IlZwcOD/AANK/wBFyZ3Dn/0aV/onvU5yoyodnT0h6oPVR/C8/wDx9K/0v/ZCdwp/+bSv9Mf3oSNVRbcEJwVV/CzWxio6QwFzWy6mIl5DWzDicyBYK0ys1xgYgYmHNcwxlMPAkJ+gbIlRhHwpixVlQJKETAmwrSYURATwnwqrpWn0qdnvawxME6pAnmki62mZaLEJlHR9IY8BzHtc03BBkfm5HwLSZlpgkkXAlgWskFA4ShZzym8p/R3Gkxoc8NDiSZADsrDXuP8AvQ8nOHdKfVDXhj21MRbm3BBveJAiDBGRbCsgNlCUI0JoVkQLClCk9wGZA5zCeFZFR8/NdNyOseCI2oABBdbVNpuUINERJsolx1H5/ZVGV6DecMDXcz07PmhvJBJ2zfOU1JwGd1F7jG6/QlIkdqgC3RXGBir1WsaPgpQ9xGs8pzB0JuCCfO0RLZNZlhmBih0xq8d6bhxpYaVAf9ik0O3VH/8AMfz3eB/Kl5PYjpVEH356mk/Zb/yS0IPhAYq1YzfzlT5Od3IJG0/ka1LTXTVqG/8A1H/1Ougsbab965tWyDMYPVIyuSM+hOARMEmfmBBv1DqQ2m8gqQP0Q0JZczC0OBIdJNp5JEYY36+hWNH4QqtGFj3tmcRBILpzxHMqmwqYInWs0SZ2ncMPcxrMLcLXTEZk5mT6xzuZgK0zhb2XAYcJgS9vKzglpkg2GpcFkjMGPqERr5/LLm4m8mXtHqFjg9pggyCCbEbCLrp0tPc9zC8iGNwiIECd9h/6jJcZhsjtecs/ssuIxZsKnDDHvwua99JreSJw+r7ZEgTnszXbbw+xgYzlvOECWiSRkDfMkfP5edNq6kZlWMisOMjopHpvBvCjKuLA6YcbEQcOowelT0nTwynjeWsJxYQTMxMZZ2g2yleasratoI/NqTtKcQA4k4RDQbwJmBsRjI1kj0HROEAGU2vfje9pcXNALRrk4bNbcAHxKuUqjXtDmODmnIgyCvMHVhIJEjYde6c0anwvVYIY8tEjpgAASbwBq3KxkGSNpwtp1MjBjbiY+k4iRYCo1x6g0k7Bmqz+HKJrAh4LG03YniYBe5pANpsGb71ANSx2iuBc7/JU/ocgUTLakW5E9T2AjsuK6Ri6V+zDkj0R/CtLCHMcX4rAM5Rm1iJGEwdcK80SAdt+teT0NMewyx7mna1xaeaQclom+Uuk+aBxNxEziwCQ24AOqThtYmJKMZDkjb4VxeEvKKjReab8RcBLsIEC0wSSL7t+2yzDOHdJJMVXOAF8OAQSDmIsOSZNoibCJo8OCrVf5x9MsaYsXAZNEulxtYAzYXG0JUWDaO/U8tqYcQKbiJs4nDyY1i9wdUrg6Np7Kz3PrFoeXB7YbyS5p5IuTHuiNQvtXE0hoaXa59UyNoMnCYmNW07kBjHOs0EwCbbBckrqos5uTPTeC64xhjHslreXGTrjC7EdjWiL3kbwOpwhwi2jhDhMglxkSAIveLG99ULyjg3hB7CYrPZNg4Ew0mLuE39UdW5dLTPKGq7GH1GvJaACCA1hkyGwTjEhpBBgETz2Lscujajyu0TGWY3AiwJbDXZ+q6YjeYzWgpYXAOaQ5pyIMg8xGa8e0TSaeMudZjncoOaIgwS4vINzBtC1fk/5UuY9lJ9IM0cyKZDXF3Kc3AS6SCJdBNvWBtrmmgTB+WWhuID8AZdwa2xxOdic0wJuXOOrInKUDgDyafUYyqx4Y2cYsTDwRFpF2ubrsRzrQ+X3B/nKLHAnkva0j2SHuA5Wy+G+9V2eUFLRiaIbZjeUTLXMbJwDC4DHm7I61LtdE0rNQ5o1qNUhrS45NBJ12A2BeXs8rqjq4c9zzTaWyGmCGtddxAs51/yF6XWq06mjl5cBTeyS4kQGka81O19iqZ5xw3wqx7yS8Gm82LGvaeTyiYfkcWcA5C+yrpHlfWcxrGBrQ2AC1xBMCDiLnEm6p8IvosLmsaHRh5RaWlxxOccnDk2AEAZEBozVLSqpqOJ5Im+Euwt1yWl1hnlP3TVkcTGJjVrSe9kWEnqXUbT0cNc3C4vOTp1bjYA/y+AxoFK/Kd2h/YuiaOdHNx2iAunwBo7amkU2uHJDsTzsYwF753ENIvtUmcH03WDnWa4+sMmhzz7Gdj8lf4Notp0dIqAu5QFASRfzhLn4bZhjHdtai1ZNHE0vTC976h9Z73PN/eJMZaphdPyTdi0yiI9p5/Y9UTojNZf0ET/Su35J6KxulU3DHIFQ3Ij1Hj3QdaotOSJro4D6he8wLl7iIzIknpUmvbmDzono7GgEYpsADBBmZm2yUUaI11+Ve88+yyy6GiqxwnNFcbxI+/Sjt4Ob8fUCn/hwGt3UjrZUApPmOpTa+4BVmnweAWnEbGfVO2dqiODo1uyj1fHeh1siIfvPMixrE/maiNBI25e6e9WH6OS1gl3qR6pscbyZE7wjrYjMecrowfZB9Ff7zuye9Fboj4zPVH3Q6G0Ha+c1MP2qNei7E8AEy6QQCYH3nbuUBoz/AIuwVlpbFSDiol5woXmH7Hdgp/Rn7Hdgo62NomH71F70ztFefZd2SonRXxk7sFVrZmy3we/lO/8AHU/oKFoD+U9t+VSqAc7WOeP6UXg3RnBz7O/6dQXaRcsIChwToj/PMlroJwmWnJ4LD8nLdrrvyDf2c9rxrK7+iVaLaLncpj3SAXAOZhJ9aAOU4Altxr3LhegvgWdl7p61L0Sp6sOiI9QjfeBdZuO1+xckjWcBUaBIe7SML2k4Gl45RaG3LXCcJiNpFtUqnxgoPqNFSg5wZMPnFUw+0HNjCcybzkdts/Q0Wo04ofv5DsjM2I2SnZozwScBFvdcLyBa28noRnHaDJF6joDdJdWqA4GMDn2EAuLmNaBOQmoM4yzzIDT0WmMIe5jiS9jhifyMD4DyGAk2M7IjK6E6ppDfVNSCAHNGKDhJhv8Alvll1BDNWsJwsIEFpaGANIcADyQ2PZHUtL5I7M5I0dHyfosdXZVeGuwUzSONsTUBLHNkBxGJjrATMC+ar0+BqdIsNSox7DTdjYCxpGEA4AWnFjxYrHVAN1nq9Gq94c7GXAC7pkANECTsuAoClU1hxMzMGdpEqzWyyRrGcG6Nyzo9Y4xGAA4GYMYacbnGQ7lYpF4a61xOio0dDY1rqlQB4cXuLn8qTikGHEQZyGZJIguM+Y1NFeRABiTFuVGrFAQ3aJUJxEvJ2kOn6XWZTT8jkkeq6T5R6LXAptdixPYbtLRDXtdMuEWLR1heaafobH13uNUMYahDLGo4gOwhzsNrgTN5MoLqdWIOMAD2WkEyROq+3XkgN0R+G7XXkGA7ZbVtTGSXlE5Wd7g7RNBaHPrVnFxuGspvY0NjVccki8Widy1WkeWGh+a8y11SAzD6mIwBscYcTtO2V5u6jUi4dA1YTcC8TCanQeSMWOIiwNtf1Kcovz/s0mqtMNpFamKjnsLgDOGGtYQCAAIZZttQEGb5lcx7gNcDefAK07Rqvuu6Qfuj0aNUBwEtuIIgE2MzfWYK1cdozka0aMzYOpP6Ozd1KIqDZ8/FMazRnbplfA/mzCxCejt/ArruDnOYxrGPcDNQlrSQS6ALge60da5w0lvP81zuDKj2F7TjDA4+b5RADbwAMVomItkvT8Ef4yybXQ9Gjb5P1/8ACeOdpH1hGocEVKbi9zQAGu9ps5bA6SehcX0o+87tnvQCHmoH+eeGgQWS6Cb3N946gunxccXdvrsqLn8P5WIhxIBAsYE5wIzMKVLQMLQ0MfAAAEOsBkEE6Rte7tO70hpQ989s965tqqtj+Cz6K73Hdkpjozvcd2Sq/pI989s96Y1263/uPes1H3+h/BZ8w73HdRTeju9x3ZPcq50hvvz/ADFI6S33z2imo+y/BYGjuPsO7LkvQ3e47suVYaS33j2im9IHvmOcppeyv0Whor/cf2HJxoz/AHH9l3cq7as+0espYwNZ/cnr2FvRZ9Ff7j+y7uUm6K8+w/su7lWx8/ZKbF8J7J7k9aZr+Wi+zQKpyp1Oy5L+H1PcqdTlQ840ew7s/VWdHrMkEsJEyRh1DbC0op/aZiTkvpMN6BU9x/U5M/Q3j2HfNV9I0kOccNMgbA2QFWe/4H9lDik/plHJq2mjqaLor5vLZaRJmJI1xJ+SOzgmo0tfjpkNc0mHgGxBydBWeqHEIwOjVydijUc4tILCQRewEytpKkqfT2axlp/ouF4Mua4FpJggkgjUQRmFHHv+qpUXuDWtDCIAAtb6ouJ3unoC4z+KWTpBhLTD+cO1Lzh2qqXn3XdQ70jUPuu+XescMtFhLTLOPekah/Cqznkey75fcpsZ9x37e9XDLQYS0ywKn5KiaypCuPdP7e9P5w+475d61wyLCWmW/PpedVPzh9x37e9R8473Hdbe9XDIuOei95xMam4qmKx9x37e9I1j7jvl3p4ZaHjnotucCIg350see8z9vsqZrkeyets/1JekH3D1t71cU/qgwlouec3pedVIVyfY63NH3UjW2sj+ZverhnouOei3TqMPsDZq+dknuYPZbzaz0WRWM2uvzx8iN+pPIZvGs4TmvZ0fTSBteIkNEdE9Cm7e0GdWHXzwmDw64aLTOJpExeYJTO0pp5Ia0k9UHeVFQ7m7GgfylRD9XJ/N0p21o9m3SR8u7UnL/aLbbgZ6FDQ8m3JBjZM9SYE+5G46vmhDSR7r5G7Pmt8kSk7EOSDA5hf6/wCy0ZJF4tJbOyydztx/OYKMmSMIG2Dc88fmtQDrxEbIJk+PPCi6JOcdUyN0dRIukWEjI/LvCk2oYsNWRGrbfUnxO2EjUcp61EM9rtcwhuY4TY312Hy+6LaDacovkN1o1KLaoB9SDu7wY2darJkQ2Bm/5R9UQG/tWz5Wc9aj55sy5zm6okar2tJzHyTEibFxJyvPQBqz3KKggcCPWO0ET9s0RzT78deW8eCGGiOURbK/1yumEbHHfqI6RlzqIK5p96d9vumJMZg7NqC/IYYj8vfPo2pYTrjZl4ooA2vMz+bSpYXDWVXBLdR5vwo3pDhBwnrH3O5NEmTcx2dudQc12s/NRZVJyaeoABSe8i2IX3j8CBsh5t236fkpsJGv7/ZEa6CQSCdVvvdTL4kmPmfvCgK+B5tB59Xy1KRY+NSIXgkGXX2GAmDyPe53RlzqIruoOmDBmb/bJSNBw2fT7Kx5zL7X3Z9ad7gdfUUMSoaJ1lR8znMxzgj6q047Dl+bITOAg2nmuOlAgfMbwNij6Ofw+CO0DMTfemc3ebZz3pRADQ5+aR3Jjo3X0fSEcNG0fNIjViA6fyySKx0cfnek7R9g6oVlvQnjbG7Us2NIpmgBtSFAb1ac0a435KBI1AJtjSOVVGl6zSPyJ/M7IePSGi9Jjv5nH7rrP058WYMsy4fOJUxXcR6wHRbxXTN+UjlgvDZwWcJVhnSI/mN+uU7uF3n1qLzuxAfIBdk4IkwTlk4777kKr+RO7VhsE5J+EGEts5bOGGixp1G7gJ7lNvDlMu5QeOdolXmst6sa+gTrt9EEEa8HNI+qbjoMZbAfxKi7/ugTn61ugtM9CuM0unHJqjrA6Bij6Ib2UY5TGk7hi+g2IT+CqREw0c4iE3HTKp7R1m12EAh4JyzafooNZPrYpI3nnmAuA7ghkwCQdgdJ/OdI8Dkeq94PPMdSMY7YZS0aHzRYIAJM3M5bzPTrUaboNpccoMAbTcFcJujV2jk1n8wcfmIQCNJBxBxJkXxG8bQnjWy5GvBqmBhMggHWM4HT9UR5bqkb5sduvLcsx/Eq4s5jHAboz5oRW8NutNEby14ExzzdZfxPwx5V5TO4S7KRbWJ590dSi8aiIzvMHbIz+mpcZ3DTZu17L8rk4h1y38KM3hek6f8AmQDqIcOuJnr1dKuOWi5I7Ow2kCJtt15KLqZEYZA5/HLJVNF0tkWqMA/zNBnmc6QrrMTvVuNRAkEnVIMLLjJeDSlFggTsGe7r1SpPuBJkzqIsebmlCquLTBMbjrz6urUUMuxcojbe+WvM21KoSy1o947cknl9zMfOef5oLH5nXuEqD3mTuztlnsR2RN+kQMMR0WPXmnZUjWDtjCD1DoQnPm0x0R9wmxSIsb9+pQWWMQIgt35G/OkCREMbOqAJPOY2b1UY3WZHNnnq2KcCBIdbOT+XUSLpcPacb3gx3XUGVJichlOrqVFxBvadmsb7KPnmiTy8r6+jMwmhOpMnMHrt4oDtIOKHX2EAnJU2Pc4SwPjeWjpzUhVIuG32+1992pVEXfONsTY3ubfdO9+V+mPkZC5jNKeSRhIHNcxzhHbpI5jvj7c6GiRY84Tq6Q49OoKbnOj7/mpVXVJsZkDVP5CbFe2WuQY+RUIfHvHTn8kjWA/PuqxqNbfbtkbepO2s0yb3BymNWtRWWHVDu6ZPTuUcZ1j7Z71Va3USc51gHp6kVjjBBjoJ7skdCGxAXuJ17+j7pF4GUdM96B5wjJ1rZj7mLpP0nKZ+X3KhQRtTY3rk/wC6TqgHdBAvz36l7ZxR0L9O3rd3qHEzQf07et39y7cLPNzrR4kXOJkYS2ADcknXsA6MknPbES6TkDcTszv1r20+R2g/p2Wy9a3NdPxO0H9Ozrd3p4mXOjxEFoHJLABaAyI5rqAqAaji54m+sR817lxP0HL0dnz70w8kdB/Ts+feniZc6PEWPcRYGNuevfbPVuTOqOMyy03mBbdhy2r28+R2gkz6OyRvd3qXFHQv07Ot3fuRxMOZHiXIaC49JMwI136rpU9JA9XaYj/b8uvauJug/p29bv7kj5G6CYnR2Wyu7vVxMuZaPFn6VO0QNk5bo/IQMIB1zlYEGe76L3N3khoRz0dnW7vTcTtB/Ts63d6uNlzLR4PW2lwGu9pttvefok6k0i9+Zuo8/wBF7u7yO0E56Ozrd3pz5H6F+nZ1u704SDljo8C9GY7MdJn6DmUavBdOPWB1GDHXPdrXvw8jtBz9HZ1u70neR2gnPR2dbu9awlsH8kdHz3/BmbcPTv50N/A5b6rz0EfVfRTfJHQhYaOy293ek/yR0I2OjsPS7vSlJeQco6PnWmzSWerVcL2GPXzB1vBIaZpLSSYJJuS1pJ53ESetfQ/E3Qf01P596biXoH6an+7vT35M5R8WfPo4Yre1SaegtjskBP8AxcZOouyjkn5+q6dfzX0BxJ0D9LT/AHaulR4jcH/paf7u9WPpFn7Z4EeF6XtNc06+SLbtVkRvCNFwMvzORBmOcAhe8cQ+Dv0rOt39ybiDwdr0SmefEfqUYR0PIzw9ml055FRg6CPrEeKK2u2R6r/8paSN5Am/Vmvaf+H3Bn6On+7vTf8AD3gz9JT/AHf3I4oivmkeOU67b8l0bS0xs1830TucyY5PSAfrq717IzyB4OFxolMHcXf3I3EvQc/R29p/9yy/hXhm18+0eItdns3iIG376lB9Rwd6g2zLTHP+fZe58UNB/Ts26+9R4l6DM+jMnnd3o4mPOjxEFxBzmd0X1apQAwznE2jV0g+C934m6Fl6Ozrd3qPErQf0zP3d6OJlzo8SYHARixdQHMoBoExh6AV7k3yO0ECBo7Y53d6YeRmg/p29bv7kcTLnWjwd1a8W6QU2K02z1Wyyscs/kveOJeg/pmdbu9R4k8H5+i0/nr6VriZc6PDm1t8k75+nMoVqjgbmBuBz2RK90b5DcHjLRafz71JvkVoIy0dnW7vRwsudHhXpRIz6IMJjXPMOnqXu3ErQf07Ot3eou8iNAOejMPa71cLHnR//2Q==",
+"https://www.sggs.ac.in/uploads/home_banner/1665387599.png"
+];
+
+var Start = 0;
+
+function slider() {
+if (Start < slides.length) {
+  Start = Start + 1;
+} else {
+  Start = 1;
+}
+console.log(img);
+img.innerHTML = "<img src=" + slides[Start - 1] + ">";
+}
+setInterval(slider, 500);
+</script>        
+</body>
+</html>
+
+

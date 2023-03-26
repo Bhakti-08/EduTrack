@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE-edge" />
+    <meta name="viewport" , content="with =device-width, initial-scale=1.0" />
+    <title>EduTrack</title>
+    <link rel="stylesheet" href="/static/registrationForm.css" />
+  </head>
+  <body>
+			<section class="header">
+                <nav class="navbar navbar-expand-lg navbar-light" style="background-image: url('/static/header.png');height:9vh">
+					<div class="container-fluid" style="float:left;position:fixed;top:0;left:10px;">
+					  <div class="header-inner">
+						<img src="/static/logo.png" alt="logo" style="width:180px;height:9vh;" >
+					  </div>
+					  
+					</div>
+						<div class="nav-links" id="navLinks">
+							<ul>
+								<li><a href="{% url 'selectTest' %}">TESTS</a></li>
+								<li><a href="{% url 'studentResults' %}">RESULTS</a></li>
+                                <li><a href="{% url 'logout' %}">LOGOUT</a></li>
+							</ul>
+						</div>
+					</nav>
+				</section>
+                <div class=register>
+                    <form action="" method='POST'>
+                        {% csrf_token %}
+                        <h2>Update Student Profile<h2></br>
+                            <h4>Enter Your First Name</h4>
+                            <div class="inputGroup">				
+                                <input type="text" placeholder="First Name" name='fname' autocomplete="off">
+                            </div></br>
+                            <h4>Enter Your Last Name</h4>		
+                            <div class="inputGroup">			
+                                <input type="text" placeholder="Last Name" name='lname' autocomplete="off">
+                            </div>	
+                            <br>
+                            <br><h4>Enter Your Email Address</h4>	
+                            <div class="inputGroup">	
+                                <input type="text" placeholder="Email address" name='email' autocomplete="off">
+                            </div></br>
+                            <h4>Create New Password</h4>
+                            <div class="inputGroup">	
+                                <input type="text" placeholder="Create new Password" name='password1' autocomplete="off">
+                            </div></br>
+                            <h4>Confirm Password</h4>
+                            <div class="inputGroup">			
+                                <input type="text" placeholder="Confirm Password" name='password2' autocomplete="off">
+                            </div>
+                            <button type="submit" class="submitBtn" autocomplete="off">Update Profile</button>
+                    </form>
+                </div>
+                {{data|safe}}
+    </body>			
+</html>

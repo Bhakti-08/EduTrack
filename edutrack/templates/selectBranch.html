@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}Upcoming Tests{% endblock %}
+{% block content %}
+<h3 class='my-4'>Select Branch</h3>
+<div class='row'>
+    {% for d in data %}
+    <div class='col-md-6'>
+        <div class='card'>
+            <div class='card-body border-dark shadow'>
+                <h4 class='test-name'><a href="{% url 'selectTest' d.id %}">{{d.branch}}</a></h4>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

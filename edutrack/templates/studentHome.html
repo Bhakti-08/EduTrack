@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE-edge" />
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+    <meta name="viewport" , content="with =device-width, initial-scale=1.0" />
+    <title>Student Home</title>
+    <link rel="stylesheet" href="/static/studentHome.css" />
+  </head>
+  <body>
+			<section class="header">
+				<nav class="navbar navbar-expand-lg navbar-light" style="background-image: url('/static/header.png');height:9vh">
+					<div class="container-fluid" style="float:left;position:fixed;top:0;left:10px;">
+					  <div class="header-inner">
+						<img src="/static/logo.png" alt="logo" style="width:180px;height:9vh;" >
+					  </div>
+					</div>
+						<div class="nav-links" id="navLinks">
+							<ul>
+                                <li><a href="{% url 'logout' %}">LOGOUT</a></li>
+							</ul>
+						</div>
+					</nav>
+				</section>
+				<div class="wrapper">
+					<div class="sidebar">
+						<br>
+						<div class="profile">
+							<ul>
+								<li>Name :</li>
+								<li class="info">{{ name }}</li>
+								<li>Registration Number :</li>
+								<li class="info">{{ registrationNum }}</li>
+								<li>Branch :</li>
+								<li class="info">{{ branch }}</li>
+								<li>Email Id :</li>
+								<li class="info">{{ email }}</li>
+							</ul>
+							<button ><a href="{% url 'updateStudentProfile' %}">Update Profile</a></button>
+						</div>
+					</div>
+					<div class="flex">
+						<div class="card">
+						<img src="https://pbs.twimg.com/media/EwcJZJVUYAUf6wz.png">
+						<h3><a href="{% url 'selectTest' %}">TESTS</a></h3>
+					</div>
+					<div class="card">
+						<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9qCUeJOLPG7SbedlC1xQmwm4hKT33krNdpIj4mToH4NSUdVXdDQUQJA9k53ptlsQWZpQ&usqp=CAU">
+						<h3><a href="{% url 'studentResults' %}">RESULTS</a></h3>
+					</div>
+				</div>
+            </body>

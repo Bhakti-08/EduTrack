@@ -1,0 +1,137 @@
+{% extends 'base.html' %}
+{% block title %}{{subject.test_name}} Test{% endblock %}
+{% block content %}
+{{ responses|json_script:"responses" }}
+<div class="body-header" style="display: flex;justify-content: space-between;">
+  <h2 class='my-4' style="display: inline-block;">Test Subject: <span class='text-primary'>{{subject.subject.subjectName}}</span></h2>
+  <h2 id="timer" style="display: inline-block;float:right; color:red;"></h2>
+</div>
+{% for q in final_questions %}
+<div class='card my-4 border-dark shadow'>
+    <form method='POST' action="" id="quiz-form">
+        {% csrf_token %}
+        <input type="hidden" value="{{q.id}}" id="{{q.id}}" class="question" />
+        <h4 class='card-header border-dark'>Q.{{forloop.counter}} {{q.question}}</h4>
+        <div class = 'card-body'>
+              <table class='table table-bordered'>
+                  <tr>
+                      <td class='col-1' style = 'width:0.5%'><input required id='{{q.id}}_option_1' name='answer_{{q.id}}' type="radio" value="{{q.opt_1}}"/></td>
+                      <th class='col-lg-3 col-md-12'><label for='option_1'>{{q.opt_1}}</label></th>
+                  </tr>
+                  <tr>
+                      <td class='col-1'><input required id='{{q.id}}_option_2' name='answer_{{q.id}}' type="radio" value="{{q.opt_2}}"/></td>
+                      <th class='col-lg-3 col-md-12'><label for='_option_2'>{{q.opt_2}}</label></th>
+                  </tr>
+                  <tr>
+                      <td class='col-1'><input required id='{{q.id}}_option_3' name='answer_{{q.id}}' type="radio" value="{{q.opt_3}}"/></td>
+                      <th class='col-lg-3 col-md-12'><label for='option_3'>{{q.opt_3}}</label></th>
+                  </tr>
+                  <tr>
+                      <td class='col-1'><input required id='{{q.id}}_option_4' name='answer_{{q.id}}' type="radio" value="{{q.opt_4}}" {% if response == q.opt_4 %}checked{% endif %} /></td>
+                      <th class='col-lg-3 col-md-12'><label for='option_4'>{{q.opt_4}}</label></th>
+                  </tr>
+              </table>
+        </div>
+        <div class='card-footer'>
+            <!--input type='submit' name='Skip' value='Skip' class='btn btn-warning skipBtn'/-->
+            <input type='submit' name='Save' value='Save' id="{{q.id}}_submit" class='btn btn-primary submitBtn saveButton' data-id="{{q.id}}"/>
+        </div>
+    </form>
+</div>
+{% endfor %}
+
+<form method="post" action="{% url 'testSubmitted' subject.id %}" id="submit-test">
+  {% csrf_token %}
+  <button type='submit' class='btn btn-lg btn-danger submitBtn'>Submit Quiz</button>
+</form>
+
+{% endblock %}
+
+{% block scripts %}
+<script defer>
+  const ws_url = 'ws://'+ window.location.host + '/ws/save';
+  const socket = new WebSocket(ws_url);
+  const questions = document.querySelectorAll('.question');
+  let ids = []
+  questions.forEach(question => {
+    ids.push(question.value);
+  });
+  var time_in_seconds = "{{ timeRemaining }}";
+  var current_time = Date.parse(new Date());
+  var deadline = new Date(current_time + time_in_seconds*1000);
+  var interval = setInterval(function() {
+    var t = Date.parse(deadline) - Date.parse(new Date());
+    var seconds = Math.floor((t / 1000) % 60).toString().padStart(2, '0');
+    var minutes = Math.floor((t / 1000 / 60) % 60).toString().padStart(2, '0');
+    var hours = Math.floor((t / (1000 * 60 * 60)) % 24).toString().padStart(2, '0');
+
+    // Display the time remaining in the timer element
+    var timerElement = document.getElementById("timer");
+    timerElement.innerHTML = "Time Remaining <br>" + hours + ":" + minutes + ":" + seconds;
+    if (t <= 0) {
+      clearInterval(interval);
+      document.getElementById("submit-test").submit();
+    }
+  }, 1000, deadline);   
+
+  setInterval(function() {
+    var t = Date.parse(deadline) - Date.parse(new Date());
+    var time_remaining = Math.floor(t / 1000); // Get the time remaining in seconds
+    //var timerValue = document.getElementById("timer");
+    socket.send(JSON.stringify({
+        'type': 'timer_update',
+        'test_id': '{{subject.id }}',
+        'student_id': '<%=Session["UserName"] %>',
+        'timer': time_remaining 
+    }));
+
+  },5000);
+
+  window.onload = () => {
+    var dict = JSON.parse(document.getElementById('responses').textContent);
+    ids.forEach(id => {
+      if(dict[parseInt(id)] !== undefined){
+        for(let i = 1; i < 5;i++){
+          var option = document.getElementById(id+'_option_'+i);
+          if(option.value == dict[parseInt(id)]){
+            option.checked = true;
+          }
+        }
+      }
+    });
+
+    // continue here
+  }
+  
+  const saveButtons = document.querySelectorAll('.saveButton');
+  saveButtons.forEach(button => {
+    button.addEventListener('click', (e) => {
+      e.preventDefault();
+      const id = button.dataset.id;
+      var options = document.getElementsByName('answer_' + id);
+      var selected_option = ""
+      for(i = 0; i < options.length; i++) {
+            if(options[i].checked)
+              selected_option = options[i].value;
+      }
+
+      socket.send(JSON.stringify({
+        'type': 'save_answer',
+        'attempt_id': "{{attempt.id}}",
+        'question_id': id,
+        'selected_option': selected_option
+      }));
+    });
+  });
+
+  socket.onmessage = (e) => {
+    console.log(e.data);
+    
+  };
+
+  socket.onopen = (e) => {
+    console.log("Connection opened");
+  }
+
+  </script>
+{% endblock %} 

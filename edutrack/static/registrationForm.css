@@ -1,0 +1,238 @@
+* {
+  padding: 0;
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+}
+
+.header {
+  height: 12vh;
+  margin-top: -20px;
+  width: 100%;
+  display: block;
+  position: relative;
+  background-image: url('header.png');
+}
+.header h2 {
+  padding: 30px 0px 30px 20px;
+  display: inline-block;
+  color: #fff;
+}
+nav {
+  display: flex;
+  padding-left: 20px;
+  justify-content: space-between;
+  padding-right: 20px;
+  float: right;
+  /*align-items: center;*/
+}
+.nav-links {
+  flex: 1;
+  text-align: left;
+}
+.nav-links ul li {
+  list-style: none;
+  display: inline-block;
+  padding: 10px 10px;
+  position: relative;
+  font-size: 40px;
+  top: 0px;
+}
+.nav-links ul li a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 13px;
+}
+.nav-links ul li::after {
+  content: "";
+  width: 100%;
+  height: 3px;
+  background: #f44336;
+  display: block;
+  /*margin: auto;*/
+  transition: 0.5s;
+}
+.nav-links ul li:hover::after {
+  width: 100%;
+}
+
+@media (max-width: 700px) {
+  .nav-links ul li {
+    display: block;
+  }
+  .nav-links {
+    position: absolute;
+    background: #f44336;
+    height: 100vh;
+    width: 200px;
+    top: 0;
+    right: -200px;
+    text-align: left;
+    z-index: 2;
+    transition: 1s;
+  }
+  nav .fa {
+    display: block;
+    color: #fff;
+    margin: 10px;
+    font-size: 22px;
+    cursor: pointer;
+  }
+  .nav-links ul {
+    padding: 30px;
+  }
+}
+
+.topnav {
+  overflow: hidden;
+  background-color: #333;
+}
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  text-decoration: #f44336;
+}
+.register {
+  width: 30vw;
+  height: 1000px;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  margin:auto;
+  top: 30px;
+}
+.register form {
+  width: 400px;
+  height: 800px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 2px 8px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.register form h2 {
+  font-size: 30px;
+  color: blue;
+  text-align: center;
+  padding-top: 15px;
+}
+.inputGroup {
+  width: 300px;
+  margin: 0.8em 0;
+  background-color: rgb(245, 245, 245);
+  border-radius: 50px;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  font-weight: 600;
+}
+h4 {
+  font-size: 14px;
+  text-align:left;
+  color: #000;
+}
+.inputGroup input {
+  width: 100%;
+  padding: 0.5em 1em;
+  border: none;
+  background-color: transparent;
+  border-radius: 50px;
+}
+.inputGroup input:focus {
+  outline: none;
+}
+.submitBtn {
+  width: 150px;
+  /*height: 40px;*/
+  padding: 1em;
+  margin: 1em 0;
+  border-radius: 50px;
+  border: none;
+  outline: none;
+  background-color: rgba(0, 0, 0, 0.12);
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  cursor: pointer;
+  font-size: 0.7em;
+  font-weight: 500;
+  transition: all 0.2s ease-in-out;
+}
+.submitBtn:hover {
+  background-color: #4169e1;
+  color: #fff;
+  transition: all 0.3s ease-in-out;
+}
+
+/*----footer-----*/
+footer {
+  background-color: #000;
+  padding-top: 20px;
+  margin-bottom: 0px;
+  border: 0 none;
+  height: 40%;
+  margin-bottom: -20px;
+  }
+  
+  .container {
+  width: 100%;
+  background-color: #000;
+  margin: auto;
+  }
+  
+  .row {
+  display: flex;
+  flex-wrap: wrap;
+  }
+  
+  ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  }
+  
+  .footer-col {
+  width: 100%;
+  padding: 0 15px;
+  box-sizing: border-box;
+  }
+  
+  .footer-col h4 {
+  font-size: 18px;
+  text-align: left;
+  color: #fff;
+  margin-top: 20px;
+  }
+  
+  .row .footer-col ul li {
+  color: #f44336;
+  margin-bottom: 10px;
+  }
+  
+  footer .container h3 {
+  font-size: 30px;
+  padding-bottom: 15px;
+  color: #fff;
+  text-align: center;
+  }
+  
+  @media screen and (min-width: 768px) {
+  .footer-col {
+  width: 25%;
+  }
+  }
+  
+  @media screen and (min-width: 992px) {
+  .footer-col {
+  width: 20%;
+  }
+  }

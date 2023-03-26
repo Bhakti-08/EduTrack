@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}Arranging Test{% endblock %}
+{% block content %}
+    {% if messages %}
+        {% for message in messages %}
+        
+            <div class='card-body border-dark shadow'>
+                <strong>{{message|safe}}</strong></br></br>
+                <button type="submit" class='btn btn-primary submitBtn'><a style='color: #fff' href="{% url 'upload_questionBank' %}">Upload Again</a></button>
+            </div>
+        {% endfor %}
+    {% else %}
+    {{order|safe}}
+
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class='card-body border-dark shadow '>
+            </br>
+            <label for="file1"> Upload Question Bank</label>
+            <input type="file" id="file1" name="file"></br></br>
+            <small>Only accepts CSV files</small>
+            <button type="submit" class='btn btn-primary submitBtn' style='color: #fff'>Upload</button>
+        </div>
+    </form>
+    {{data|safe}}
+    {% endif %}
+{% endblock %}
