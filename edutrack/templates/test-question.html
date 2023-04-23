@@ -15,19 +15,19 @@
         <div class = 'card-body'>
               <table class='table table-bordered'>
                   <tr>
-                      <td class='col-1' style = 'width:0.5%'><input required id='{{q.id}}_option_1' name='answer_{{q.id}}' type="radio" value="{{q.opt_1}}"/></td>
+                      <td class='col-1' style = 'width:0.5%'><input required id='{{q.id}}_option_1' name='answer_{{q.id}}' type="radio" value="a"/></td>
                       <th class='col-lg-3 col-md-12'><label for='option_1'>{{q.opt_1}}</label></th>
                   </tr>
                   <tr>
-                      <td class='col-1'><input required id='{{q.id}}_option_2' name='answer_{{q.id}}' type="radio" value="{{q.opt_2}}"/></td>
-                      <th class='col-lg-3 col-md-12'><label for='_option_2'>{{q.opt_2}}</label></th>
+                      <td class='col-1'><input required id='{{q.id}}_option_2' name='answer_{{q.id}}' type="radio" value="b"/></td>
+                      <th class='col-lg-3 col-md-12'><label for='option_2'>{{q.opt_2}}</label></th>
                   </tr>
                   <tr>
-                      <td class='col-1'><input required id='{{q.id}}_option_3' name='answer_{{q.id}}' type="radio" value="{{q.opt_3}}"/></td>
+                      <td class='col-1'><input required id='{{q.id}}_option_3' name='answer_{{q.id}}' type="radio" value="c"/></td>
                       <th class='col-lg-3 col-md-12'><label for='option_3'>{{q.opt_3}}</label></th>
                   </tr>
                   <tr>
-                      <td class='col-1'><input required id='{{q.id}}_option_4' name='answer_{{q.id}}' type="radio" value="{{q.opt_4}}" {% if response == q.opt_4 %}checked{% endif %} /></td>
+                      <td class='col-1'><input required id='{{q.id}}_option_4' name='answer_{{q.id}}' type="radio" value="d" {% if response == q.opt_4 %}checked{% endif %} /></td>
                       <th class='col-lg-3 col-md-12'><label for='option_4'>{{q.opt_4}}</label></th>
                   </tr>
               </table>
@@ -60,7 +60,11 @@
   var current_time = Date.parse(new Date());
   var deadline = new Date(current_time + time_in_seconds*1000);
   var interval = setInterval(function() {
-    var t = Date.parse(deadline) - Date.parse(new Date());
+    var t = Date.parse(deadline) - Date.parse( new Date());
+    if (t <= 0) {
+      clearInterval(interval);
+      document.getElementById("submit-test").submit();
+    }
     var seconds = Math.floor((t / 1000) % 60).toString().padStart(2, '0');
     var minutes = Math.floor((t / 1000 / 60) % 60).toString().padStart(2, '0');
     var hours = Math.floor((t / (1000 * 60 * 60)) % 24).toString().padStart(2, '0');
@@ -68,10 +72,8 @@
     // Display the time remaining in the timer element
     var timerElement = document.getElementById("timer");
     timerElement.innerHTML = "Time Remaining <br>" + hours + ":" + minutes + ":" + seconds;
-    if (t <= 0) {
-      clearInterval(interval);
-      document.getElementById("submit-test").submit();
-    }
+    console.log(t);
+   
   }, 1000, deadline);   
 
   setInterval(function() {
@@ -81,7 +83,7 @@
     socket.send(JSON.stringify({
         'type': 'timer_update',
         'test_id': '{{subject.id }}',
-        'student_id': '<%=Session["UserName"] %>',
+        'student_id': '{{request.session.username}}',
         'timer': time_remaining 
     }));
 

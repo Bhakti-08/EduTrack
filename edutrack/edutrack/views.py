@@ -27,37 +27,38 @@ def index(request):
         user = authenticate(request,username=username,password=pass1)
         if user is not None:
             login(request,user)
-            print(request.user.is_authenticated)
+            #print(request.user.is_authenticated)
             if role=='Professor':
                     request.session['username'] = username
                     request.session['role'] = role
                     subject = Subjects.objects.get(subjectID=username)
                     request.session['branch'] = subject.branch.branch
-                    return redirect('profHome', username=username)
+                    return redirect('profHome')
             
             if role=='Student':
                     request.session['username'] = username
                     request.session['role'] = role
                     student = Students.objects.get(registrationNum=request.session['username'])
                     request.session['branch'] = student.branch
-                    return redirect('studentHome', username=username)
+                    return redirect('studentHome')
 
         else:
             return HttpResponse('Enter valid login details...')
     else:
         if request.user.is_authenticated:
             if 'role' in request.session and request.session['role'] == 'Student':
-                return redirect('studentHome', username=request.session['username'])
+                return redirect('studentHome')
             elif 'role' in request.session and request.session['role'] == 'Professor':
-                return redirect('profHome', username=request.session['username'])
+                return redirect('profHome')
             else:
                 return redirect('logout')
         return render(request, 'index.html',{'data':''})
 
 @csrf_protect
 @login_required(login_url='login/')
-def profHome(request,username):
-    professor = Professors.objects.get(subjectID=request.session['username'])
+def profHome(request):
+    username = request.session['username']
+    professor = Professors.objects.get(subjectID=username)
     name = professor.firstName + " " + professor.lastName
     subjectID = professor.subjectID
     branch = professor.branch
@@ -67,7 +68,8 @@ def profHome(request,username):
 
 @csrf_protect
 @login_required(login_url='login/')
-def studentHome(request,username):
+def studentHome(request):
+    username = request.session['username']
     student = Students.objects.get(registrationNum=request.session['username'])
     name = student.firstName + " " + student.lastName
     registrationNum = student.registrationNum
@@ -133,7 +135,8 @@ def logoutPage(request):
 
 @csrf_protect
 #@login_required(login_url='login')
-def upload_questionBank(request,subID):
+def upload_questionBank(request):
+    subID = request.session['username']
     # defining order of content in csv file
     try:
         prompt = {
@@ -157,29 +160,10 @@ def upload_questionBank(request,subID):
     except:
         return render(request,'profHome.html',{'data':obj.subID})
     
-'''@login_required(login_url='login')
-@csrf_protect
-def selectTest(request) :
-    branch = Branch.objects.get(branch=request.session['branch'])
-    subjects = Subjects.objects.filter(branch=branch).order_by('id')
-    tests = TestDetails.objects.filter(subject__in=subjects).order_by('id')
-    student = Students.objects.get(registrationNum=request.session['username'])
-    current_date = timezone.now().date() # get the current date in the timezone of your Django project
-    obj = [] # create an empty list to store the tests that can be given
-    for test in tests:
-        if TestAttempt.objects.filter(test=test,student=student).exists():
-            attempt = TestAttempt.objects.get(test=test, student=student)
-            if(test.DateOfExam >= current_date and attempt.isSubmitted != True ) :
-                obj.append(test)# check if the current date is not greater than DateOfExam for this test
-        elif(test.DateOfExam >= current_date): # check if the current date is not greater than DateOfExam for this test
-            obj.append(test)
-        else : 
-            pass
-    return render(request, 'selectTest.html', {'data': obj})'''
-
 @csrf_protect
 @transaction.atomic
-def addingTest(request,subID):
+def addingTest(request):
+    subID = request.session['username']
     if request.method=='POST':
         try:
             with transaction.atomic():
@@ -204,14 +188,13 @@ def addingTest(request,subID):
                 for i in csvFile:
                     lines.append(i)
                 l = len(lines)
-                print(l)
                 for i in range(0,numberOfQuestions):
                     j = random.randrange(0,l-1)
                     records = lines[j]
                     new_question = Questions(test = new_test,question = records[0],opt_1 = records[1],opt_2 = records[2],opt_3 = records[3],opt_4 = records[4],right_opt = records[5])
                     new_question.save()
                 username = request.session['username']
-            return render(request,'profHome.html' ,{'data':username})
+            return redirect('profHome')
         except Exception:
             return HttpResponse('Failed to arrange test :(')
     return render(request,'addingTest.html')
@@ -242,7 +225,7 @@ def test_question(request, test_id):
         # Retrieve the timeRemaining value if the object already exists
         timeRemaining = obj.TimeRemaining
 
-    output = {'final_questions': questions, 'subject': test, 'timeRemaining':timeRemaining, 'attempt': attempt, 'responses': responses,}
+    output = {'final_questions': questions, 'subject': test, 'timeRemaining':timeRemaining, 'attempt': attempt, 'responses': responses, 'start_time': startDatetime, 'end_time':endDatetime}
     return render(request, 'test-question.html', output)
 
 def testSubmitted(request,test_id):
@@ -250,11 +233,8 @@ def testSubmitted(request,test_id):
         test = TestDetails.objects.get(id=test_id)
         student = Students.objects.get(registrationNum=request.session['username'])
         attempt = TestAttempt.objects.get(test=test, student=student)
-        #student = request.session.get('username')
-        #totalQuestions = test.numberOfQuestions
         questions = Questions.objects.filter(test=test).order_by('id')
         studentResponses = StudentResponses.objects.filter(attempt=attempt)
-        #studentResponse = StudentResponses.objects.get(id=student.id)
         score=0
         wrong=0
         correct=0
@@ -271,10 +251,14 @@ def testSubmitted(request,test_id):
                 pass
         attempt.isSubmitted = True
         attempt.save()
-        studentScore = StudentScores.objects.update_or_create(test=test, Student=student,correctAns=correct,wrongAns=wrong,score=score)
-        username = request.session['username']
-        return render(request, 'testSubmitted.html',{'data' : username})
-    return render(request, 'testSubmitted.html',{'data' : username})
+        studentScore = StudentScores.objects.update_or_create(test=test,Student=student)[0]
+        studentScore.correctAns = correct
+        studentScore.wrongAns = wrong
+        studentScore.score = score
+        studentScore.save()
+        #studentScore = StudentScores.objects.update(test=test, Student=student,correctAns=correct,wrongAns=wrong,score=score)
+        return render(request, 'testSubmitted.html')
+    return render(request, 'testSubmitted.html')
 
 @login_required(login_url='/')
 def studentResults(request):
@@ -303,7 +287,8 @@ def studentResults(request):
     return render(request, 'studentResults.html', context)
 
 @login_required(login_url='/')
-def testsForResults(request,subID ):
+def testsForResults(request ):
+    subID = request.session['username']
     subject = Subjects.objects.get(subjectID=subID)
     tests = TestDetails.objects.filter(subject=subject)
     submitted_tests = []
@@ -337,16 +322,6 @@ def testResults(request, test_id):
     # Pass the results to the template for display
     context = {'test': test, 'results': results}
     return render(request, 'testResults.html', context)
-
-'''def studentProfile(request):
-    student = Students.objects.get(registrationNum=request.session['username'])
-    name = student.firstName + " " + student.lastName
-    registrationNum = student.registrationNum
-    branch = student.branch
-    email = student.email
-    output = {'name' :name ,'registrationNum' : registrationNum,'branch' : branch,'email' : email}
-    return render(request,'studentProfile.html',output)'''
-
 
 @csrf_protect
 def selectTest(request):
@@ -385,51 +360,93 @@ def selectTest(request):
 
 @csrf_protect
 def updateStudentProfile(request):
+    student =Students.objects.get(registrationNum=request.session['username'])
     if request.method=='POST':
-        student =Students.objects.get(registrationNum=request.session['username'])
-        branch = student.branch
-        registrationNum = student.registrationNum
-        firstName = request.POST.get('fname')
-        lastName = request.POST.get('lname')
-        email = request.POST.get('email')
-        password = request.POST.get('password1')
-        pass2 = request.POST.get('password2')
-        if(password==pass2):
-            new_user = Students.objects.update(firstName=firstName,lastName=lastName,branch=branch,registrationNum=registrationNum,email=email,password=password)
-            if(pass2==student.password):
-                user = User.object.get(username = request.session['username'])
-                user.delete()
-                my_user = User.objects.create_user(registrationNum,email,password)
-                my_user.save()
-            return redirect('login')
+        firstName = request.POST.get('fname').strip()
+        lastName = request.POST.get('lname').strip()
+        email = request.POST.get('email').strip()
+        password = request.POST.get('password1').strip()
+        pass2 = request.POST.get('password2').strip()
+        data = ""
+        if password==pass2 and firstName is not None and lastName is not None and email is not None:
+            user = User.objects.get(username = request.session['username'])
+            if user:
+                user.first_name = firstName
+                user.last_name = lastName
+                user.email = email
+                student.firstName = firstName
+                student.lastName = lastName
+                student.email = email
+
+                if password is not None:
+                    user.set_password(password)                    
+                    student.password = password
+                user.save()
+                student.save()
         else:
             data = '</br><b>Provide valid details!!</b>'
-            return render(request, 'updateStudentProfile.html',{'data':data})
+            return render(request, 'updateStudentProfile.html',{'data':data,'student':student})
     else:
-        return render(request, 'updateStudentProfile.html',{'data':''})
+        return render(request, 'updateStudentProfile.html',{'data':'','student':student})
 
 
 @csrf_protect
 def updateProfessorProfile(request):
+    professor = Professors.objects.get(subjectID=request.session['username'])
     if request.method=='POST':
-        professor = Professors.objects.get(subjectID=request.session['username'])
-        branch = professor.branch
-        subjectID = professor.subjectID
-        firstName = request.POST.get('fname')
-        lastName = request.POST.get('lname')
-        email = request.POST.get('email')
-        password = request.POST.get('password1')
-        pass2 = request.POST.get('password2')
-        if(password==pass2):
-            user = User.object.get(username = request.session['username'])
-            user.delete()
-            new_user = Professors(firstName=firstName,lastName=lastName,branch=branch,subjectID=subjectID,email=email,password=password)
-            new_user.save()
-            my_user = User.objects.create_user(subjectID,email,password)
-            my_user.save()
-            return redirect('login')
+        firstName = request.POST.get('fname').strip()
+        lastName = request.POST.get('lname').strip()
+        email = request.POST.get('email').strip()
+        password = request.POST.get('password1').strip()
+        pass2 = request.POST.get('password2').strip()
+        data = ""
+        if password==pass2 and firstName is not None and lastName is not None and email is not None:
+            user = User.objects.get(username = request.session['username'])
+            if user:
+                user.first_name = firstName
+                user.last_name = lastName
+                user.email = email
+                professor.firstName = firstName
+                professor.lastName = lastName
+                professor.email = email
+
+                if password is not None:
+                    user.set_password(password)                    
+                    professor.password = password
+                user.save()
+                professor.save()
         else:
             data = '</br><b>Provide valid details!!</b>'
-            return render(request, 'updateProfessorProfile.html',{'data':data})
+        return render(request, 'updateProfessorProfile.html',{'data':data, 'professor': professor})
     else:
-        return render(request, 'updateProfessorProfile.html',{'data':''})
+        return render(request, 'updateProfessorProfile.html',{'data':'', 'professor': professor})
+    
+'''@login_required(login_url='login')
+@csrf_protect
+def selectTest(request) :
+    branch = Branch.objects.get(branch=request.session['branch'])
+    subjects = Subjects.objects.filter(branch=branch).order_by('id')
+    tests = TestDetails.objects.filter(subject__in=subjects).order_by('id')
+    student = Students.objects.get(registrationNum=request.session['username'])
+    current_date = timezone.now().date() # get the current date in the timezone of your Django project
+    obj = [] # create an empty list to store the tests that can be given
+    for test in tests:
+        if TestAttempt.objects.filter(test=test,student=student).exists():
+            attempt = TestAttempt.objects.get(test=test, student=student)
+            if(test.DateOfExam >= current_date and attempt.isSubmitted != True ) :
+                obj.append(test)# check if the current date is not greater than DateOfExam for this test
+        elif(test.DateOfExam >= current_date): # check if the current date is not greater than DateOfExam for this test
+            obj.append(test)
+        else : 
+            pass
+    return render(request, 'selectTest.html', {'data': obj})
+
+def studentProfile(request):
+    student = Students.objects.get(registrationNum=request.session['username'])
+    name = student.firstName + " " + student.lastName
+    registrationNum = student.registrationNum
+    branch = student.branch
+    email = student.email
+    output = {'name' :name ,'registrationNum' : registrationNum,'branch' : branch,'email' : email}
+    return render(request,'studentProfile.html',output)'''
+

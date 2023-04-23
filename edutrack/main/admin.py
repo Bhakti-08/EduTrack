@@ -37,3 +37,7 @@ admin.site.register(models.TestAttempt,TestAttemptAdmin)
 class StudentResponsesAdmin(admin.ModelAdmin):
     list_display = ['attempt', 'question', 'selectedAnswer']
 admin.site.register(models.StudentResponses,StudentResponsesAdmin)
+
+class StudentScoresAdmin(admin.ModelAdmin):
+    list_display = ['test', 'Student','correctAns','wrongAns','score','TimeRemaining']
+admin.site.register(models.StudentScores, StudentScoresAdmin)

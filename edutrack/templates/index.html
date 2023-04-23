@@ -2,6 +2,7 @@
 <html>
   <head>
     <meta name="viewport" , content="with =device-width, initial-scale=1.0" />
+    <link rel="icon" href="/static/icon.ico">
     <title>EduTrack</title>
     <link
       rel="stylesheet"
@@ -15,18 +16,14 @@
 
   <body>
     <section class="header">
-      <h2>EduTrack</h2>
-      <nav>
-        <div class="nav-links" id="navLinks">
-          <ul>
-            <li><a href="#about">ABOUT</a></li>
-            <li><a href="#FAQs">FAQs</a></li>
-            <li><a href="{% url 'login' %}">LOGIN</a></li>
-          </ul>
+      <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container-fluid" style="float:left;position:absolute;top:40px;left:25px;" >
+          <div class="header-inner">
+          <img src="/static/logo.png" alt="logo" style="width:220px;height:12vh;" >
+          </div>         
         </div>
       </nav>
-    </section>
-      <div class=login>
+      <div class=login style="position:absolute;top:100px;left:125px;">
       <form action="" method='POST'>
           {% csrf_token %}
         <h4>
@@ -61,6 +58,7 @@
         </br><a href="{% url 'studentRegistrationForm' %}">As a Student</a></h5>
       </form>
     </div>
+  </section>
     <div class="aboutus" id="about">
       <div class="block">
       <h2><b>ABOUT US<b></h2></br>
@@ -203,7 +201,7 @@ if (Start < slides.length) {
 console.log(img);
 img.innerHTML = "<img src=" + slides[Start - 1] + ">";
 }
-setInterval(slider, 500);
+setInterval(slider, 1000);
 </script>        
 </body>
 </html>

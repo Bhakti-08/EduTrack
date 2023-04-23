@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
+  <br>
   <h1>Test Results: {{ test.testName }}</h1>
   {% if results %}
   <table class="table table-bordered table-striped table-hover">
@@ -22,6 +23,7 @@
     </tbody>
   </table>
   {% else %}
+    <br>
     <p>No one attempted the test.</p>
   {% endif %}
 

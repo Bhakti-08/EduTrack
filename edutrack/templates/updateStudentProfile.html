@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE-edge" />
     <meta name="viewport" , content="with =device-width, initial-scale=1.0" />
+    <link rel="icon" href="/static/icon.ico">
     <title>EduTrack</title>
     <link rel="stylesheet" href="/static/registrationForm.css" />
   </head>
@@ -31,16 +32,16 @@
                         <h2>Update Student Profile<h2></br>
                             <h4>Enter Your First Name</h4>
                             <div class="inputGroup">				
-                                <input type="text" placeholder="First Name" name='fname' autocomplete="off">
+                                <input type="text" placeholder="First Name" name='fname' autocomplete="off" value="{{student.firstName}}">
                             </div></br>
                             <h4>Enter Your Last Name</h4>		
                             <div class="inputGroup">			
-                                <input type="text" placeholder="Last Name" name='lname' autocomplete="off">
+                                <input type="text" placeholder="Last Name" name='lname' autocomplete="off" value="{{student.lastName}}">
                             </div>	
                             <br>
                             <br><h4>Enter Your Email Address</h4>	
                             <div class="inputGroup">	
-                                <input type="text" placeholder="Email address" name='email' autocomplete="off">
+                                <input type="text" placeholder="Email address" name='email' autocomplete="off" value="{{student.email}}">
                             </div></br>
                             <h4>Create New Password</h4>
                             <div class="inputGroup">	

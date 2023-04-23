@@ -36,7 +36,8 @@ class QuizConsumer(AsyncWebsocketConsumer):
         test =  TestDetails.objects.get(id=test_id)
         student = Students.objects.get(registrationNum=student_id)
         score = 0
-        update_value = StudentScores.objects.update_or_create(test=test,Student=student,TimeRemaining=timer)
+        update_value = StudentScores.objects.update_or_create(test=test,Student=student)[0]
+        update_value.TimeRemaining = timer
         update_value.save()
 
     async def save_student_timervalue(self,test_id,student_id,timer):
