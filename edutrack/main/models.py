@@ -23,6 +23,8 @@ class QuestionBank(models.Model):
 class Professors(models.Model):
     firstName = models.CharField(max_length=50)
     lastName = models.CharField(max_length=50)
+    gender = models.CharField(max_length=10, default='male')
+    college = models.CharField(max_length=100, default='SGGS')
     branch = models.CharField(max_length=50)
     #subject = models.ForeignKey(Subjects, on_delete = models.CASCADE)
     subjectID = models.CharField(max_length=20)
@@ -36,6 +38,8 @@ class Students(models.Model):
     registrationNum = models.CharField(max_length=20)
     firstName = models.CharField(max_length=50)
     lastName = models.CharField(max_length=50)
+    gender = models.CharField(max_length=10, default='female')
+    college = models.CharField(max_length=100, default='SGGS')
     branch = models.CharField(max_length=50)
     email = models.CharField(max_length=50)
     password = models.CharField(max_length=20)

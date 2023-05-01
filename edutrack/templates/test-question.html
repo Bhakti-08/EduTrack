@@ -42,7 +42,7 @@
 
 <form method="post" action="{% url 'testSubmitted' subject.id %}" id="submit-test">
   {% csrf_token %}
-  <button type='submit' class='btn btn-lg btn-danger submitBtn'>Submit Quiz</button>
+  <button type='submit' id="submit-btn" class='btn btn-lg btn-danger submitBtn'>Submit Quiz</button>
 </form>
 
 {% endblock %}
@@ -134,6 +134,12 @@
   socket.onopen = (e) => {
     console.log("Connection opened");
   }
+
+  const submitButton = document.getElementById("submit-btn");
+  submitButton.addEventListener("click", function() {
+  alert("Test is submitted!");
+});
+
 
   </script>
 {% endblock %} 

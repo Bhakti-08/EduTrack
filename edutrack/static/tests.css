@@ -1,0 +1,84 @@
+#title{
+    background-color: #0B2447;
+    color: #fff;
+}
+
+body{
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+}
+
+h2{
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 5.5rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+h5{
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 5.5rem;
+    font-weight: 400;
+}
+
+/* Navbar */
+
+.nav-item{
+    padding: 0 18px;
+}
+
+/* Tests */
+
+#allTests{
+    padding-top: 3%;
+    padding-bottom: 3%;
+    background-color: #c4ebf9; 
+}
+
+.test-card{
+    width: 20%;
+    padding: 3% 2% 3% 2%;
+    margin: 5% auto;
+    text-align: center;
+    border-radius: 30%;
+    background-color: #fff;
+    box-shadow: inset 0 -3em 3em rgba(0, 0, 0, 0.1), 0 0 0 2px rgb(255, 255, 255),
+    0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
+    
+}
+
+a {
+    text-decoration: none;
+    color: black;
+  }
+
+.active-tests-card{
+    background-color: #03ab19;
+}
+
+.resume-tests-card{
+    background-color: #fc2e20;
+}
+
+.upcoming-tests-card{
+    background-color: #7dc5ff;
+}
+
+.submitted-tests-card{
+    background-color: #001527;
+    color: #fff;
+}
+
+/* Footer Section */
+
+#footer{
+    text-align: center;
+    padding: 3% 15%;
+    background-color: #0B2447;
+    color: #fff;
+}
+
+.social-icons{
+    margin: 20px 10px;
+}

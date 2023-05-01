@@ -23,34 +23,31 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
     path('', views.index,name='login'),
+    path('registration/',views.registration,name='registration'),
     path('logout/', views.logoutPage,name='logout'),
     path('profHome/',views.profHome,name='profHome'),
     path('studentHome/',views.studentHome,name='studentHome'),
-    path('profRegistrationForm/',views.profRegistrationForm,name='profRegistrationForm'),
-    path('studentRegistrationForm/',views.studentRegistrationForm,name='studentRegistrationForm'),
-    path('upload_questionBank/',views.upload_questionBank,name='upload_questionBank'),
-    path('addingTest/',views.addingTest,name='addingTest'),    
     path('selectTest/',views.selectTest,name='selectTest'),
-    path('updateStudentProfile/',views.updateStudentProfile,name='updateStudentProfile'),
-    path('updateProfessorProfile/',views.updateProfessorProfile,name='updateProfessorProfile'),
-    #path('studentProfile/',views.studentProfile,name='studentProfile'),
     path('testsForResults/',views.testsForResults,name='testsForResults'),
     path('testResults/<int:test_id>',views.testResults,name='testResults'),
     path('studentResults/',views.studentResults,name='studentResults'),
     path('test-question/<int:test_id>',views.test_question,name='test_question'),
     path('testSubmitted/<int:test_id>',views.testSubmitted,name='testSubmitted'),
-    #path('test-subject/',views.test_subject,name='test_subject'), 
-    #path('selectBranch/',views.selectBranch,name='selectBranch'),
-    #path('selectSubject/<int:branchID>',views.selectSubject,name='selectSubject'),
-    #path('', include('main.urls'))''
-    #path('profHome/<str:subID>',views.profHome,name='profHome'),
-    #path('studentHome/<str:email>',views.studentHome,name='studentHome'),
-    #path('submitAnswer/<int:test_id>',views.submitAnswer,name='submitAnswer'),
-    #path('test-question/<int:test_id>/<int:question_id>',views.test_question,name='test_question'),
-    #path('test-arranged/',views.test_arranged,name='test_arranged'),
-    #path('add-test/',views.add_test,name='add_test'),
-    #path('update_timer/',views.update_timer,name='update_timer'),  
+
+    path('upload_questionBank/',views.upload_questionBank,name='upload_questionBank'),
+    path('addingTest/',views.addingTest,name='addingTest'),  
 ]
 
 if settings.DEBUG:
     urlpatterns+=static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+
+'''
+path('profRegistrationForm/',views.profRegistrationForm,name='profRegistrationForm'),
+path('studentRegistrationForm/',views.studentRegistrationForm,name='studentRegistrationForm'),
+path('upload_questionBank/',views.upload_questionBank,name='upload_questionBank'),
+path('addingTest/',views.addingTest,name='addingTest'),    
+path('updateStudentProfile/',views.updateStudentProfile,name='updateStudentProfile'),
+path('updateProfessorProfile/',views.updateProfessorProfile,name='updateProfessorProfile'),
+'''
