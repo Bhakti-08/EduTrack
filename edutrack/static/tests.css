@@ -9,11 +9,12 @@ body{
     font-weight: 400;
 }
 
-h2{
+h2,h4{
     font-family: 'Ubuntu', sans-serif;
     font-size: 5.5rem;
     font-weight: 700;
     text-align: center;
+    padding-bottom: 5%;
 }
 
 h5{
@@ -30,12 +31,6 @@ h5{
 
 /* Tests */
 
-#allTests{
-    padding-top: 3%;
-    padding-bottom: 3%;
-    background-color: #c4ebf9; 
-}
-
 .test-card{
     width: 20%;
     padding: 3% 2% 3% 2%;
@@ -47,11 +42,6 @@ h5{
     0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
     
 }
-
-a {
-    text-decoration: none;
-    color: black;
-  }
 
 .active-tests-card{
     background-color: #03ab19;
@@ -70,15 +60,25 @@ a {
     color: #fff;
 }
 
+#allTests .container {
+  display: flex;
+}
+
 /* Footer Section */
 
-#footer{
-    text-align: center;
-    padding: 3% 15%;
-    background-color: #0B2447;
-    color: #fff;
+.footer{
+  text-align: center;
+  background-color: #0B2447;
+  color: #fff;
+}
+
+.footer .credit{
+text-align: center;
+margin-bottom: 1rem;
+font-size: 2rem;
+color:#0d356ce2;
 }
 
 .social-icons{
-    margin: 20px 10px;
+  margin-right: 7%;
 }

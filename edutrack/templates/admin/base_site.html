@@ -1,0 +1,45 @@
+{% extends "admin/base.html" %}
+
+{% block title %}{% if subtitle %}{{ subtitle }} | {% endif %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
+
+{% block branding %}
+<h1 id="site-name"><a href="{% url 'admin:index' %}">{{ site_header|default:_('Django administration') }}</a></h1>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}
+
+{% block extrastyle %}
+<link href='http://fonts.googleapis.com/css?family=Special+Elite' rel='stylesheet' type='text/css'>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Ubuntu:ital,wght@0,400;1,700&display=swap" rel="stylesheet">
+    
+<style type='text/css'>
+    body,td,th,input{
+        font-family: 'Ubuntu', sans-serif;
+        font-weight: 400;
+    }
+
+    #branding{
+        font-family: 'Ubuntu', sans-serif;
+        font-size: 7.5rem;
+        font-weight: 700;
+    }
+
+    #user-tools{
+        font-family: 'Ubuntu', sans-serif;
+        font-size: 1rem;
+        font-weight: 400;
+        color: #000;
+    }
+
+    #logout-form button{
+        font-family: 'Ubuntu', sans-serif;
+        font-size: 1rem;
+        font-weight: 400;
+    }
+/*
+    body{
+        background-color: #e3f1f6;
+    }
+*/
+</style>
+{% endblock %}

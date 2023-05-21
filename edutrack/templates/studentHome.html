@@ -61,13 +61,10 @@
                       <a class="nav-link" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"><i class="fa-solid fa-square-caret-down fa-xl"></i></a>
                       <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Separated link</a></li>
                       </ul>
                     </li>
                   </ul>
                   <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true"><i class="fa-solid fa-house"></i> Home</button>
-                  <button class="nav-link" id="nav-studentResult-tab" data-bs-toggle="tab" data-bs-target="#nav-studentResult" type="button" role="tab" aria-controls="nav-studentResult" aria-selected="true"><i class="fa-solid fa-square-poll-vertical"></i> Result</button>
                   <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="fa-solid fa-user-graduate"></i> About Me</button>
                   <button class="nav-link" id="nav-profile-update-tab" data-bs-toggle="tab" data-bs-target="#nav-profile-update" type="button" role="tab" aria-controls="nav-profile-update" aria-selected="false"><i class="fa-solid fa-user"></i> Update Profile</button>
                 </div>
@@ -76,50 +73,17 @@
         </div>
     </section>
 
-    <section id="body-container">
+    <section class="middle-page" style="min-height:40rem; 
+    background-color: #e3f1f6;
+    align-items: center;">
         <div class="tab-content" id="nav-tabContent">
 
           <!-- Home -->
 
           <div class="home-content tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
             <div class="card"><a href="{% url 'selectTest' %}"><i class="fa-solid fa-file-zipper fa-beat fa-2xl"> tests</i></a></div>
-          <div class="card"><a href="{% url 'studentResults' %}"><i class="fa-solid fa-square-poll-vertical fa-beat fa-2xl"> results</i></a></div>
+            <div class="card"><a href="{% url 'studentResults' %}"><i class="fa-solid fa-square-poll-vertical fa-beat fa-2xl"> results</i></a></div>
           </div>
-
-          <!-- Result -->
-
-          <div class="studentResult-content tab-pane fade" id="nav-studentResult" role="tabpanel" aria-labelledby="nav-studentResult-tab">
-            {% if results %}
-              <table class="table table-bordered table-striped table-hover">
-              <thead class="table-dark">
-                <tr style="background-color: #0B2447;">
-                  <th>Test Name</th>
-                  <th>Subject</th>
-                  <th>Date of Exam</th>
-                  <th>Correct Answers</th>
-                  <th>Wrong Answers</th>
-                  <th>Score</th>
-                </tr>
-              </thead>
-              <tbody>
-                {% for result in results %}
-                  <tr>
-                    <td>{{ result.test_name }}</td>
-                    <td>{{ result.subject }}</td>
-                    <th>{{ result.date }}</th>
-                    <th>{{ result.correct_ans }}</th>
-                    <th>{{ result.wrong_ans }}</th>
-                    <td>{{ result.score }}</td>
-                  </tr>
-                {% endfor %}
-              </tbody>
-            </table>
-            {% else %}
-              <br>
-              <p>You haven't attempted any tests yet.</p>
-            {% endif %}
-          </div>
-
           <!-- About Me -->
 
           <div class="profile-content tab-pane fade card" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
@@ -154,49 +118,23 @@
                  <h2><b>Please enter in the fields that you want to update</b></h2></br>
                  <table class="table-body">
                     <tr class="table-row">
-                      <td>First Name</td>
+                      <td><strong>First Name</strong></td>
                       <td class="table-data"><input class="input-field" type="text" autocomplete="off" name='fname' value="{{student.firstName}}"/></td>
                     </tr>
                     <tr class="table-row">
-                        <td>Last Name</td>
+                        <td><strong>Last Name</strong></td>
                         <td class="table-data"><input class="input-field" type="text" autocomplete="off" name='lname' value="{{student.lastName}}"/></td>
                     </tr>
                     <tr class="table-row">
-                        <td>College</td>
-                        <td class="table-data"><select class="input-field" name="college" id="college">
-                            <option value="SGGS">Shri Guru Gobind Singhji Institute of Engineering and Technology (SGGSIET), Nanded</option>
-                            <option value="Other">Other</option>
-                          </select></td>
-                    </tr>
-                    <tr class="table-row">
-                        <td>Branch</td>
-                        <td class="table-data"><select class="input-field" name="branch" id="branch">
-                            <option value="Computer Science Engineering">Computer Science Engineering</option>
-                            <option value="Chemical Engineering">Chemical Engineering</option>
-                            <option value="Civil Engineering">Civil Engineering</option>
-                            <option value="Electrical Engineering">Electrical Engineering</option>
-                            <option value="Electronics and Telecommunication">Electronics and Telecommunication</option>
-                            <option value="Information Technology">Information Technology</option>
-                            <option value="Instrumentation Engineering">Instrumentation Engineering</option>
-                            <option value="Mechanical Engineering">Mechanical Engineering</option>
-                            <option value="Production Engineering">Production Engineering</option>
-                            <option value="Textile Engineering">Textile Engineering</option>
-                          </select></td>
-                    </tr>
-                    <tr class="table-row">
-                        <td>Registration Number</td>
-                        <td class="table-data"><input class="input-field" type="text" autocomplete="off" name='registrationNum' value="{{student.registrationNum}}"/></td>
-                    </tr>
-                    <tr class="table-row">
-                        <td>Email</td>
+                        <td><strong>Email</strong></td>
                         <td class="table-data"><input class="input-field" type="email" autocomplete="off" name='email' value="{{student.email}}"/></td>
                     </tr>
                     <tr class="table-row">
-                        <td>Change Password</td>
+                        <td><strong>Change Password</strong></td>
                         <td class="table-data"><input class="input-field" type="password" autocomplete="off" name="password1"/></td>
                     </tr>
                     <tr class="table-row">
-                        <td>Confirm Password</td>
+                        <td><strong>Confirm Password</strong></td>
                         <td class="table-data"><input class="input-field" type="password" autocomplete="off" name="password2"/></td>
                     </tr>
                    </table>
@@ -209,13 +147,41 @@
 
     <!-- Contact -->
 
-    <footer id="footer">
-        <i class="social-icons fa-brands fa-twitter"></i>
-        <i class="social-icons fa-brands fa-facebook"></i>
-        <i class="social-icons fa-brands fa-instagram"></i>
-        <i class="social-icons fa-solid fa-envelope"></i>
-        <p>© Shri Guru Gobind Singhji Institute of Engineering and Technology (SGGSIET), Nanded</p>
-    </footer>
+    <section class="footer" id="footer">
+
+      <div class="credit">© created by</div>
+
+      <div class="container">
+        <div class="row">
+
+          <div class="col-sm" style="padding-bottom: 2rem">
+            <h3><i class="fa-solid fa-user"></i><strong> Bhakti Phatale </strong></h3>
+              <i class="fas fa-phone"></i> +91 9158417000</br>
+              <i class="fas fa-envelope"></i> 2019bcs031@sggs.ac.in</br>
+              <i class="fas fa-map-marker-alt"></i> Nanded, india - 431604    
+              <p>Follow me on</p>
+                <a href="https://www.twitter.com/" class="social-icons"><i class="fa-brands fa-twitter fa-xl"></i></a>
+                <a href="https://www.facebook.com/" class="social-icons"><i class="fa-brands fa-facebook fa-xl"></i></a>
+                <a href="https://www.instagram.com/" class="social-icons"><i class="fa-brands fa-instagram fa-xl"></i></a>
+                <a href="https://www.linkedin.com/in/bhakti-phatale-7550311bb/" class="social-icons"><i class="fa-brands fa-linkedin fa-xl"></i></a>
+          </div>
+           
+          <div class="col-sm" style="padding-bottom: 2rem">
+            <h3><i class="fa-solid fa-user"></i><strong> Sakshi Kawtikwar </strong></h3>
+              <i class="fas fa-phone"></i> +91 7030400161</br>
+              <i class="fas fa-envelope"></i> 2019bcs037@sggs.ac.in</br>
+              <i class="fas fa-map-marker-alt"></i> Nanded, india - 431606  
+              <p>Follow me on</p>
+                <a href="https://www.twitter.com/" class="social-icons"><i class="fa-brands fa-twitter fa-xl"></i></a>
+                <a href="https://www.facebook.com/" class="social-icons"><i class="fa-brands fa-facebook fa-xl"></i></a>
+                <a href="https://www.instagram.com/" class="social-icons"><i class="fa-brands fa-instagram fa-xl"></i></a>
+                <a href="https://www.linkedin.com//" class="social-icons"><i class="fa-brands fa-linkedin fa-xl"></i></a>
+          </div>
+
+        </div>
+      </div>
+  
+  </section>
 
   </body>
 </html>

@@ -61,8 +61,6 @@
                 <a class="nav-link" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"><i class="fa-solid fa-square-caret-down fa-xl"></i></a>
                 <ul class="dropdown-menu">
                   <li><a class="dropdown-item" href="{% url 'login' %}">Login</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">Separated link</a></li>
                 </ul>
               </li>
             </ul>
@@ -85,7 +83,7 @@
         <div class="card student-form tab-pane fade show active" id="nav-student" role="tabpanel" aria-labelledby="nav-student-tab">
           {% if messages %}
                 {% for message in messages %}
-                  {% if 'FailedToRegisterStud' in message.tags %}
+                  {% if 'FailedToRegisterStud' in message.tags or 'badpassword' in message.tags %}
             <script>
               var message = "{{message}}";
               alert(message);
@@ -135,7 +133,7 @@
           <div class="card professor-form tab-pane fade" id="nav-professor" role="tabpanel" aria-labelledby="nav-professor-tab">
             {% if messages %}
                 {% for message in messages %}
-                  {% if 'FailedToRegisterProf' in message.tags %}
+                  {% if 'FailedToRegisterProf' in message.tags or 'badpassword' in message.tags %}
             <script>
               var message = "{{message}}";
               alert(message);
@@ -168,9 +166,10 @@
                   <option value="{{ branch.branch }}">{{ branch.branch }}</option>
                   {% endfor %}
                  </select></br></br>
+                 {% comment %}
                  <h5>Which subject do you teach?</h5> 
                  <input class="input-field" type="text" autocomplete="off" name='subjectID' required></br></br>
-                 {% comment %} <select class="input-field" name="subject" id="subject-dropdown">
+                  <select class="input-field" name="subject" id="subject-dropdown">
                      <option>-- Select Subject --</option>
                      {% for subject in subjects %}
                         if(department-dropdown.value === {{subject.branch}}){
@@ -216,7 +215,7 @@
           <div class="card hod-form tab-pane fade" id="nav-hod" role="tabpanel" aria-labelledby="nav-hod-tab">
             {% if messages %}
                 {% for message in messages %}
-                  {% if 'FailedToRegisterHOD' in message.tags %}
+                  {% if 'FailedToRegisterHOD' in message.tags or 'badpassword' in message.tags %}
             <script>
               var message = "{{message}}";
               alert(message);
@@ -262,13 +261,41 @@
     
     <!-- Contact -->
 
-    <footer id="footer">
-        <i class="social-icons fa-brands fa-twitter"></i>
-        <i class="social-icons fa-brands fa-facebook"></i>
-        <i class="social-icons fa-brands fa-instagram"></i>
-        <i class="social-icons fa-solid fa-envelope"></i>
-        <p>© Shri Guru Gobind Singhji Institute of Engineering and Technology (SGGSIET), Nanded</p>
-      </footer>
+    <section class="footer" id="footer">
+
+      <div class="credit">© created by</div>
+
+      <div class="container">
+        <div class="row">
+
+          <div class="col-sm" style="padding-bottom: 2rem">
+            <h3><i class="fa-solid fa-user"></i><strong> Bhakti Phatale </strong></h3>
+              <i class="fas fa-phone"></i> +91 9158417000</br>
+              <i class="fas fa-envelope"></i> 2019bcs031@sggs.ac.in</br>
+              <i class="fas fa-map-marker-alt"></i> Nanded, india - 431604    
+              <p>Follow me on</p>
+                <a href="https://www.twitter.com/" class="social-icons"><i class="fa-brands fa-twitter fa-xl"></i></a>
+                <a href="https://www.facebook.com/" class="social-icons"><i class="fa-brands fa-facebook fa-xl"></i></a>
+                <a href="https://www.instagram.com/" class="social-icons"><i class="fa-brands fa-instagram fa-xl"></i></a>
+                <a href="https://www.linkedin.com/in/bhakti-phatale-7550311bb/" class="social-icons"><i class="fa-brands fa-linkedin fa-xl"></i></a>
+          </div>
+           
+          <div class="col-sm" style="padding-bottom: 2rem">
+            <h3><i class="fa-solid fa-user"></i><strong> Sakshi Kwatikwar </strong></h3>
+              <i class="fas fa-phone"></i> +91 7030400161</br>
+              <i class="fas fa-envelope"></i> 2019bcs037@sggs.ac.in</br>
+              <i class="fas fa-map-marker-alt"></i> Nanded, india - 431606  
+              <p>Follow me on</p>
+                <a href="https://www.twitter.com/" class="social-icons"><i class="fa-brands fa-twitter fa-xl"></i></a>
+                <a href="https://www.facebook.com/" class="social-icons"><i class="fa-brands fa-facebook fa-xl"></i></a>
+                <a href="https://www.instagram.com/" class="social-icons"><i class="fa-brands fa-instagram fa-xl"></i></a>
+                <a href="https://www.linkedin.com//" class="social-icons"><i class="fa-brands fa-linkedin fa-xl"></i></a>
+          </div>
+
+        </div>
+      </div>
+  
+  </section>
 
 </body>
 </html>

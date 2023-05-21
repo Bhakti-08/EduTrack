@@ -61,9 +61,6 @@
                       <a class="nav-link" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"><i class="fa-solid fa-square-caret-down fa-xl"></i></a>
                       <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="{% url 'upload_questionBank' %}">Upload Questionbank</a></li>
-                        <li><a class="dropdown-item" href="{% url 'addingTest' %}">Conducting Test</a></li>
                       </ul>
                     </li>
                   </ul>
@@ -79,7 +76,9 @@
         </div>
     </section>
 
-    <section id="body-container">
+    <section class="middle-page" style="min-height:40rem; 
+    background-color: #e3f1f6;
+    align-items: center;">
         <div class="tab-content" id="nav-tabContent">
 
           <!-- Home -->
@@ -92,48 +91,37 @@
           <!-- Uploading Questionbank -->
 
           <div class="card tab-pane fade" id="nav-questionbank" role="tabpanel" aria-labelledby="nav-questionbank-tab">    
-            {% if questionBankExists %}
-
-              {% comment %} <h5><b>You had already uploaded the question-bank</b></h5></br>
-              <button type="submit" class="btn-danger btn btn-lg" name="delete-questionbank-btn" style="margin-top:2%; background-color:red";><h5>Delete Questionbank</h5></button></br> {% endcomment %}
-              </br><h5><b>Want to replace question-bank?</b></h5></br>
-              {% if messages %}
+             {% if messages %}
                 {% for message in messages %}
-                  {% if 'NotCSVFile' in message.tags  or 'SuccessInReplace' in message.tags  or 'FailedToReplace' in message.tags  %}
-            <script>
-              var message = "{{message}}";
-              alert(message);
-            </script>
-             {% endif%}
-          {% endfor %}
-          {% endif %}
-              <form action="" method="POST" enctype="multipart/form-data">
-                {% csrf_token %}
-                <h5>Select The New CSV File: <input type="file" id="file1" name="file" required><br></h5>
-                <button type="submit" class="btn-warning btn btn-lg" name="replace-questionbank-btn" style="margin-top:2%; background-color:yellow;"><h5>Replace Questionbank</h5></button></br>
-              </form>
-
-            {% else %}
-              <h2 style="margin-bottom:10%">Upload Questionbank</h2>
-              <h5><b>NOTE:</b> Order of CSV file content must be question, option_1, option_2, option_3, option_4, correct_option</h5></br>
-              {% if messages %}
-                {% for message in messages %}
-                  {% if 'NotCSVFile' in message.tags  or 'FailedToUpload' in message.tags  or 'SuccessInUpload' in message.tags  %}
-            <script>
-              var message = "{{message}}";
-              alert(message);
-            </script>
-             {% endif%}
-          {% endfor %}
-          {% endif %}
-                <form action="" method="POST" enctype="multipart/form-data">
-                  {% csrf_token %}
-                  <h5>Select The CSV File: <input type="file" id="file1" name="file" required><br></h5>
-                  <button type="submit" class="btn-primary btn btn-lg" name="upload-questionbank-btn" style="margin-top:2%;"><h5>Upload Questionbank</h5></button>
-                </form>
-          </div>
-          {% endif %}
-        </div>
+                  {% if 'SubjectIDMissing' in message.tags or 'NotCSVFile' in message.tags  or 'SuccessInReplace' in message.tags  or 'FailedToReplace' in message.tags  or 'FailedToUpload' in message.tags  or 'SuccessInUpload' in message.tags %}
+                  <script>
+                    var message = "{{message}}";
+                    alert(message);
+                  </script>
+                   {% endif%}
+                {% endfor %}
+              {% endif %}
+              <table class="table table-bordered table-striped">
+                <thead>
+                  <tr style="background-color: #0B2447; color: #fff;">
+                    <th>Subject ID</th>
+                    <th>Subject Name</th>
+                    <th>Operations</th>
+                  </tr>
+                </thead>
+              {% for questionbank in questionbanks %}
+              <tr>  
+              <td><h4><strong>{{questionbank.subjectID}}</strong></h4></td>
+              <td><h4>{{ questionbank.subjectName}}</h4></td>
+              <td>  {% if questionbank.exists == True %}
+                <button class="upload-btn" data-action="replace" data-subject-id="{{ questionbank.subjectID }}">Replace Questionbank</button>
+                {% else %}
+                <button class="upload-btn" data-action="upload" data-subject-id="{{ questionbank.subjectID }}">Upload Questionbank</button>
+                {% endif %}
+              </td></tr>
+              {% endfor %}
+              </table>
+            </div>
           <!-- Conducting Test -->
 
           <div class="card tab-pane fade" id="nav-conducting-test" role="tabpanel" aria-labelledby="nav-conducting-test-tab">
@@ -144,32 +132,42 @@
               var message = "{{message}}";
               alert(message);
             </script>
-            <button type="submit" class='btn btn-primary submitBtn'><a style='color: #fff;' href="{% url 'profHome' %}">Try Again</a></button>            
             {% endif%}
           {% endfor %}
           {% endif %}
-            <h2 style="margin-bottom:10%">Conducting Test</h2>
+            <h2 style="margin-bottom:5%"><strong>Conducting Test<strong></h2>
             <form action="" method='POST'>
                 {% csrf_token %}
                  <table class="table-body">
+                  <tr class="table-row">
+                    <td>Test Subject</td>
+                    <td class="table-data">
+                    <select class="input-field" name="subjectID" id="subjectID" required>
+                      <option value="" disabled selected >--Select subject--</option>
+                      {% for subject in subjects %}
+                      <option value="{{ subject.subjectID }}">{{ subject.subjectID }} - {{ subject.subjectName }}</option>
+                      {% endfor %}
+                    </select>
+                  </td>
+                    </tr>
                     <tr class="table-row">
-                      <td>Test Name</td>
+                      <td><strong>Test Name</strong></td>
                       <td class="table-data"><input class="input-field" type="text" name='testName' required/></td>
                     </tr>
                     <tr class="table-row">
-                        <td>Number Of Questions</td>
+                        <td><strong>Number Of Questions</strong></td>
                         <td class="table-data"><input class="input-field" type="number" name='numberOfQuestions' required/></td>
                     </tr>
                     <tr class="table-row">
-                        <td>Test Date</td>
+                        <td><strong>Test Date</strong></td>
                         <td class="table-data"><input class="input-field" type="date" name='testDate' required/></td>
                     </tr>
                     <tr class="table-row">
-                        <td>Test Start Time</td>
+                        <td><strong>Test Start Time</strong></td>
                         <td class="table-data"><input class="input-field" type="time" name='testStartTime' required/></td>
                     </tr>
                     <tr class="table-row">
-                        <td>Test End Time</td>
+                        <td><strong>Test End Time</strong></td>
                         <td class="table-data"><input class="input-field" type="time" name='testEndTime' required/></td>
                     </tr>
                    </table>
@@ -189,8 +187,8 @@
             <h5 style="padding-bottom:2%">Name: <b>{{professor.firstName}}</b><b> {{professor.lastName}}</b></h5>
             <h5 style="padding-bottom:2%">College: <b>{{professor.college}}</b></h5>
             <h5 style="padding-bottom:2%">Branch: <b>{{ professor.branch }}</b></h5>
-            <h5 style="padding-bottom:2%">Subject Code: <b>{{ professor.subjectID }}</b></h5>     
             <h5 style="padding-bottom:2%">Email: <b>{{ professor.email }}</b></h5>             
+            <h5 style="padding-bottom:2%">Subjects:<br>{% for subject in subjects %}<b>{{ subject.subjectName }} ({{subject.subjectID}}) </b><br>{% endfor %}</h5>        
           </div>
 
           <!-- Update Profile -->
@@ -205,54 +203,30 @@
             </script> 
             {% endif%}
            {% endfor %}
-           {% endif %}   
-            <h2 style="margin-bottom:10%">Update Profile</h2>           
+           {% endif %}              
             <form action="" method='POST'>
                 {% csrf_token %}
-                 <h2><b>Please enter in the fields that you want to update</b></h2></br>
+                <h2><b>Please enter in the fields that you want to update</b></h2></br>
                  <table class="table-body">
                   <tr class="table-row">
-                    <td>First Name</td>
+                    <td><strong>First Name</strong></td>
                     <td class="table-data"><input class="input-field" type="text" autocomplete="off" name='fname' autocomplete="off" value="{{professor.firstName}}"/></td>
                   </tr>
                     <tr class="table-row">
-                      <td>Last Name</td>
+                      <td><strong>Last Name</strong></td>
                       <td class="table-data"><input class="input-field" type="text" autocomplete="off" name='lname' value="{{professor.lastName}}"/></td>
                     </tr>
                     <tr class="table-row">
-                        <td>College</td>
-                        <td class="table-data"><select class="input-field" autocomplete="off" name="college" id="college">
-                            <option value="Shri Guru Gobind Singhji Institute of Engineering and Technology (SGGSIET), Nanded">Shri Guru Gobind Singhji Institute of Engineering and Technology (SGGSIET), Nanded</option>
-                            <option value="Other">Other</option>
-                          </select></td>
-                    </tr>
-                    <tr class="table-row">
-                        <td>Branch</td>
-                        <td class="table-data"><select class="input-field" name="branch" id="branch">
-                          <option value="">-- Select Your Branch --</option>
-                          {% for branch in branches %}
-                            <option value="{{ branch.branch }}">{{ branch.branch }}</option>
-                          {% endfor %}
-                          </select></td>
-                    </tr>
-                    <tr class="table-row">
-                        <td>Subject Code</td>
-                        <td class="table-data"><input class="input-field" autocomplete="off" type="text" name='subjectCode' value="{{ professor.subjectID }}"/></td>
-                    </tr>
-                    <tr class="table-row">
-                        <td>Email</td>
-                        <td class="table-data"><input class="input-field" autocomplete="off" type="email" name='email' value="{{professor.email}}"/></td>
-                    </tr>
-                    <tr class="table-row">
-                      <td>Change Password</td>
+                      <td><strong>Change Password</strong></td>
                       <td class="table-data"><input class="input-field" autocomplete="off" type="password" name="password1"/></td>
                     </tr>
                     <tr class="table-row">
-                        <td>Confirm Password</td>
+                        <td><strong>Confirm Password</strong></td>
                         <td class="table-data"><input class="input-field" autocomplete="off" type="password" name="password2"/></td>
                     </tr>
                    </table>
                 <button type="submit" class="btn-primary btn btn-lg" name="update-professor-profile-btn" autocomplete="off" style="margin-top:2%;"><h5>Update Profile</h5></button>
+            
             </form>
           </div>
 
@@ -261,13 +235,98 @@
 
     <!-- Contact -->
 
-    <footer id="footer">
-        <i class="social-icons fa-brands fa-twitter"></i>
-        <i class="social-icons fa-brands fa-facebook"></i>
-        <i class="social-icons fa-brands fa-instagram"></i>
-        <i class="social-icons fa-solid fa-envelope"></i>
-        <p>© Shri Guru Gobind Singhji Institute of Engineering and Technology (SGGSIET), Nanded</p>
-    </footer>
+    <section class="footer" id="footer">
+
+      <div class="credit">© created by</div>
+
+      <div class="container">
+        <div class="row">
+
+          <div class="col-sm" style="padding-bottom: 2rem">
+            <h3><i class="fa-solid fa-user"></i><strong> Bhakti Phatale </strong></h3>
+              <i class="fas fa-phone"></i> +91 9158417000</br>
+              <i class="fas fa-envelope"></i> 2019bcs031@sggs.ac.in</br>
+              <i class="fas fa-map-marker-alt"></i> Nanded, india - 431604    
+              <p>Follow me on</p>
+                <a href="https://www.twitter.com/" class="social-icons"><i class="fa-brands fa-twitter fa-xl"></i></a>
+                <a href="https://www.facebook.com/" class="social-icons"><i class="fa-brands fa-facebook fa-xl"></i></a>
+                <a href="https://www.instagram.com/" class="social-icons"><i class="fa-brands fa-instagram fa-xl"></i></a>
+                <a href="https://www.linkedin.com/in/bhakti-phatale-7550311bb/" class="social-icons"><i class="fa-brands fa-linkedin fa-xl"></i></a>
+          </div>
+           
+          <div class="col-sm" style="padding-bottom: 2rem">
+            <h3><i class="fa-solid fa-user"></i><strong> Sakshi Kawtikwar </strong></h3>
+              <i class="fas fa-phone"></i> +91 7030400161</br>
+              <i class="fas fa-envelope"></i> 2019bcs037@sggs.ac.in</br>
+              <i class="fas fa-map-marker-alt"></i> Nanded, india - 431606  
+              <p>Follow me on</p>
+                <a href="https://www.twitter.com/" class="social-icons"><i class="fa-brands fa-twitter fa-xl"></i></a>
+                <a href="https://www.facebook.com/" class="social-icons"><i class="fa-brands fa-facebook fa-xl"></i></a>
+                <a href="https://www.instagram.com/" class="social-icons"><i class="fa-brands fa-instagram fa-xl"></i></a>
+                <a href="https://www.linkedin.com//" class="social-icons"><i class="fa-brands fa-linkedin fa-xl"></i></a>
+          </div>
+
+        </div>
+      </div>
+  
+  </section>
 
   </body>
+  <script>
+    const uploadBtns = document.querySelectorAll('.upload-btn');
+    uploadBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Remove previously inserted HTML code
+        clearInsertedHtml();
+  
+        // retrieve the custom attribute values
+        const action = btn.getAttribute('data-action');
+        const subjectId = btn.getAttribute('data-subject-id');
+  
+        let subjectIdInput = document.createElement('input');
+        subjectIdInput.type = 'hidden';
+        subjectIdInput.name = 'subjectID';
+        subjectIdInput.value = subjectId;
+  
+        if (action === 'upload') {
+          const newForm = document.createElement('form');
+          newForm.action = '';
+          newForm.method = 'POST';
+          newForm.enctype = 'multipart/form-data';
+          newForm.innerHTML = `
+            {% csrf_token %}
+            <h5><b>NOTE:</b> Order of CSV file content must be question, option_1, option_2, option_3, option_4, correct_option</h5>
+            <h5>Select The CSV File: <input type="file" id="file1" name="file" required><br></h5>
+            <button type="submit" class="btn-primary btn btn-lg" name="upload-questionbank-btn" style="margin-top:2%;"><h5>Upload Questionbank</h5></button>
+          `;
+          newForm.appendChild(subjectIdInput);
+          newForm.classList.add('inserted-html');
+          btn.parentNode.insertBefore(newForm, btn.nextSibling);
+        } else if (action === 'replace') {
+          const newForm = document.createElement('form');
+          newForm.action = '';
+          newForm.method = 'POST';
+          newForm.enctype = 'multipart/form-data';
+          newForm.innerHTML = `
+            {% csrf_token %}
+            <h5>Select The New CSV File: <input type="file" id="file1" name="file" required><br></h5>
+            <button type="submit" class="btn-warning btn btn-lg" name="replace-questionbank-btn" style="margin-top:2%; background-color:yellow;"><h5>Replace Questionbank</h5></button></br>
+          `;
+          newForm.appendChild(subjectIdInput);
+          newForm.classList.add('inserted-html');
+          btn.parentNode.insertBefore(newForm, btn.nextSibling);
+        }
+      });
+    });
+  
+    // Function to remove the previously inserted HTML code
+    function clearInsertedHtml() {
+      let insertedElements = document.querySelectorAll('.inserted-html');
+      insertedElements.forEach(element => {
+        element.parentNode.removeChild(element);
+      });
+    }
+  </script>
+  
+  
 </html>

@@ -1,7 +1,9 @@
-What is an operating system?, interface between the hardware and application programs,collection of programs that manages hardware resources, system service provider to the application programs,all of the mentioned,d
-CPU scheduling is the basis of ___________,multiprogramming operating systems, larger memory sized systems, multiprocessor systems,none of the mentioned,a
-If a process fails most operating system write the error information to a ______,new file,another running process,log file,none of the mentioned,c
-What does OS X has?,monolithic kernel with modules,microkernel,monolithic kernel,hybrid kernel,d
-In operating system each process has its own __________,open files,pending alarms, signals, and signal handlers,address space and global variables,all of the mentioned,d
-
-
+OS01,a,b,c,d,a
+OS02,a,b,c,d,b
+OS03,a,b,c,d,b
+OS04,a,b,c,d,c
+OS05,a,b,c,d,c
+OS06,a,b,c,d,d
+OS07,a,b,c,d,d
+OS08,a,b,c,d,a
+OS09,a,b,c,d,a

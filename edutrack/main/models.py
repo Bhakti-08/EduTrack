@@ -8,13 +8,24 @@ class Branch(models.Model):
     def __str__(self):
         return self.branch
 
-class Subjects(models.Model):
+'''class Subjects(models.Model):
     branch = models.ForeignKey(Branch, on_delete = models.CASCADE)
     subjectID = models.CharField(max_length=20)
     subjectName = models.CharField(max_length=100)
     
     def __str__(self):
         return self.subjectName
+        '''
+    
+class SubjectToProfessor(models.Model):
+    #branch = models.ForeignKey(Branch, on_delete = models.CASCADE)
+    branch = models.CharField(max_length=100)
+    subjectID = models.CharField(max_length=20)
+    profemail = models.CharField(max_length=50)
+    subjectName = models.CharField(max_length=100)
+    
+    def __str__(self):
+        return self.subjectID
 
 class QuestionBank(models.Model):
     subjectID = models.CharField(max_length=20, default=None)
@@ -27,7 +38,7 @@ class Professors(models.Model):
     college = models.CharField(max_length=100, default='SGGS')
     branch = models.CharField(max_length=50)
     #subject = models.ForeignKey(Subjects, on_delete = models.CASCADE)
-    subjectID = models.CharField(max_length=20)
+    #subjectID = models.CharField(max_length=20)
     email = models.CharField(max_length=50)
     password = models.CharField(max_length=20)
 
@@ -47,9 +58,21 @@ class Students(models.Model):
     def __str__(self):
         return self.registrationNum
     
+class HODs(models.Model):
+    name = models.CharField(max_length=50)
+    gender = models.CharField(max_length=10)
+    college = models.CharField(max_length=100)
+    branch = models.CharField(max_length=50)
+    email = models.CharField(max_length=50)
+    password = models.CharField(max_length=20)
+
+    def __str__(self):
+        return self.name + self.branch
+    
 class TestDetails(models.Model):
-    branch = models.ForeignKey(Branch, on_delete = models.CASCADE, default=None)
-    subject = models.ForeignKey(Subjects, on_delete = models.CASCADE)
+    branch =  models.CharField(max_length=100, default=None)
+    #models.ForeignKey(Branch, on_delete = models.CASCADE, default=None)
+    subjectID = models.CharField(max_length=20,default=None)
     testName = models.CharField(max_length=20)
     numberOfQuestions = models.IntegerField(default=None)
     DateOfExam = models.DateField(default=None)

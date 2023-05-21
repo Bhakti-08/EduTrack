@@ -30,6 +30,10 @@ h5{
     color: #fff;
 }
 
+.nav-item{
+    padding: 0 18px;
+}
+
 /* Registraion Form */
 
 #registration-form{
@@ -44,7 +48,8 @@ h5{
     padding: 5% 2% 5% 2%;
     margin: 5% auto;
     text-align: center;
-    background-color: #fff;
+    background-color: #fff;    
+    box-shadow: 4px 3px 8px #666666;
 }
 
 .options{
@@ -93,13 +98,20 @@ h5{
 
 /* Footer Section */
 
-#footer{
+.footer{
     text-align: center;
     padding: 3% 15%;
     background-color: #0B2447;
     color: #fff;
-}
-
-.social-icons{
-    margin: 20px 10px;
-}
+  }
+  
+  .footer .credit{
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 2rem;
+  color:#0d356ce2;
+  }
+  
+  .social-icons{
+    margin-right: 7%;
+  }

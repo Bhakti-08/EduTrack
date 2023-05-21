@@ -74,113 +74,123 @@
 
     <!-- Tests -->
 
-    <section id="allTests">
+    <section id="allTests" style="background-color:white; min-height:40rem; align-items: center;">
+      
       {% if role == 'Student' %}
 
-      <!-- Active Tests -->
+        <!-- Active Tests -->
 
-      {% if active_tests %}
-      <h2><b>Active Tests</b></h2>
-      {% for d in active_tests %}
-      <div class="active-tests"><a href="{% url 'test_question' d.id %}">
-          <div class="test-card active-tests-card">
-            <h4 class='test-name'>{{d.testName}}</h4>
-            <h5>{{ d.subject}}</h5>
-            <p>{{ d.DateOfExam}}</p>
-            <p>{{ d.StartTime}} to  {{ d.EndTime}}</p> 
-          </div></a>
-      </div>
-      {% endfor %}
-      {% else %}
-      <div class="test-card"><h3><b>No Active Tests</b></h3></div>
-      {% endif %}
-
-      <!-- Resume Tests -->
-      
-      {% if resume_tests %}
-      <h2><b>Resume Tests</b></h2>
-      {% for d in resume_tests %}
-      <div class="resume-tests"><a href="{% url 'test_question' d.id %}">
-          <div class="test-card resume-tests-card">
-            <h4 class='test-name'>{{d.testName}}</h4>
-            <h5>{{ d.subject}}</h5>
-            <p>{{ d.DateOfExam}}</p>
-            <p>{{ d.StartTime}} to  {{ d.EndTime}}</p>
-          </div></a>
-      </div>
-      {% endfor %}
-      {% else %}
-      <div class="test-card"><h3><b>No Resume Tests</b></h3></div>
-      {% endif %}
-      
-      <!-- Upcoming Tests-->  
-
-      {% if upcoming_tests %}
-      <h2><b>Upcoming Tests</b></h2>
-      {% for d in upcoming_tests %}
-      <div class="upcoming-tests">
-          <div class="test-card upcoming-tests-card">
-            <h4 class='test-name'>{{d.testName}}</h4>
-            <h5>{{ d.subject}}</h5>
-            <p>{{ d.DateOfExam}}</p>
-            <p>{{ d.StartTime}} to  {{ d.EndTime}}</p>
+        {% if active_tests %}
+          </br><h2><b>Active Tests</b></h2>
+          <div class='row container'>
+          {% for d in active_tests %}        
+            <div class="col-sm-4 col-md-4 col-lg-3  border-0 rounded-0" >
+              <div class="card shadow p-3 mb-5 bg-white rounded">
+                <div class="card-body" style="background-color: #bcc8e09c; text-align: center;">
+                  <h4 class="card-title">{{d.testName}}</h4>
+                  <h5>{{ d.subjectID}}</h5>
+                  <p>{{ d.DateOfExam}}</p>
+                  <p>{{ d.StartTime}} to  {{ d.EndTime}}</p>
+                  <a href="{% url 'test_question' d.id %}" class="btn btn-outline-primary rounded-0">Attempt Now</a>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
           </div>
-      </div>
-      {% endfor %}
-      {% else %}
-      <div class="test-card"><h3><b>No Upcoming Tests</b></h3></div>
-      {% endif %}
+        {% else %}
+          <div class="test-card"><h3><b>No Active Tests</b></h3></div>
+        {% endif %}
 
-      <!-- Submitted Tests -->
-      
-      {% if submitted_tests %}
-      <h2><b>Submitted Tests</b></h2>
-      {% for d in submitted_tests %}
-      <div class="submitted-tests">
-          <div class="test-card submitted-tests-card">
-              <h4 class='test-name'>{{d.testName}}</a></h4>
-              <h5>{{ d.subject}}</h5>
+        <!-- Resume Tests -->
+        
+        {% if resume_tests %}
+          </br><h2><b>Resume Tests</b></h2>
+          <div class="row container">
+            {% for d in resume_tests %}
+            <div class="col-sm-4 col-md-4 col-lg-3 border-0 rounded-0">
+              <div class="card shadow p-3 mb-5 bg-white rounded">
+                <div class="card-body" style="background-color: #ee9494cf; text-align: center;">
+                  <h4 class="card-title">{{d.testName}}</h4>
+                  <h5>{{ d.subjectID}}</h5>
+                  <p>{{ d.DateOfExam}}</p>
+                  <p>{{ d.StartTime}} to  {{ d.EndTime}}</p>
+                  <a href="{% url 'test_question' d.id %}" class="btn btn-outline-danger rounded-0">Resume Now</a>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
           </div>
-      </div>
-      {% endfor %}
-      {% else %}
-      <div class="test-card"><h3><b>No Submitted Tests</b></h3></div>
-      {% endif %}
-    {% else %}
-    <!-- Active Tests -->
-    {% if active_tests %}
-    <h2><b>Active Tests</b></h2>
-    {% for d in active_tests %}
-    <div class="active-tests">
-        <div class="test-card active-tests-card">
-          <h4 class='test-name'>{{d.testName}}</h4>
-          <h5>{{ d.subject}}</h5>
-          <p>{{ d.DateOfExam}}</p>
-          <p>{{ d.StartTime}} to  {{ d.EndTime}}</p> 
-        </div>
-    </div>
-    {% endfor %}
-    {% else %}
-    <div class="test-card"><h3><b>No Active Tests</b></h3></div>
-    {% endif %}
+        {% else %}
+          <div class="test-card"><h3><b>No Resume Tests</b></h3></div>
+        {% endif %}
 
-    <!-- Upcoming Tests-->  
+        <!-- Upcoming Tests-->  
 
-    {% if upcoming_tests %}
-    <h2><b>Upcoming Tests</b></h2>
-    {% for d in upcoming_tests %}
-    <div class="upcoming-tests">
-        <div class="test-card upcoming-tests-card">
-          <h4 class='test-name'>{{d.testName}}</h4>
-          <h5>{{ d.subject}}</h5>
-          <p>{{ d.DateOfExam}}</p>
-          <p>{{ d.StartTime}} to  {{ d.EndTime}}</p>
-        </div>
-    </div>
-    {% endfor %}
-    {% else %}
-    <div class="test-card"><h3><b>No Upcoming Tests</b></h3></div>
-    {% endif %}
+        {% if upcoming_tests %}
+          </br><h2><b>Upcoming Tests</b></h2>
+          <div class="row container">
+            {% for d in upcoming_tests %}
+            <div class="col-sm-4 col-md-4 col-lg-3 border-0 rounded-0">
+              <div class="card shadow p-3 mb-5 bg-white rounded">
+                <div class="card-body" style="text-align: center;">
+                  <h4 class="card-title">{{d.testName}}</h4>
+                  <h5>{{ d.subjectID}}</h5>
+                  <p>{{ d.DateOfExam}}</p>
+                  <p>{{ d.StartTime}} to  {{ d.EndTime}}</p>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+          </div>
+        {% else %}
+          <div class="test-card"><h3><b>No Upcoming Tests</b></h3></div>
+        {% endif %}
+    
+      {% else %} <!-- For Professor -->
+
+        <!-- Active Tests -->
+
+        {% if active_tests %}
+          </br><h2><b>Active Tests</b></h2>
+          <div class='row container'>
+          {% for d in active_tests %}        
+            <div class="col-sm-4 col-md-4 col-lg-3  border-0 rounded-0" >
+              <div class="card shadow p-3 mb-5 bg-white rounded">
+                <div class="card-body" style="background-color: #bcc8e09c; text-align: center;">
+                  <h4 class="card-title">{{d.testName}}</h4>
+                  <h5>{{ d.subjectID}}</h5>
+                  <p>{{ d.DateOfExam}}</p>
+                  <p>{{ d.StartTime}} to  {{ d.EndTime}}</p>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+          </div>
+        {% else %}
+          <div class="test-card"><h3><b>No Active Tests</b></h3></div>
+        {% endif %}
+
+        <!-- Upcoming Tests-->  
+
+        {% if upcoming_tests %}
+          </br><h2><b>Upcoming Tests</b></h2>
+          <div class="row container">
+            {% for d in upcoming_tests %}
+            <div class="col-sm-4 col-md-4 col-lg-3 border-0 rounded-0">
+              <div class="card shadow p-3 mb-5 bg-white rounded">
+                <div class="card-body" style="text-align: center;">
+                  <h4 class="card-title">{{d.testName}}</h4>
+                  <h5>{{ d.subjectID}}</h5>
+                  <p>{{ d.DateOfExam}}</p>
+                  <p>{{ d.StartTime}} to  {{ d.EndTime}}</p>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+          </div>
+        {% else %}
+          <div class="test-card"><h3><b>No Upcoming Tests</b></h3></div>
+        {% endif %}
 
     {% endif %}
       
@@ -188,13 +198,41 @@
 
     <!-- Contact -->
 
-    <footer id="footer">
-        <i class="social-icons fa-brands fa-twitter"></i>
-        <i class="social-icons fa-brands fa-facebook"></i>
-        <i class="social-icons fa-brands fa-instagram"></i>
-        <i class="social-icons fa-solid fa-envelope"></i>
-        <p>© Shri Guru Gobind Singhji Institute of Engineering and Technology (SGGSIET), Nanded</p>
-      </footer>
+    <section class="footer" id="footer">
+
+      <div class="credit">© created by</div>
+
+      <div class="container">
+        <div class="row">
+
+          <div class="col-sm" style="padding-bottom: 2rem">
+            <h3><i class="fa-solid fa-user"></i><strong> Bhakti Phatale </strong></h3>
+              <i class="fas fa-phone"></i> +91 9158417000</br>
+              <i class="fas fa-envelope"></i> 2019bcs031@sggs.ac.in</br>
+              <i class="fas fa-map-marker-alt"></i> Nanded, india - 431604    
+              <p>Follow me on</p>
+                <a href="https://www.twitter.com/" class="social-icons"><i class="fa-brands fa-twitter fa-xl"></i></a>
+                <a href="https://www.facebook.com/" class="social-icons"><i class="fa-brands fa-facebook fa-xl"></i></a>
+                <a href="https://www.instagram.com/" class="social-icons"><i class="fa-brands fa-instagram fa-xl"></i></a>
+                <a href="https://www.linkedin.com/in/bhakti-phatale-7550311bb/" class="social-icons"><i class="fa-brands fa-linkedin fa-xl"></i></a>
+          </div>
+           
+          <div class="col-sm" style="padding-bottom: 2rem">
+            <h3><i class="fa-solid fa-user"></i><strong> Sakshi Kawtikwar </strong></h3>
+              <i class="fas fa-phone"></i> +91 7030400161</br>
+              <i class="fas fa-envelope"></i> 2019bcs037@sggs.ac.in</br>
+              <i class="fas fa-map-marker-alt"></i> Nanded, india - 431606  
+              <p>Follow me on</p>
+                <a href="https://www.twitter.com/" class="social-icons"><i class="fa-brands fa-twitter fa-xl"></i></a>
+                <a href="https://www.facebook.com/" class="social-icons"><i class="fa-brands fa-facebook fa-xl"></i></a>
+                <a href="https://www.instagram.com/" class="social-icons"><i class="fa-brands fa-instagram fa-xl"></i></a>
+                <a href="https://www.linkedin.com//" class="social-icons"><i class="fa-brands fa-linkedin fa-xl"></i></a>
+          </div>
+
+        </div>
+      </div>
+  
+  </section>
 
 </body>
 <script>
