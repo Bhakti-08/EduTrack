@@ -91,7 +91,7 @@ def index(request):
                 return redirect('logout')
         return render(request, 'index.html',{'data':''})
 
-# Logout
+#  Logout
 @csrf_protect
 def logoutPage(request):
     if 'role' in request.session:
