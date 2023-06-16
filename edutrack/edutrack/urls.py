@@ -28,25 +28,17 @@ urlpatterns = [
     path('profHome/',views.profHome,name='profHome'),
     path('studentHome/',views.studentHome,name='studentHome'),
     path('hodHome/',views.hodHome,name='hodHome'),
+    path('directorHome/',views.directorHome,name='directorHome'),
+    path('testsHome/',views.testsHome,name='testsHome'),
     path('selectTest/',views.selectTest,name='selectTest'),
     path('testsForResults/',views.testsForResults,name='testsForResults'),
     path('testResults/<int:test_id>',views.testResults,name='testResults'),
     path('studentResults/',views.studentResults,name='studentResults'),
     path('test-question/<int:test_id>',views.test_question,name='test_question'),
-    path('testSubmitted/<int:test_id>',views.testSubmitted,name='testSubmitted'),
+    path('testSubmitted/<int:test_id>',views.testSubmitted,name='testSubmitted'), 
 ]
 
 if settings.DEBUG:
     urlpatterns+=static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 admin.site.site_header="EduTrack Admin"
-
-
-'''
-path('profRegistrationForm/',views.profRegistrationForm,name='profRegistrationForm'),
-path('studentRegistrationForm/',views.studentRegistrationForm,name='studentRegistrationForm'),
-path('upload_questionBank/',views.upload_questionBank,name='upload_questionBank'),
-path('addingTest/',views.addingTest,name='addingTest'),    
-path('updateStudentProfile/',views.updateStudentProfile,name='updateStudentProfile'),
-path('updateProfessorProfile/',views.updateProfessorProfile,name='updateProfessorProfile'),
-'''

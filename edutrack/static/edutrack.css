@@ -115,37 +115,47 @@ h5{
     margin-bottom: 5%;
 }
 
-/* Syllabus */
-
-#syllabus{
-    text-align: center;
-    /*background-color: #c4ebf9;*/
-    background-color: #c4ebf994;
+/* Features */
+.feature_container {
+    background-color: #c4ebf994; 
     padding-bottom: 8%;
 }
-
-.carousel-item a{
-    text-decoration: none;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 1.4rem;
-    font-weight: 400;
+.feature_heading {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
 }
+.feature_heading .row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .column {
+    border-right: 2px solid black;
+    width: 250px;
+    height: 250px;
+  }
 
-ul{
-    list-style-type: none;
-}
-
-li{
-    padding-bottom: 1%;
-}
-
-.control-btn{
-    background-color: #0b244753;
-}
-
-.control-btn:hover{
-    background-color: #010b1a;
-}
+  .circle {
+    position: absolute;
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    text-align: center;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background-color: #fff;
+    margin: 20px 20px;
+    position: relative;
+  }
+  .image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+  }
 
 /* Footer Section */
 

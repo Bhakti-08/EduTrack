@@ -1,278 +1,141 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta name="viewport" , content="with =device-width, initial-scale=1.0" />
-    
-    <!-- CSS -->
-
-    <link rel="stylesheet" href="/static/home.css">
-
-    <link rel="icon" href="/static/icon.ico">
-    <title>EduTrack</title>
-
-    <!-- Google Font Adding -->
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Ubuntu:ital,wght@0,400;1,700&display=swap" rel="stylesheet">
-    
-    <!-- Bootstrap -->
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" 
-      rel="stylesheet" 
-      integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" 
-      crossorigin="anonymous">
-
-
-      <!--Font Awesome-->
-
-      <link rel="stylesheet" 
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" 
-      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" 
-      crossorigin="anonymous" 
-      referrerpolicy="no-referrer" />
-
-    <!-- JS -->
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" 
-      integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" 
-      crossorigin="anonymous"></script>
-
-    <meta charset="UTF-8" />
-  </head>
-
-  <body>
-    <section id="title">
-        <div class="container-fluid">
-            <nav class="navbar navbar-expand-lg navbar-dark">
-                
-                <button class="navbar-toggler" 
-                type="button" 
-                data-bs-toggle="collapse" 
-                data-bs-target="#nav-tab" 
-                aria-controls="nav-tab" 
-                aria-expanded="false" 
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse nav nav-tabs" id="nav-tab" role="tablist">
-                  <ul class="nav nav-tabs">
-                    <li class="nav-item dropdown">
-                      <a class="nav-link" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"><i class="fa-solid fa-square-caret-down fa-xl"></i></a>
-                      <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
-                      </ul>
-                    </li>
+{% extends 'base.html' %}
+{% block cssFiles %} 
+<link rel="stylesheet" href="/static/home.css">
+{% endblock %}
+{% block content %}
+<section id="title">
+    <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg navbar-dark">                
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
+            data-bs-target="#nav-tab" aria-controls="nav-tab" aria-expanded="false" 
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse nav nav-tabs" id="nav-tab" role="tablist">
+              <ul class="nav nav-tabs">
+                <li class="nav-item dropdown">
+                  <a class="nav-link" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"><i class="fa-solid fa-square-caret-down fa-xl"></i></a>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
                   </ul>
-                    <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true"><i class="fa-solid fa-house"></i> Home</button>
-                    <button class="nav-link" id="nav-questionbank-tab" data-bs-toggle="tab" data-bs-target="#nav-questionbank" type="button" role="tab" aria-controls="nav-questionbank" aria-selected="false"><i class="fa-solid fa-book"></i> Questionbank</button>
-                    <button class="nav-link" id="nav-conducting-test-tab" data-bs-toggle="tab" data-bs-target="#nav-conducting-test" type="button" role="tab" aria-controls="nav-conducting-test" aria-selected="false"><i class="fa-sharp fa-solid fa-scroll"></i> Conducting Test</button>
-                    <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="fa-solid fa-chalkboard-user"></i> About Me</button>
-                    <button class="nav-link" id="nav-profile-update-tab" data-bs-toggle="tab" data-bs-target="#nav-profile-update" type="button" role="tab" aria-controls="nav-profile-update" aria-selected="false"><i class="fa-solid fa-user"></i> Update Profile</button>
-                </div>
-                <a class="navbar-brand" href=""><img class="logo-img" src="/static/logo.png" alt="EduTrack" style="width:220px;height:12vh;" >
-                </a>
-            </nav>
-        </div>
-    </section>
-
-    <section class="middle-page" style="min-height:40rem; 
-    background-color: #e3f1f6;
-    align-items: center;">
-        <div class="tab-content" id="nav-tabContent">
-
-          <!-- Home -->
-
-          <div class="home-content tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-            <div class="card"><a href="{% url 'selectTest' %}"><i class="fa-solid fa-file-zipper fa-beat fa-2xl"> tests</i></a></div>
-            <div class="card"><a href="{% url 'testsForResults' %}"><i class="fa-solid fa-square-poll-vertical fa-beat fa-2xl"> results</i></a></div>
-          </div>
-
-          <!-- Uploading Questionbank -->
-
-          <div class="card tab-pane fade" id="nav-questionbank" role="tabpanel" aria-labelledby="nav-questionbank-tab">    
-             {% if messages %}
-                {% for message in messages %}
-                  {% if 'SubjectIDMissing' in message.tags or 'NotCSVFile' in message.tags  or 'SuccessInReplace' in message.tags  or 'FailedToReplace' in message.tags  or 'FailedToUpload' in message.tags  or 'SuccessInUpload' in message.tags %}
-                  <script>
-                    var message = "{{message}}";
-                    alert(message);
-                  </script>
-                   {% endif%}
-                {% endfor %}
-              {% endif %}
-              <table class="table table-bordered table-striped">
-                <thead>
-                  <tr style="background-color: #0B2447; color: #fff;">
-                    <th>Subject ID</th>
-                    <th>Subject Name</th>
-                    <th>Operations</th>
-                  </tr>
-                </thead>
-              {% for questionbank in questionbanks %}
-              <tr>  
-              <td><h4><strong>{{questionbank.subjectID}}</strong></h4></td>
-              <td><h4>{{ questionbank.subjectName}}</h4></td>
-              <td>  {% if questionbank.exists == True %}
-                <button class="upload-btn" data-action="replace" data-subject-id="{{ questionbank.subjectID }}">Replace Questionbank</button>
-                {% else %}
-                <button class="upload-btn" data-action="upload" data-subject-id="{{ questionbank.subjectID }}">Upload Questionbank</button>
-                {% endif %}
-              </td></tr>
-              {% endfor %}
-              </table>
+                </li>
+              </ul>
+                <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true"><i class="fa-solid fa-house"></i> Home</button>
+                <button class="nav-link" id="nav-questionbank-tab" data-bs-toggle="tab" data-bs-target="#nav-questionbank" type="button" role="tab" aria-controls="nav-questionbank" aria-selected="false"><i class="fa-solid fa-book"></i> Questionbank</button>
+                <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="fa-solid fa-chalkboard-user"></i> About Me</button>
+                <button class="nav-link" id="nav-profile-update-tab" data-bs-toggle="tab" data-bs-target="#nav-profile-update" type="button" role="tab" aria-controls="nav-profile-update" aria-selected="false"><i class="fa-solid fa-user"></i> Update Profile</button>
             </div>
-          <!-- Conducting Test -->
+            <a class="navbar-brand" href=""><img class="logo-img" src="/static/logo.png" alt="EduTrack" style="width:220px;height:12vh;" >
+            </a>
+        </nav>
+    </div>
+</section>
 
-          <div class="card tab-pane fade" id="nav-conducting-test" role="tabpanel" aria-labelledby="nav-conducting-test-tab">
-            {% if messages %}
-                {% for message in messages %}
-                {% if 'TestArranged' in message.tags or 'TestArrangeFailed' in message.tags %}
-            <script>
-              var message = "{{message}}";
-              alert(message);
-            </script>
+<section class="middle-page">
+    <div class="tab-content" id="nav-tabContent">
+
+      <!-- Home -->
+      <div class="home-content tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+        <div class="card"><a href="{% url 'testsHome' %}"><i class="fa-solid fa-file-zipper fa-beat fa-2xl"> tests</i></a></div>
+        <div class="card"><a href="{% url 'testsForResults' %}"><i class="fa-solid fa-square-poll-vertical fa-beat fa-2xl"> results</i></a></div>
+      </div>
+
+      <!-- Uploading Questionbank -->
+      <div class="card tab-pane fade" id="nav-questionbank" role="tabpanel" aria-labelledby="nav-questionbank-tab">    
+        {% if messages %}
+           {% for message in messages %}
+             {% if 'SubjectIDMissing' in message.tags or 'NotCSVFile' in message.tags  or 'SuccessInReplace' in message.tags  or 'FailedToReplace' in message.tags  or 'FailedToUpload' in message.tags  or 'SuccessInUpload' in message.tags %}
+             <script>
+               var message = "{{message}}";
+               alert(message);
+             </script>
+             {% endif%}
+           {% endfor %}
+         {% endif %}
+         {% if questionbanks %}
+         <table class="table table-bordered table-striped">
+           <thead>
+             <tr style="background-color: #0B2447; color: #fff;">
+               <th>Subject ID</th>
+               <th>Subject Name</th>
+               <th>Operations</th>
+             </tr>
+           </thead>
+           {% for questionbank in questionbanks %}
+             <tr>  
+               <td><h4><strong>{{questionbank.subjectID}}</strong></h4></td>
+               <td><h4>{{ questionbank.subjectName}}</h4></td>
+               <td>  {% if questionbank.exists == True %}
+                 <button class="upload-btn" data-action="replace" data-subject-id="{{ questionbank.subjectID }}">Replace Questionbank</button>
+               {% else %}
+                 <button class="upload-btn" data-action="upload" data-subject-id="{{ questionbank.subjectID }}">Upload Questionbank</button>
+               {% endif %}</td>
+             </tr>
+           {% endfor %}
+         </table>
+         {% else %}
+         <h2><b>Subject is not assigned yet..</b></h2>
+         {% endif %}
+       </div>
+
+       
+      <!-- About Me -->
+      <div class="profile-content tab-pane fade card" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+        {% if professor.gender == "female" %}
+        <img class="profile-pic" src="https://em-content.zobj.net/source/microsoft-teams/337/woman-teacher-light-skin-tone_1f469-1f3fb-200d-1f3eb.png">
+        {% else %}
+        <img class="profile-pic" src="https://em-content.zobj.net/source/microsoft-teams/337/man-teacher-light-skin-tone_1f468-1f3fb-200d-1f3eb.png">
+        {% endif %} 
+        <h2><b>All About Me</b></h2></br>
+        <h5 style="padding-bottom:2%">Name: <b>{{professor.firstName}}</b><b> {{professor.lastName}}</b></h5>
+        <h5 style="padding-bottom:2%">College: <b>{{professor.branch.college.name}}</b></h5>
+        <h5 style="padding-bottom:2%">Branch: <b>{{ professor.branch }}</b></h5>
+        <h5 style="padding-bottom:2%">Email: <b>{{ professor.email }}</b></h5>             
+        <h5 style="padding-bottom:2%">Subjects:<br>{% for subject in subjects %}<b>{{ subject.subjectName }} ({{subject.subjectID}}) </b><br>{% endfor %}</h5>        
+      </div>
+
+
+      <!-- Update Profile -->         
+      <div class="profile-update-content tab-pane fade card" id="nav-profile-update" role="tabpanel" aria-labelledby="nav-profile-update-tab">
+        {% if messages %}
+          {% for message in messages %}
+            {% if 'InvalidDetails' in message.tags or 'ProfileUpdated' in message.tags %}
+              <script>
+                var message = "{{message}}";
+                alert(message);
+              </script> 
             {% endif%}
           {% endfor %}
-          {% endif %}
-            <h2 style="margin-bottom:5%"><strong>Conducting Test<strong></h2>
-            <form action="" method='POST'>
-                {% csrf_token %}
-                 <table class="table-body">
-                  <tr class="table-row">
-                    <td>Test Subject</td>
-                    <td class="table-data">
-                    <select class="input-field" name="subjectID" id="subjectID" required>
-                      <option value="" disabled selected >--Select subject--</option>
-                      {% for subject in subjects %}
-                      <option value="{{ subject.subjectID }}">{{ subject.subjectID }} - {{ subject.subjectName }}</option>
-                      {% endfor %}
-                    </select>
-                  </td>
-                    </tr>
-                    <tr class="table-row">
-                      <td><strong>Test Name</strong></td>
-                      <td class="table-data"><input class="input-field" type="text" name='testName' required/></td>
-                    </tr>
-                    <tr class="table-row">
-                        <td><strong>Number Of Questions</strong></td>
-                        <td class="table-data"><input class="input-field" type="number" name='numberOfQuestions' required/></td>
-                    </tr>
-                    <tr class="table-row">
-                        <td><strong>Test Date</strong></td>
-                        <td class="table-data"><input class="input-field" type="date" name='testDate' required/></td>
-                    </tr>
-                    <tr class="table-row">
-                        <td><strong>Test Start Time</strong></td>
-                        <td class="table-data"><input class="input-field" type="time" name='testStartTime' required/></td>
-                    </tr>
-                    <tr class="table-row">
-                        <td><strong>Test End Time</strong></td>
-                        <td class="table-data"><input class="input-field" type="time" name='testEndTime' required/></td>
-                    </tr>
-                   </table>
-                <button type="submit" class="btn-primary btn btn-lg submitBtn" name="set-test-btn" style="margin-top:2%;"><h5>Set The Paper</h5></button>
-            </form>
-          </div>
-          
-          <!-- About Me -->
-
-          <div class="profile-content tab-pane fade card" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-            {% if professor.gender == "female" %}
-            <img class="profile-pic" src="https://em-content.zobj.net/source/microsoft-teams/337/woman-teacher-light-skin-tone_1f469-1f3fb-200d-1f3eb.png">
-            {% else %}
-            <img class="profile-pic" src="https://em-content.zobj.net/source/microsoft-teams/337/man-teacher-light-skin-tone_1f468-1f3fb-200d-1f3eb.png">
-            {% endif %} 
-            <h2><b>All About Me</b></h2></br>
-            <h5 style="padding-bottom:2%">Name: <b>{{professor.firstName}}</b><b> {{professor.lastName}}</b></h5>
-            <h5 style="padding-bottom:2%">College: <b>{{professor.college}}</b></h5>
-            <h5 style="padding-bottom:2%">Branch: <b>{{ professor.branch }}</b></h5>
-            <h5 style="padding-bottom:2%">Email: <b>{{ professor.email }}</b></h5>             
-            <h5 style="padding-bottom:2%">Subjects:<br>{% for subject in subjects %}<b>{{ subject.subjectName }} ({{subject.subjectID}}) </b><br>{% endfor %}</h5>        
-          </div>
-
-          <!-- Update Profile -->
-          
-          <div class="card profile-update-content tab-pane fade" id="nav-profile-update" role="tabpanel" aria-labelledby="nav-profile-update-tab">
-            {% if messages %}
-                {% for message in messages %}
-                {% if 'InvalidDetails' in message.tags or 'ProfileUpdated' in message.tags %}
-            <script>
-              var message = "{{message}}";
-              alert(message);
-            </script> 
-            {% endif%}
-           {% endfor %}
-           {% endif %}              
-            <form action="" method='POST'>
-                {% csrf_token %}
-                <h2><b>Please enter in the fields that you want to update</b></h2></br>
-                 <table class="table-body">
-                  <tr class="table-row">
-                    <td><strong>First Name</strong></td>
-                    <td class="table-data"><input class="input-field" type="text" autocomplete="off" name='fname' autocomplete="off" value="{{professor.firstName}}"/></td>
-                  </tr>
-                    <tr class="table-row">
-                      <td><strong>Last Name</strong></td>
-                      <td class="table-data"><input class="input-field" type="text" autocomplete="off" name='lname' value="{{professor.lastName}}"/></td>
-                    </tr>
-                    <tr class="table-row">
-                      <td><strong>Change Password</strong></td>
-                      <td class="table-data"><input class="input-field" autocomplete="off" type="password" name="password1"/></td>
-                    </tr>
-                    <tr class="table-row">
-                        <td><strong>Confirm Password</strong></td>
-                        <td class="table-data"><input class="input-field" autocomplete="off" type="password" name="password2"/></td>
-                    </tr>
-                   </table>
-                <button type="submit" class="btn-primary btn btn-lg" name="update-professor-profile-btn" autocomplete="off" style="margin-top:2%;"><h5>Update Profile</h5></button>
-            
-            </form>
-          </div>
-
-        </div>
-    </section>
-
-    <!-- Contact -->
-
-    <section class="footer" id="footer">
-
-      <div class="credit">© created by</div>
-
-      <div class="container">
-        <div class="row">
-
-          <div class="col-sm" style="padding-bottom: 2rem">
-            <h3><i class="fa-solid fa-user"></i><strong> Bhakti Phatale </strong></h3>
-              <i class="fas fa-phone"></i> +91 9158417000</br>
-              <i class="fas fa-envelope"></i> 2019bcs031@sggs.ac.in</br>
-              <i class="fas fa-map-marker-alt"></i> Nanded, india - 431604    
-              <p>Follow me on</p>
-                <a href="https://www.twitter.com/" class="social-icons"><i class="fa-brands fa-twitter fa-xl"></i></a>
-                <a href="https://www.facebook.com/" class="social-icons"><i class="fa-brands fa-facebook fa-xl"></i></a>
-                <a href="https://www.instagram.com/" class="social-icons"><i class="fa-brands fa-instagram fa-xl"></i></a>
-                <a href="https://www.linkedin.com/in/bhakti-phatale-7550311bb/" class="social-icons"><i class="fa-brands fa-linkedin fa-xl"></i></a>
-          </div>
-           
-          <div class="col-sm" style="padding-bottom: 2rem">
-            <h3><i class="fa-solid fa-user"></i><strong> Sakshi Kawtikwar </strong></h3>
-              <i class="fas fa-phone"></i> +91 7030400161</br>
-              <i class="fas fa-envelope"></i> 2019bcs037@sggs.ac.in</br>
-              <i class="fas fa-map-marker-alt"></i> Nanded, india - 431606  
-              <p>Follow me on</p>
-                <a href="https://www.twitter.com/" class="social-icons"><i class="fa-brands fa-twitter fa-xl"></i></a>
-                <a href="https://www.facebook.com/" class="social-icons"><i class="fa-brands fa-facebook fa-xl"></i></a>
-                <a href="https://www.instagram.com/" class="social-icons"><i class="fa-brands fa-instagram fa-xl"></i></a>
-                <a href="https://www.linkedin.com//" class="social-icons"><i class="fa-brands fa-linkedin fa-xl"></i></a>
-          </div>
-
-        </div>
+        {% endif %}              
+        <form action="" method='POST'>
+            {% csrf_token %}
+            <h2><b>Please enter in the fields that you want to update</b></h2></br>
+             <table class="table-body">
+              <tr class="table-row">
+                <td><strong>First Name</strong></td>
+                <td class="table-data"><input class="input-field" type="text" autocomplete="off" name='fname' autocomplete="off" value="{{professor.firstName}}"/></td>
+              </tr>
+                <tr class="table-row">
+                  <td><strong>Last Name</strong></td>
+                  <td class="table-data"><input class="input-field" type="text" autocomplete="off" name='lname' value="{{professor.lastName}}"/></td>
+                </tr>
+                <tr class="table-row">
+                  <td><strong>Change Password</strong></td>
+                  <td class="table-data"><input class="input-field" autocomplete="off" type="password" name="password1"/></td>
+                </tr>
+                <tr class="table-row">
+                    <td><strong>Confirm Password</strong></td>
+                    <td class="table-data"><input class="input-field" autocomplete="off" type="password" name="password2"/></td>
+                </tr>
+               </table>
+            <button type="submit" class="btn-primary btn btn-lg" name="update-professor-profile-btn" autocomplete="off" style="margin-top:2%;"><h5>Update Profile</h5></button>           
+        </form>
       </div>
-  
-  </section>
-
-  </body>
-  <script>
+    </div>
+</section>
+{% endblock %}
+{% block scripts %} 
+<script>
     const uploadBtns = document.querySelectorAll('.upload-btn');
     uploadBtns.forEach(btn => {
       btn.addEventListener('click', () => {
@@ -287,7 +150,7 @@
         subjectIdInput.type = 'hidden';
         subjectIdInput.name = 'subjectID';
         subjectIdInput.value = subjectId;
-  
+
         if (action === 'upload') {
           const newForm = document.createElement('form');
           newForm.action = '';
@@ -295,8 +158,8 @@
           newForm.enctype = 'multipart/form-data';
           newForm.innerHTML = `
             {% csrf_token %}
-            <h5><b>NOTE:</b> Order of CSV file content must be question, option_1, option_2, option_3, option_4, correct_option</h5>
-            <h5>Select The CSV File: <input type="file" id="file1" name="file" required><br></h5>
+            <p><b>NOTE:</b> Order of CSV file content must be question, option_1, option_2, option_3, option_4, correct_option</p>
+            <p>Select The CSV File: <input type="file" id="file1" name="file" required><br></p>
             <button type="submit" class="btn-primary btn btn-lg" name="upload-questionbank-btn" style="margin-top:2%;"><h5>Upload Questionbank</h5></button>
           `;
           newForm.appendChild(subjectIdInput);
@@ -309,7 +172,7 @@
           newForm.enctype = 'multipart/form-data';
           newForm.innerHTML = `
             {% csrf_token %}
-            <h5>Select The New CSV File: <input type="file" id="file1" name="file" required><br></h5>
+            <p>Select The New CSV File: <input type="file" id="file1" name="file" required><br></p>
             <button type="submit" class="btn-warning btn btn-lg" name="replace-questionbank-btn" style="margin-top:2%; background-color:yellow;"><h5>Replace Questionbank</h5></button></br>
           `;
           newForm.appendChild(subjectIdInput);
@@ -317,8 +180,7 @@
           btn.parentNode.insertBefore(newForm, btn.nextSibling);
         }
       });
-    });
-  
+    }); 
     // Function to remove the previously inserted HTML code
     function clearInsertedHtml() {
       let insertedElements = document.querySelectorAll('.inserted-html');
@@ -326,7 +188,5 @@
         element.parentNode.removeChild(element);
       });
     }
-  </script>
-  
-  
-</html>
+</script>
+{% endblock %}

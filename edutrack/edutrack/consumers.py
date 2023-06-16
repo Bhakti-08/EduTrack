@@ -1,7 +1,6 @@
 from channels.generic.websocket import AsyncWebsocketConsumer
 from channels.db import database_sync_to_async
-
-from main.models import StudentResponses, TestAttempt, Questions,TestDetails,Students,StudentScores
+from main.models import StudentResponses, Questions,TestDetails,Students,StudentScores
 import json
 
 class QuizConsumer(AsyncWebsocketConsumer):
@@ -24,9 +23,11 @@ class QuizConsumer(AsyncWebsocketConsumer):
     
     @database_sync_to_async
     def create_student_response(self, attempt_id, question_id, selected_option):
-        attempt = TestAttempt.objects.get(id=attempt_id)
+        attempt = StudentScores.objects.get(id=attempt_id)
         question = Questions.objects.get(id=question_id)
-        response = StudentResponses.objects.update_or_create(attempt=attempt, question=question, selectedAnswer=selected_option)
+        response = StudentResponses.objects.update_or_create(attempt=attempt, question=question)[0]
+        response.selectedAnswer=selected_option
+        response.save()
 
     async def save_student_response(self, attempt_id, question_id, selected_option):
         await self.create_student_response(attempt_id, question_id, selected_option)
@@ -35,7 +36,6 @@ class QuizConsumer(AsyncWebsocketConsumer):
     def create_student_timerecord(self,test_id,student_id,timer):
         test =  TestDetails.objects.get(id=test_id)
         student = Students.objects.get(registrationNum=student_id)
-        score = 0
         update_value = StudentScores.objects.update_or_create(test=test,Student=student)[0]
         update_value.TimeRemaining = timer
         update_value.save()

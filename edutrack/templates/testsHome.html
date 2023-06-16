@@ -1,0 +1,250 @@
+{% extends 'base.html' %}
+{% block cssFiles %} 
+<link rel="stylesheet" href="/static/home.css">
+{% endblock %}
+{% block content %}
+<section id="title">
+    <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg navbar-dark">                
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
+            data-bs-target="#nav-tab" aria-controls="nav-tab" aria-expanded="false" 
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse nav nav-tabs" id="nav-tab" role="tablist">
+              <ul class="nav nav-tabs">
+                <li class="nav-item dropdown">
+                  <a class="nav-link" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"><i class="fa-solid fa-square-caret-down fa-xl"></i></a>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                    <li><a class="dropdown-item" href="{% url 'profHome' %}">Back To Home</a></li>
+                  </ul>
+                </li>
+              </ul>
+                <button class="nav-link active" id="nav-conducting-test-tab" data-bs-toggle="tab" data-bs-target="#nav-conducting-test" type="button" role="tab" aria-controls="nav-conducting-test" aria-selected="true"><i class="fa-sharp fa-solid fa-scroll"></i> Conducting Test</button>
+                <button class="nav-link" id="nav-tests-tab" data-bs-toggle="tab" data-bs-target="#nav-tests" type="button" role="tab" aria-controls="nav-tests" aria-selected="false"><i class="fa-solid fa-chalkboard-user"></i> All Tests</button>
+                <button class="nav-link" id="nav-alter-test-tab" data-bs-toggle="tab" data-bs-target="#nav-alter-test" type="button" role="tab" aria-controls="nav-alter-test" aria-selected="false"><i class="fa-solid fa-chalkboard-user"></i> Alter Test</button>
+              </div>
+            <a class="navbar-brand" href=""><img class="logo-img" src="/static/logo.png" alt="EduTrack" style="width:220px;height:12vh;" >
+            </a>
+        </nav>
+    </div>
+</section>
+
+<section class="middle-page">
+    <div class="tab-content" id="nav-tabContent">
+        
+       <!-- Conducting Test -->
+      <div class="card tab-pane fade show active" id="nav-conducting-test" role="tabpanel" aria-labelledby="nav-conducting-test-tab">
+        {% if messages %}
+          {% for message in messages %}
+            {% if 'TestNameExists' in message.tags or 'TestArranged' in message.tags or 'TestArrangeFailed' in message.tags %}
+              <script>
+                var message = "{{message}}";
+                alert(message);
+              </script>
+            {% endif%}
+          {% endfor %}
+        {% endif %}
+        <h2 style="margin-bottom:5%"><strong>Conducting Test<strong></h2>
+        <form action="" method='POST'>
+            {% csrf_token %}
+             <table class="table-body">
+              <tr class="table-row">
+                <td>Test Subject</td>
+                <td class="table-data">
+                <select class="input-field" name="subjectID" id="subjectID" required>
+                  <option value="" disabled selected >--Select subject--</option>
+                  {% for subject in subjects %}
+                  <option value="{{ subject.subjectID }}">{{ subject.subjectID }} - {{ subject.subjectName }}</option>
+                  {% endfor %}
+                </select>
+              </td>
+                </tr>
+                <tr class="table-row">
+                  <td><strong>Test Name</strong></td>
+                  <td class="table-data"><input class="input-field" type="text" name='testName' required/></td>
+                </tr>
+                <tr class="table-row">
+                    <td><strong>Number Of Questions</strong></td>
+                    <td class="table-data"><input class="input-field" type="number" name='numberOfQuestions' required/></td>
+                </tr>
+                <tr class="table-row">
+                    <td><strong>Test Date</strong></td>
+                    <td class="table-data"><input class="input-field" type="date" name='testDate' required/></td>
+                </tr>
+                <tr class="table-row">
+                    <td><strong>Test Start Time</strong></td>
+                    <td class="table-data"><input class="input-field" type="time" name='testStartTime' required/></td>
+                </tr>
+                <tr class="table-row">
+                    <td><strong>Test End Time</strong></td>
+                    <td class="table-data"><input class="input-field" type="time" name='testEndTime' required/></td>
+                </tr>
+               </table>
+            <button type="submit" class="btn-primary btn btn-lg submitBtn" name="set-test-btn" style="margin-top:2%;"><h5>Set The Paper</h5></button>
+        </form>
+      </div>
+
+            <!-- All Tests -->
+          <div class="tab-pane fade" id="nav-tests" role="tabpanel" aria-labelledby="nav-tests-tab">
+              <!-- Active Tests -->
+            {% if active_tests %}
+              <br><h2><b>Active Tests</b></h2>
+              <div class='row container'>
+              {% for d in active_tests %}        
+                <div class="col-sm-4 col-md-4 col-lg-4  border-0 rounded-0" >
+                  <div class="card shadow p-3 mb-5 bg-white rounded">
+                    <div class="card-body" style="background-color: #bcc8e09c; text-align: center;">
+                      <h4 class="card-title">{{d.testName}}</h4>
+                      <h5>{{ d.subjectID}}</h5>
+                      <p>{{ d.DateOfExam}}</p>
+                      <p>{{ d.StartTime}} to  {{ d.EndTime}}</p>
+                    </div>
+                  </div>
+                </div>
+              {% endfor %}
+              </div>
+            {% else %}
+              <div class="card"><h3><b>No Active Tests</b></h3></div>
+            {% endif %}
+      
+            <!-- Upcoming Tests-->  
+            {% if upcoming_tests %}
+              </br><h2><b>Upcoming Tests</b></h2>
+              <div class="row container">
+                {% for d in upcoming_tests %}
+                <div class="col-sm-4 col-md-4 col-lg-4 border-0 rounded-0">
+                  <div class="card shadow p-3 mb-5 bg-white rounded">
+                    <div class="card-body" style="text-align: center;">
+                      <h4 class="card-title">{{d.testName}}</h4>
+                      <h5>{{ d.subjectID}}</h5>
+                      <p>{{ d.DateOfExam}}</p>
+                      <p>{{ d.StartTime}} to  {{ d.EndTime}}</p>
+                    </div>
+                  </div>
+                </div>
+              {% endfor %}
+              </div>
+            {% else %}
+              <div class="card"><h3><b>No Upcoming Tests</b></h3></div>
+            {% endif %}
+          </div>
+
+      <!-- Alter Test -->
+      <div class="tab-pane fade" id="nav-alter-test" role="tabpanel" aria-labelledby="nav-alter-test-tab">
+        {% if messages %}
+           {% for message in messages %}
+             {% if 'TestDeleted' in message.tags or 'TestAltered' in message.tags or 'TestAlterFailed' in message.tags %}
+             <script>
+               var message = "{{message}}";
+               alert(message);
+             </script>
+             {% endif%}
+           {% endfor %}
+         {% endif %}
+         {% if prof_upcoming_tests %}
+         <table class="table table-bordered table-striped">
+           <thead>
+             <tr style="background-color: #0B2447; color: #fff;">
+               <th style="text-align:center;">Tests</th>
+               <th colspan="2" style="text-align:center;">Operations</th>
+             </tr>
+           </thead>
+           {% for prof_test in prof_upcoming_tests %}
+             <tr>
+              <td>       
+                      <div class="card-body" style="background-color: #bcc8e09c; text-align: center;">
+                        <h4 class="card-title">{{prof_test.testName}}</h4>
+                        <h5>{{ prof_test.subjectID}}</h5>
+                        <p>{{ prof_test.DateOfExam}}</p>
+                        <p>{{ prof_test.StartTime}} to  {{ prof_test.EndTime}}</p>
+                      </div>
+              </td>
+              <td><button class="test-btn" style="width: 100px;height: 40px;" data-action="alter" data-subject-id="{{prof_test.subjectID}}" data-test-name="{{prof_test.testName}}" data-number-of-questions="{{prof_test.numberOfQuestions}}" data-test-date="{{prof_test.DateOfExam|date:'Y-m-d'}}" data-test-start-time="{{prof_test.StartTime|time:'H:i' }}" data-test-end-time="{{prof_test.EndTime|time:'H:i' }}">Alter Test</button></td>
+              <td><form action="" method='POST'>
+              {% csrf_token %}
+              <input class="input-field" type="hidden" name="subjectID" value="{{prof_test.subjectID}}" readonly/>
+            <input class="input-field" type="hidden" name="testName" value="{{prof_test.testName}}" readonly/>
+            <button type="submit" class="test-btn" name="delete-test-btn" style="width: 100px;height: 40px;">Delete Test</button> </form></td>
+            </tr>
+            {% endfor %}
+          </table>
+         {% else %}
+         <h2><b>No tests to delete or alter..</b></h2>
+         {% endif %}
+        </div>
+
+</section>
+{% endblock %}
+{% block scripts %} 
+<script>
+  const testBtns = document.querySelectorAll('.test-btn');
+  testBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    // Remove previously inserted HTML code
+    clearInsertedHtml();
+    // retrieve the custom attribute values
+    const action = btn.getAttribute('data-action');
+    const subjectId = btn.getAttribute('data-subject-id');
+    const testName = btn.getAttribute('data-test-name');
+
+    if (action === 'alter') {
+
+    // Retrieve the custom attribute values
+    const numberOfQuestions = btn.getAttribute('data-number-of-questions');
+    const testDate = btn.getAttribute('data-test-date');
+    const testStartTime = btn.getAttribute('data-test-start-time');
+    const testEndTime = btn.getAttribute('data-test-end-time');
+
+    const newForm = document.createElement('form');
+    newForm.action = '';
+    newForm.method = 'POST';
+    newForm.innerHTML = `
+      {% csrf_token %}
+      <table class="table-body">
+        <tr class="table-row">
+          <td>Test Subject</td>
+          <td class="table-data"><input class="input-field" type="text" name="subjectID" value="${subjectId}" readonly/></td>
+        </tr>
+        <tr class="table-row">
+          <td><strong>Test Name</strong></td>
+          <td class="table-data"><input class="input-field" type="text" name="testName" value="${testName}" readonly/></td>
+        </tr>
+        <tr class="table-row">
+          <td><strong>Number Of Questions</strong></td>
+          <td class="table-data"><input class="input-field" type="number" name="numberOfQuestions" value="${numberOfQuestions}" required/></td>
+        </tr>
+        <tr class="table-row">
+          <td><strong>Test Date</strong></td>
+          <td class="table-data"><input class="input-field" type="date" name="testDate" value="${testDate}" required/></td>
+        </tr>
+        <tr class="table-row">
+          <td><strong>Test Start Time</strong></td>
+          <td class="table-data"><input class="input-field" type="time" name="testStartTime" value="${testStartTime}" required/></td>
+        </tr>
+        <tr class="table-row">
+          <td><strong>Test End Time</strong></td>
+          <td class="table-data"><input class="input-field" type="time" name="testEndTime" value="${testEndTime}" required/></td>
+        </tr>
+      </table>
+      <button type="submit" class="btn-primary btn btn-lg submitBtn" name="alter-test-btn" style="margin-top:2%;">
+        <h5>Alter test</h5>
+      </button>
+    `;
+    newForm.classList.add('inserted-html');
+    btn.parentNode.insertBefore(newForm, btn.nextSibling);
+    }
+  });
+});
+
+// Function to remove the previously inserted HTML code
+function clearInsertedHtml() {
+  let insertedElements = document.querySelectorAll('.inserted-html');
+  insertedElements.forEach(element => {
+    element.parentNode.removeChild(element);
+  });
+}
+</script>
+{% endblock %}
+

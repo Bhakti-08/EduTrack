@@ -1,0 +1,12 @@
+In distributed system each processor has its own ___________ .,a) local memory,b) clock,c) both local memory and clock,d) none of the mentioned,c
+If one site fails in distributed system then ___________ .,a) the remaining sites can continue operating,b) all the sites will stop working,c) directly connected sites will stop working,d) none of the mentioned,a
+Network operating system runs on ___________ .,a) server,b) every system in the network,c) both server and every system in the network,d) none of the mentioned,a
+Which technique is based on compile-time program transformation for accessing remote data in a distributed-memory parallel system?,a) cache coherence scheme,b) computation migration,c) remote procedure call,d) message passing,b
+Logical extension of computation migration is ___________ .,a) process migration,b) system migration,c) thread migration,d) data migration,a
+Processes on the remote systems are identified by ___________ .,a) host ID,b) host name and identifier,c) identifier,d) process ID,b
+Which routing technique is used in a distributed system?,a) fixed routing,b) virtual routing,c) dynamic routing,d) all of the mentioned,d
+In distributed systems link and site failure is detected by ___________ .,a) polling,b) handshaking,c) token passing,d) none of the mentioned,b
+The capability of a system to adapt the increased service load is called ___________ .,a) scalability,b) tolerance,c) capacity,d) none of the mentioned,a
+Internet provides _______ for remote login.,a) telnet,b) http,c) ftp,d) rpc,a
+What is not true about a distributed system?,a) It is a collection of processor,b) All processors are synchronized,c) They do not share memory,d) None of the mentioned,b
+What are the characteristics of a distributed file system?,a) Its users and servers and storage devices are dispersed,b) Service activity is not carried out across the network,c) They have single centralized data repository,d) There are multiple dependent storage devices,a

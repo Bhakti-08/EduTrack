@@ -30,10 +30,6 @@ h5{
     color: #fff;
 }
 
-.nav-item{
-    padding: 0 18px;
-}
-
 /* Registraion Form */
 
 #registration-form{
@@ -48,7 +44,7 @@ h5{
     padding: 5% 2% 5% 2%;
     margin: 5% auto;
     text-align: center;
-    background-color: #fff;    
+    background-color: #fff;
     box-shadow: 4px 3px 8px #666666;
 }
 

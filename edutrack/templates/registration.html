@@ -1,301 +1,245 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta name="viewport" , content="with =device-width, initial-scale=1.0" />
-    
-    <!-- CSS -->
+{% extends 'base.html' %}
+{% block cssFiles %}
+<link rel="stylesheet" href="/static/registration.css">
+{% endblock %}
+{% block content %}
+<section id="title">
+    <div class="container-fluid">
 
-    <link rel="stylesheet" href="/static/registration.css">
-
-    <link rel="icon" href="/static/icon.ico">
-    <title>EduTrack</title>
-
-    <!-- Google Font Adding -->
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Ubuntu:ital,wght@0,400;1,700&display=swap" rel="stylesheet">
-    
-    <!-- Bootstrap -->
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" 
-      rel="stylesheet" 
-      integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" 
-      crossorigin="anonymous">
-
-
-      <!--Font Awesome-->
-
-      <link rel="stylesheet" 
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" 
-      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" 
-      crossorigin="anonymous" 
-      referrerpolicy="no-referrer" />
-
-    <!-- JS -->
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" 
-      integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" 
-      crossorigin="anonymous"></script>
-
-    <meta charset="UTF-8" />
-  </head>
-
-  <body>
-    <section id="title">
-      <div class="container-fluid">
-
-        <!-- Nav Bar -->
-        <nav class="navbar navbar-expand-lg navbar-dark">
-            <button class="navbar-toggler" 
-            type="button" 
-            data-bs-toggle="collapse" 
-            data-bs-target="#nav-tab" 
-            aria-controls="nav-tab" 
-            aria-expanded="false" 
-            aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-            </button>
-            <ul class="nav nav-tabs">
-              <li class="nav-item dropdown">
-                <a class="nav-link" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"><i class="fa-solid fa-square-caret-down fa-xl"></i></a>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="{% url 'login' %}">Login</a></li>
-                </ul>
-              </li>
-            </ul>
-            <div class="collapse navbar-collapse nav nav-tabs" id="nav-tab" role="tablist">
-                <button class="nav-link active" id="nav-student-tab" data-bs-toggle="tab" data-bs-target="#nav-student" type="button" role="tab" aria-controls="nav-student" aria-selected="true"><i class="fa-solid fa-user-graduate"></i> For Student</button>
-                <button class="nav-link" id="nav-professor-tab" data-bs-toggle="tab" data-bs-target="#nav-professor" type="button" role="tab" aria-controls="nav-professor" aria-selected="false"><i class="fa-solid fa-chalkboard-user"></i> For Professor</button>
-                <button class="nav-link" id="nav-hod-tab" data-bs-toggle="tab" data-bs-target="#nav-hod" type="button" role="tab" aria-controls="nav-hod" aria-selected="false"><i class="fa-solid fa-user-tie"></i> For HOD</button>
-            </div>
-            <a class="navbar-brand" href=""><img class="logo-img" src="/static/logo.png" alt="EduTrack" style="width:220px;height:12vh;"></a>
-        </nav>
-    </div>
-    </section>
-
-    <!-- Registration Form-->
-    <section id="registration-form">
-      <div class="tab-content" id="nav-tabContent">
-
-        <!-- Student Registration Form -->
-
-        <div class="card student-form tab-pane fade show active" id="nav-student" role="tabpanel" aria-labelledby="nav-student-tab">
-          {% if messages %}
-                {% for message in messages %}
-                  {% if 'FailedToRegisterStud' in message.tags or 'badpassword' in message.tags %}
-            <script>
-              var message = "{{message}}";
-              alert(message);
-            </script>
-             {% endif%}
-          {% endfor %}
-          {% endif %}
-            <form action="" method='POST'>
-                {% csrf_token %}
-                <h5>IT'S TIME TO KNOW ABOUT YOU</h5>
-                <img class="hii" src="https://em-content.zobj.net/source/noto-emoji-animations/344/smiling-face-with-halo_1f607.gif">
-                 <h2><b>Tell Us About Yourself</b></h2></br>
-                 <h5>What's your first name?</h5>
-                 <input class="input-field" type="text" name='fname' autocomplete="off" required/></br></br>
-                 <h5>How about your last name?</h5>
-                 <input class="input-field" type="text" name='lname' autocomplete="off" required/></br></br>
-                 <h5>Gender</h5>
-                 <input type="radio" name="gender" id="male" value="male" required /><label for="male"><h5>Male</h5></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <input type="radio" name="gender" id="female" value="female" required /><label for="female"><h5>Female</h5></label></br></br>
-                 <h5>Which college are you a student at?</h5> 
-                 <select class="input-field" name="college" id="college" required>
-                    <option>Select Your College</option>
-                    <option value="Shri Guru Gobind Singhji Institute of Engineering and Technology (SGGSIET), Nanded">Shri Guru Gobind Singhji Institute of Engineering and Technology (SGGSIET), Nanded</option>
-                    <option value="Other">Other</option>
-                  </select></br></br>
-                 <h5>Which branch do you belong to?</h5> 
-                 <select class="input-field" name="branch" id="branch" required>
-                  <option value="">-- Select Your Branch --</option>
-                  {% for branch in branches %}
-                  <option value="{{ branch.branch }}">{{ branch.branch }}</option>
-                  {% endfor %}
-                 </select></br></br>
-                 <h5>What is your registration number?</h5>
-                 <input class="input-field" type="text" name='registrationNum' autocomplete="off" required/></br></br>
-                 <h5>What is your email address?</h5>
-                 <input class="input-field" type="email" name='email' autocomplete="off" required/></br></br>
-                 <h5>Choose a password</h5>
-                 <input class="input-field" type="text" name='password1' autocomplete="off" required/></br></br>
-                 <h5>Confirm new password</h5>
-                 <input class="input-field" type="password" name='password2' autocomplete="off" required/></br></br>
-                <button type="submit" class="btn-primary btn btn-lg" name="student-registration"><h5>Register Me</h5><!--a class="btn reg-btn display-block padding-x-2xl tablet:display-inline-bloack tablet:margin-x-sm">Register Me</a--></button>
-            </form>
+      <!-- Nav Bar -->
+      <nav class="navbar navbar-expand-lg navbar-dark">
+          <button class="navbar-toggler" 
+          type="button" 
+          data-bs-toggle="collapse" 
+          data-bs-target="#nav-tab" 
+          aria-controls="nav-tab" 
+          aria-expanded="false" 
+          aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+          </button>
+          <ul class="nav nav-tabs">
+            <li class="nav-item dropdown">
+              <a class="nav-link" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"><i class="fa-solid fa-square-caret-down fa-xl"></i></a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="{% url 'login' %}">Login</a></li>
+              </ul>
+            </li>
+          </ul>
+          <div class="collapse navbar-collapse nav nav-tabs" id="nav-tab" role="tablist">
+            <button class="nav-link active" id="nav-student-tab" data-bs-toggle="tab" data-bs-target="#nav-student" type="button" role="tab" aria-controls="nav-student" aria-selected="true"><i class="fa-solid fa-user-graduate"></i> For Student</button>
+            <button class="nav-link" id="nav-professor-tab" data-bs-toggle="tab" data-bs-target="#nav-professor" type="button" role="tab" aria-controls="nav-professor" aria-selected="false"><i class="fa-solid fa-chalkboard-user"></i> For Professor</button>
+            <button class="nav-link" id="nav-hod-tab" data-bs-toggle="tab" data-bs-target="#nav-hod" type="button" role="tab" aria-controls="nav-hod" aria-selected="false"><i class="fa-solid fa-user"></i></i> For HOD</button>
+            <button class="nav-link" id="nav-director-tab" data-bs-toggle="tab" data-bs-target="#nav-director" type="button" role="tab" aria-controls="nav-director" aria-selected="false"><i class="fa-solid fa-user-tie"></i> For Director</button>
           </div>
-      
-          <!-- Professor Registration Form -->
+          <a class="navbar-brand" href=""><img class="logo-img" src="/static/logo.png" alt="EduTrack" style="width:220px;height:12vh;"></a>
+      </nav>
+  </div>
+  </section>
 
-          <div class="card professor-form tab-pane fade" id="nav-professor" role="tabpanel" aria-labelledby="nav-professor-tab">
-            {% if messages %}
-                {% for message in messages %}
-                  {% if 'FailedToRegisterProf' in message.tags or 'badpassword' in message.tags %}
-            <script>
-              var message = "{{message}}";
-              alert(message);
-            </script>
-             {% endif%}
-          {% endfor %}
-          {% endif %}
-              <form action="" method='POST'>
-                {% csrf_token %}
-                <h5>IT'S TIME TO KNOW ABOUT YOU</h5>
-                <img class="hii" src="https://em-content.zobj.net/source/noto-emoji-animations/344/smiling-face-with-halo_1f607.gif">
-                 <h2><b>Tell Us About Yourself</b></h2></br>
-                 <h5>What is your First name?</h5>
-                 <input class="input-field" type="text" autocomplete="off" name='fname' required/></br></br>
-                 <h5>What is your Last name?</h5>
-                 <input class="input-field" type="text" autocomplete="off" name='lname'required/></br></br>
-                  <h5>Gender</h5>
-                  <input type="radio" name="gender" id="male" value="male" required /><label for="male"><h5>Male</h5></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <input type="radio" name="gender" id="female" value="female" required /><label for="female"><h5>Female</h5></label></br></br>
-                 <h5>In which college are you teaching?</h5> 
-                 <select class="input-field" name="college" id="college" required>
-                    <option>Select Your College</option>
-                    <option value="Shri Guru Gobind Singhji Institute of Engineering and Technology (SGGSIET), Nanded">Shri Guru Gobind Singhji Institute of Engineering and Technology (SGGSIET), Nanded</option>
-                    <option value="Other">Other</option>
-                  </select></br></br>
-                 <h5>Which department do you belong to?</h5> 
-                 <select class="input-field" name="department" id="department-dropdown" required>
-                  <option value="">-- Select Your Department --</option>
-                  {% for branch in branches %}
-                  <option value="{{ branch.branch }}">{{ branch.branch }}</option>
-                  {% endfor %}
-                 </select></br></br>
-                 {% comment %}
-                 <h5>Which subject do you teach?</h5> 
-                 <input class="input-field" type="text" autocomplete="off" name='subjectID' required></br></br>
-                  <select class="input-field" name="subject" id="subject-dropdown">
-                     <option>-- Select Subject --</option>
-                     {% for subject in subjects %}
-                        if(department-dropdown.value === {{subject.branch}}){
-                        <option value="{{ subject.subjectID }}" >{{ subject.subjectName }} - {{ subject.subjectID }}</option>
-                        {% empty %}
-                        <option value="" disabled>-- No Subjects Found --</option>
-                      }
-                     {% endfor %} 
-                 </select></br></br> {% endcomment %}
+  <!-- Registration Form-->
+  <section id="registration-form">
+    <div class="tab-content" id="nav-tabContent">
 
-                     
-                 
-                     <!--<script>
-                      const dropdown1 = document.getElementById('department-dropdown');
-                      const dropdown2 = document.getElementById('subject-dropdown');
-                    
-                      dropdown1.addEventListener('change', () => {
-                        // clear previous options in dropdown2
-                        dropdown2.innerHTML = '<option value="">Select an option</option>';
-                        {% for subject in subjects %}
-                        // add new options to dropdown2 based on the selected option in dropdown1
-                        if (dropdown1.value === {{subject.branch}}) {
-                          dropdown2.innerHTML += `
-                          <option value="{{ subject.subjectID }}">{{ subject.subjectID }} - {{ subject.subjectName }}</option>
-                          `;
-                        } 
-                        {% endfor %}
-                      });
-                    </script>-->
-                 
-                 <h5>What is your email address?</h5>
-                 <input class="input-field" type="email" name='email' autocomplete="off" required/></br></br>
-                 <h5>Choose a password</h5>
-                 <input class="input-field" type="text" name='password1' autocomplete="off" required/></br></br>
-                 <h5>Confirm new password</h5>
-                 <input class="input-field" type="password" name='password2' autocomplete="off" required/></br></br>
-                <button type="submit" class="btn-primary btn btn-lg" name="professor-registration"><h5>Register Me</h5><!--a class="btn reg-btn display-block padding-x-2xl tablet:display-inline-bloack tablet:margin-x-sm">Register Me</a--></button>
-             </form>
-          </div>
+      <!-- Student Registration Form -->
 
-          <!-- HOD Registration Form -->
-
-          <div class="card hod-form tab-pane fade" id="nav-hod" role="tabpanel" aria-labelledby="nav-hod-tab">
-            {% if messages %}
-                {% for message in messages %}
-                  {% if 'FailedToRegisterHOD' in message.tags or 'badpassword' in message.tags %}
-            <script>
-              var message = "{{message}}";
-              alert(message);
-            </script>
-             {% endif%}
-          {% endfor %}
-          {% endif %}
-            <form action="" method='POST'>
+      <div class="card student-form tab-pane fade show active" id="nav-student" role="tabpanel" aria-labelledby="nav-student-tab">
+        {% if messages %}
+              {% for message in messages %}
+                {% if 'UserExist' in message.tags or 'WrongEmailId' in message.tags or 'FailedToRegisterStud' in message.tags or 'FailedToRegisterProf' in message.tags or 'badpassword' in message.tags or 'FailedToRegisterDirector' in message.tags or 'NotADirector' in message.tags or 'FailedToRegisterHOD' in message.tags or 'NotAssignedHOD' in message.tags or 'BranchNotFound' in message.tags or 'CollegeNotFound' in message.tags %}
+          <script>
+            var message = "{{message}}";
+            alert(message);
+          </script>
+           {% endif%}
+        {% endfor %}
+        {% endif %}
+          <form action="" method='POST'>
               {% csrf_token %}
               <h5>IT'S TIME TO KNOW ABOUT YOU</h5>
               <img class="hii" src="https://em-content.zobj.net/source/noto-emoji-animations/344/smiling-face-with-halo_1f607.gif">
                <h2><b>Tell Us About Yourself</b></h2></br>
-               <h5>What is your good name?</h5>
-               <input class="input-field" type="text" name='name' autocomplete="off" required/></br></br>
+               <h5>What's your first name?</h5>
+               <input class="input-field" type="text" name='fname' autocomplete="off" required/></br></br>
+               <h5>How about your last name?</h5>
+               <input class="input-field" type="text" name='lname' autocomplete="off" required/></br></br>
                <h5>Gender</h5>
-                <input type="radio" name="gender" id="male" value="male" required /><label for="male"><h5>Male</h5></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <input type="radio" name="gender" id="female" value="female" required /><label for="female"><h5>Female</h5></label></br></br>
-              <h5>Which college are you the HOD?</h5> 
-               <select class="input-field" name="college" id="college" required>
-                  <option>Select Your College</option>
-                  <option value="Shri Guru Gobind Singhji Institute of Engineering and Technology (SGGSIET), Nanded">Shri Guru Gobind Singhji Institute of Engineering and Technology (SGGSIET), Nanded</option>
-                  <option value="Other">Other</option>
-                </select></br></br>
-               <h5>Which department do you belong to?</h5> 
-               <select class="input-field" name="branch" id="branch" required>
-                  <option>--Select Your Department--</option>
-                  {% for branch in branches %}
-                  <option value="{{ branch.branch }}">{{ branch.branch }}</option>
+               <input type="radio" name="gender" value="male" required /><label for="male"><h5>Male</h5></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="radio" name="gender" value="female" required /><label for="female"><h5>Female</h5></label></br></br>
+               <h5>Which college are you a student at?</h5> 
+               <select class="input-field" name="college" id="stud_college" required>
+                  <option value="" disabled selected>--Select Your College--</option>
+                  {% for college in colleges %}
+                    <option value="{{ college.name }}">{{ college.name }}</option>
                   {% endfor %}
                 </select></br></br>
+               <h5>Which branch do you belong to?</h5> 
+               <select class="input-field" name="branch" id="stud_branch" required>
+                <option value="" disabled selected>-- Select Your Branch --</option>
+                {% for branch in branches %}
+                  <option value="{{ branch.branch }}">{{ branch.branch }}</option>
+                {% endfor %}
+               </select></br></br>
+               <h5>What is your registration number?</h5>
+               <input class="input-field" type="text" name='registrationNum' autocomplete="off" required/></br></br>
                <h5>What is your email address?</h5>
                <input class="input-field" type="email" name='email' autocomplete="off" required/></br></br>
                <h5>Choose a password</h5>
                <input class="input-field" type="text" name='password1' autocomplete="off" required/></br></br>
                <h5>Confirm new password</h5>
                <input class="input-field" type="password" name='password2' autocomplete="off" required/></br></br>
-              <button type="submit" class="btn-primary btn btn-lg" name="hod-registration"><h5>Register Me</h5><!--a class="btn reg-btn display-block padding-x-2xl tablet:display-inline-bloack tablet:margin-x-sm">Register Me</a--></button>
+              <button type="submit" class="btn-primary btn btn-lg" name="student-registration"><h5>Register Me</h5><!--a class="btn reg-btn display-block padding-x-2xl tablet:display-inline-bloack tablet:margin-x-sm">Register Me</a--></button>
+          </form>
+        </div>
+    
+        <!-- Professor Registration Form -->
+
+        <div class="card professor-form tab-pane fade" id="nav-professor" role="tabpanel" aria-labelledby="nav-professor-tab">
+            <form action="" method='POST'>
+              {% csrf_token %}
+              <h5>IT'S TIME TO KNOW ABOUT YOU</h5>
+              <img class="hii" src="https://em-content.zobj.net/source/noto-emoji-animations/344/smiling-face-with-halo_1f607.gif">
+               <h2><b>Tell Us About Yourself</b></h2></br>
+               <h5>What is your First name?</h5>
+               <input class="input-field" type="text" autocomplete="off" name='fname' required/></br></br>
+               <h5>What is your Last name?</h5>
+               <input class="input-field" type="text" autocomplete="off" name='lname'required/></br></br>
+                <h5>Gender</h5>
+                <input type="radio" name="gender" value="male" required /><label for="male"><h5>Male</h5></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="radio" name="gender" value="female" required /><label for="female"><h5>Female</h5></label></br></br>
+               <h5>In which college are you teaching?</h5> 
+               <select class="input-field" name="college" id="prof_college" required>
+                  <option value="" disabled selected>--Select Your College--</option>
+                  {% for college in colleges %}
+                    <option value="{{ college.name }}">{{ college.name }}</option>
+                  {% endfor %}
+                </select></br></br>
+               <h5>Which department do you belong to?</h5> 
+               <select class="input-field" name="branch" id="prof_branch" required>
+                <option value="" disabled selected>-- Select Your Department --</option>
+              </select></br></br>               
+               <h5>What is your email address?</h5>
+               <input class="input-field" type="email" name='email' autocomplete="off" required/></br></br>
+               <h5>Choose a password</h5>
+               <input class="input-field" type="text" name='password1' autocomplete="off" required/></br></br>
+               <h5>Confirm new password</h5>
+               <input class="input-field" type="password" name='password2' autocomplete="off" required/></br></br>
+              <button type="submit" class="btn-primary btn btn-lg" name="professor-registration"><h5>Register Me</h5><!--a class="btn reg-btn display-block padding-x-2xl tablet:display-inline-bloack tablet:margin-x-sm">Register Me</a--></button>
            </form>
         </div>
 
+        <!-- HOD Registration Form -->
+
+        <div class="card hod-form tab-pane fade" id="nav-hod" role="tabpanel" aria-labelledby="nav-hod-tab">
+          <form action="" method='POST'>
+            {% csrf_token %}
+            <h5>IT'S TIME TO KNOW ABOUT YOU</h5>
+            <img class="hii" src="https://em-content.zobj.net/source/noto-emoji-animations/344/smiling-face-with-halo_1f607.gif">
+             <h2><b>Tell Us About Yourself</b></h2></br>
+             <h5>What is your good name?</h5>
+             <input class="input-field" type="text" name='name' autocomplete="off" required/></br></br>
+             <h5>Gender</h5>
+              <input type="radio" name="gender" value="male" required /><label for="male"><h5>Male</h5></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <input type="radio" name="gender" value="female" required /><label for="female"><h5>Female</h5></label></br></br>
+            <h5>Which college are you the HOD?</h5> 
+             <select class="input-field" name="college" id="hod_college" required>
+                <option value="" disabled selected>--Select Your College--</option>
+                {% for college in colleges %}
+                  <option value='{{ college.name }}'>{{ college.name }}</option>
+                {% endfor %}
+              </select></br></br>
+             <h5>Which department do you belong to?</h5> 
+             <select class="input-field" name="branch" id="hod_branch" required>
+                <option value="" disabled selected>--Select Your Department--</option>
+              </select></br></br>
+             <h5>What is your email address?</h5>
+             <input class="input-field" type="email" name='email' autocomplete="off" required/></br></br>
+             <h5>Choose a password</h5>
+             <input class="input-field" type="text" name='password1' autocomplete="off" required/></br></br>
+             <h5>Confirm new password</h5>
+             <input class="input-field" type="password" name='password2' autocomplete="off" required/></br></br>
+            <button type="submit" class="btn-primary btn btn-lg" name="hod-registration"><h5>Register Me</h5><!--a class="btn reg-btn display-block padding-x-2xl tablet:display-inline-bloack tablet:margin-x-sm">Register Me</a--></button>
+         </form>
       </div>
-    </section>
-    
-    <!-- Contact -->
 
-    <section class="footer" id="footer">
+      <!-- Director Registration Form -->
 
-      <div class="credit">© created by</div>
-
-      <div class="container">
-        <div class="row">
-
-          <div class="col-sm" style="padding-bottom: 2rem">
-            <h3><i class="fa-solid fa-user"></i><strong> Bhakti Phatale </strong></h3>
-              <i class="fas fa-phone"></i> +91 9158417000</br>
-              <i class="fas fa-envelope"></i> 2019bcs031@sggs.ac.in</br>
-              <i class="fas fa-map-marker-alt"></i> Nanded, india - 431604    
-              <p>Follow me on</p>
-                <a href="https://www.twitter.com/" class="social-icons"><i class="fa-brands fa-twitter fa-xl"></i></a>
-                <a href="https://www.facebook.com/" class="social-icons"><i class="fa-brands fa-facebook fa-xl"></i></a>
-                <a href="https://www.instagram.com/" class="social-icons"><i class="fa-brands fa-instagram fa-xl"></i></a>
-                <a href="https://www.linkedin.com/in/bhakti-phatale-7550311bb/" class="social-icons"><i class="fa-brands fa-linkedin fa-xl"></i></a>
-          </div>
-           
-          <div class="col-sm" style="padding-bottom: 2rem">
-            <h3><i class="fa-solid fa-user"></i><strong> Sakshi Kwatikwar </strong></h3>
-              <i class="fas fa-phone"></i> +91 7030400161</br>
-              <i class="fas fa-envelope"></i> 2019bcs037@sggs.ac.in</br>
-              <i class="fas fa-map-marker-alt"></i> Nanded, india - 431606  
-              <p>Follow me on</p>
-                <a href="https://www.twitter.com/" class="social-icons"><i class="fa-brands fa-twitter fa-xl"></i></a>
-                <a href="https://www.facebook.com/" class="social-icons"><i class="fa-brands fa-facebook fa-xl"></i></a>
-                <a href="https://www.instagram.com/" class="social-icons"><i class="fa-brands fa-instagram fa-xl"></i></a>
-                <a href="https://www.linkedin.com//" class="social-icons"><i class="fa-brands fa-linkedin fa-xl"></i></a>
-          </div>
-
-        </div>
+      <div class="card director-form tab-pane fade " id="nav-director" role="tabpanel" aria-labelledby="nav-director-tab">
+        <form action="" method='POST'>
+          {% csrf_token %}
+          <h5>IT'S TIME TO KNOW ABOUT YOU</h5>
+          <img class="hii" src="https://em-content.zobj.net/source/noto-emoji-animations/344/smiling-face-with-halo_1f607.gif">
+           <h2><b>Tell Us About Yourself</b></h2></br>
+           <h5>What is your good name?</h5>
+           <input class="input-field" type="text" name='name' autocomplete="off" required/></br></br>
+           <h5>Gender</h5>
+            <input type="radio" name="gender" value="male" required /><label for="male"><h5>Male</h5></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="radio" name="gender" value="female" required /><label for="female"><h5>Female</h5></label></br></br>
+          <h5>What is your college name ?</h5> 
+           <select class="input-field" name="college" id="college" required>
+              <option value="" disabled selected>--Select Your College--</option>
+              {% for college in colleges %}
+                <option value="{{ college.name }}">{{ college.name }}</option>
+              {% endfor %}
+            </select></br></br>
+           <h5>What is your email address?</h5>
+           <input class="input-field" type="email" name='email' autocomplete="off" required/></br></br>
+           <h5>Choose a password</h5>
+           <input class="input-field" type="text" name='password1' autocomplete="off" required/></br></br>
+           <h5>Confirm new password</h5>
+           <input class="input-field" type="password" name='password2' autocomplete="off" required/></br></br>
+          <button type="submit" class="btn-primary btn btn-lg" name="director-registration"><h5>Register Me</h5>
+        </form>
       </div>
-  
+
+    </div>
   </section>
-
-</body>
-</html>
+{% endblock %}
+{% block scripts %}
+<script>
+document.getElementById('stud_college').addEventListener('change', function() {
+    var collegename = this.value;
+    var branchDropdown = document.getElementById('stud_branch');
+    branchDropdown.innerHTML = '<option value="" disabled selected>-- Select Your Branch --</option>';
+    if (collegename) {
+      {% for branch in branches %}
+      if (collegename === '{{ branch.college.name }}') {
+          var option = document.createElement('option');
+          option.value = "{{ branch.branch }}";
+          option.text = "{{ branch.branch }}";
+          branchDropdown.appendChild(option);
+      }
+      {% endfor %}
+  }
+});
+document.getElementById('prof_college').addEventListener('change', function() {
+var collegename = this.value;
+var branchDropdown = document.getElementById('prof_branch');
+branchDropdown.innerHTML = '<option value="" disabled selected>-- Select Your Department --</option>';
+if (college.name) {
+  {% for branch in branches %}
+  if (collegename === '{{ branch.college.name }}') {
+      var option = document.createElement('option');
+      option.value = "{{ branch.branch }}";
+      option.text = "{{ branch.branch }}";
+      branchDropdown.appendChild(option);
+  }
+  {% endfor %}
+}
+});
+document.getElementById('hod_college').addEventListener('change', function() {
+var collegename = this.value;
+var branchDropdown = document.getElementById('hod_branch');
+branchDropdown.innerHTML = '<option value="" disabled selected >-- Select Your Department --</option>';
+if (collegename) {
+  {% for branch in branches %}
+  if (collegename === '{{ branch.college.name }}') {
+      var option = document.createElement('option');
+      option.value = "{{ branch.branch }}";
+      option.text = "{{ branch.branch }}";
+      branchDropdown.appendChild(option);
+  }
+  {% endfor %}
+}
+});
+</script>
+ {% endblock %}

@@ -1,0 +1,229 @@
+{% extends 'base.html' %}
+{% block cssFiles %} 
+<link rel="stylesheet" href="/static/home.css">
+{% endblock %}
+{% block content %}
+<section id="title">
+    <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg navbar-dark">               
+            <button class="navbar-toggler" 
+            type="button" 
+            data-bs-toggle="collapse" 
+            data-bs-target="#nav-tab" 
+            aria-controls="nav-tab" 
+            aria-expanded="false" 
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse nav nav-tabs" id="nav-tab" role="tablist">
+              <ul class="nav nav-tabs">
+                <li class="nav-item dropdown">
+                  <a class="nav-link" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"><i class="fa-solid fa-square-caret-down fa-xl"></i></a>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                    </ul>
+                </li>
+              </ul>
+              <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true"><i class="fa-solid fa-house"></i> Home</button>
+              <button class="nav-link" id="nav-add-hod-tab" data-bs-toggle="tab" data-bs-target="#nav-add-hod" type="button" role="tab" aria-controls="nav-add-hod" aria-selected="false"><i class="fa-solid fa-user"></i> Add HOD</button>
+              <button class="nav-link" id="nav-change-hod-tab" data-bs-toggle="tab" data-bs-target="#nav-change-hod" type="button" role="tab" aria-controls="nav-change-hod" aria-selected="false"><i class="fa-solid fa-user"></i> Change HOD</button>
+              <button class="nav-link" id="nav-remove-department-tab" data-bs-toggle="tab" data-bs-target="#nav-remove-department" type="button" role="tab" aria-controls="nav-remove-department" aria-selected="false"><i class="fa-solid fa-chalkboard-user"></i> Remove Department</button>
+              <button class="nav-link" id="nav-change-semister-tab" data-bs-toggle="tab" data-bs-target="#nav-change-semister" type="button" role="tab" aria-controls="nav-change-semister" aria-selected="false"><i class="fa-solid fa-chalkboard-user"></i> Change Semister Months</button>
+              <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="fa-solid fa-user-tie"></i> About Me</button>
+              <button class="nav-link" id="nav-profile-update-tab" data-bs-toggle="tab" data-bs-target="#nav-profile-update" type="button" role="tab" aria-controls="nav-profile-update" aria-selected="false"><i class="fa-solid fa-user-tie"></i> Update Profile</button>
+            </div>
+            <a class="navbar-brand" href=""><img class="logo-img" src="/static/logo.png" alt="EduTrack" style="width:220px;height:12vh;" >
+            </a>
+        </nav>
+    </div>
+</section>
+
+<section class="middle-page" style="min-height:40rem; background-color: #e3f1f6;align-items: center;">
+    <div class="tab-content" id="nav-tabContent">
+      <!-- Home -->
+      <div class="home-content tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+        {% if branches %}
+        <table class="table table-bordered table-striped table-hover">
+          <thead>
+            <tr style="background-color: #0B2447; color: #fff;">
+              <th>DEPARTMENT</th>
+              <th>EMAIL ID OF HEAD OF DEPARTMENT </th>
+            </tr>
+          </thead>
+        {% for branch in branches %}
+        <tr>  
+        <td><h4><strong>{{branch.branch}}</strong></h4></td>
+        <td><h4><strong>{{branch.hodemail}}</strong></h4></td>
+        </tr>
+        {% endfor %}
+        </table>
+        {% else %}
+          <h2><b>Departments are not added yet.</b></h2>
+        {% endif%}
+      </div>
+
+      <!-- Add HOD -->
+      <div class="add-hod-content tab-pane fade card" id="nav-add-hod" role="tabpanel" aria-labelledby="nav-add-hod-tab">
+        {% if messages %}
+            {% for message in messages %}
+            {% if 'WrongEmailId' in message.tags or 'AddHODFailed' in message.tags or 'AddedHOD' in message.tags or 'ExistingHOD' in message.tags %}
+        <script>
+          var message = "{{message}}";
+          alert(message);
+        </script> 
+        {% endif%}
+       {% endfor %}
+       {% endif %}  
+        <form action="" method='POST'>
+          {% csrf_token %}
+          <table class="table-body">
+              <tr class="table-row">
+                <td><strong>Department Name</strong></td>
+                <td class="table-data"><input class="input-field" type="text" name='branchName' required/></td>
+              </tr>
+              <tr class="table-row">
+                  <td><strong>Email ID of Head of Department</strong></td>
+                  <td class="table-data"><input class="input-field" type="text" name='hodemail' required/></td>
+              </tr>
+            </table>
+          <button type="submit" class="btn-primary btn btn-lg submitBtn" name="add-hod-btn" style="margin-top:2%;"><h5>Add Head of Department</h5></button>          
+        </form>
+      </div>
+
+      <!-- Change HOD -->
+      <div class="change-hod-content tab-pane fade card" id="nav-change-hod" role="tabpanel" aria-labelledby="nav-change-hod-tab">
+        {% if messages %}
+            {% for message in messages %}
+            {% if 'ChangedHOD' in message.tags or 'AlreadyAssighedHOD' in message.tags %}
+        <script>
+          var message = "{{message}}";
+          alert(message);
+        </script> 
+        {% endif%}
+       {% endfor %}
+       {% endif %}  
+        <form action="" method='POST'>
+          {% csrf_token %}
+              <tr class="table-row">
+                <td><strong>Department Name</strong></td>
+                <td class="table-data"><select class="input-field" name='branchName' id='branchName' required>
+                  <option value="" disabled selected >--Select department--</option>
+                  {% for branch in branches %}
+                  <option value="{{ branch.branch.branch }}">{{ branch.branch.branch }}</option>
+                  {% endfor %}
+                </select></td>
+              </tr>
+              <tr class="table-row">
+                  <td><strong>Email ID of Head of Department</strong></td>
+                  <td class="table-data"><input class="input-field" type="text" name='hodemail' required/></td>
+              </tr>
+            </table>
+          <button type="submit" class="btn-primary btn btn-lg submitBtn" name="change-hod-btn" style="margin-top:2%;"><h5>Change Head of Department</h5></button>          
+        </form>
+      </div>
+
+      <!-- Remove Department -->
+      <div class="remove-department-content tab-pane fade card" id="nav-remove-department" role="tabpanel" aria-labelledby="nav-remove-department-tab">
+        {% if messages %}
+            {% for message in messages %}
+            {% if 'DepartmentRemoved' in message.tags %}
+        <script>
+          var message = "{{message}}";
+          alert(message);
+        </script> 
+        {% endif%}
+       {% endfor %}
+       {% endif %}  
+       
+        <form action="" method='POST'>
+          {% csrf_token %}
+            <table>
+              <tr class="table-row">
+                <td><strong>Department Name</strong></td>
+                <td class="table-data"><select class="input-field" name="branchName" id="branchName" required>
+                  <option value="" disabled selected >--Select department--</option>
+                  {% for branch in branches %}
+                  <option value="{{ branch.branch.branch }}">{{ branch.branch.branch }}</option>
+                  {% endfor %}
+                </select></td>
+              </tr>
+            </table>
+          <button type="submit" class="btn-primary btn btn-lg submitBtn" name="remove-department-btn" style="margin-top:2%;"><h5>Remove Department</h5></button>          
+        </form>
+      </div>
+      <!-- Change Semister end date and time -->
+      <div class="change-semister tab-pane fade card" id="nav-change-semister" role="tabpanel" aria-labelledby="nav-change-semister-tab">
+        {% if messages %}
+            {% for message in messages %}
+            {% if 'SemDurationChanged' in message.tags %}
+        <script>
+          var message = "{{message}}";
+          alert(message);
+        </script> 
+        {% endif%}
+       {% endfor %}
+       {% endif %}   
+        <form action="" method="POST">
+          {% csrf_token %}
+          <table class="table-body">
+            <tr class="table-row">
+              <td><strong>First Semister End Date</strong></td>
+              <td class="table-data"><input type="date" id="date" name="sem1date" value="{{college_obj.semester1_End_date|date:'Y-m-d'}}" required></td>
+            </tr>
+            <tr class="table-row">
+              <td><strong>Second Semister End Date</strong></td>
+              <td class="table-data"><input type="date" id="date" name="sem2date" value="{{college_obj.semester2_End_date|date:'Y-m-d'}}" required></td>
+            </tr>
+          </table>
+          <button type="submit" class="btn-primary btn btn-lg submitBtn" name="change-semister-btn" style="margin-top:2%;"><h5>Set semister duration</h5></button>        
+        </form>      
+      </div>
+
+      <!-- About Me -->
+      <div class="profile-content tab-pane fade card" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+        {% if director.gender == "female" %}
+        <img class="profile-pic" src="https://em-content.zobj.net/source/microsoft-teams/363/woman-office-worker_1f469-200d-1f4bc.png">
+        {% else %}
+        <img class="profile-pic" src="https://em-content.zobj.net/source/microsoft-teams/363/man-office-worker_1f468-200d-1f4bc.png">
+        {% endif %} 
+        <h2><b>All About Me</b></h2></br>
+        <h5 style="padding-bottom:2%">Name: <b>{{director.name}}</b></h5>
+        <h5 style="padding-bottom:2%">College: <b>{{director.college}}</b></h5>
+        <h5 style="padding-bottom:2%">Email: <b>{{ director.email }}</b></h5>             
+      </div>
+
+      <!-- Update Profile -->         
+      <div class="card profile-update-content tab-pane fade" id="nav-profile-update" role="tabpanel" aria-labelledby="nav-profile-update-tab">
+        {% if messages %}
+            {% for message in messages %}
+            {% if 'InvalidDetails' in message.tags or 'ProfileUpdated' in message.tags %}
+        <script>
+          var message = "{{message}}";
+          alert(message);
+        </script> 
+        {% endif%}
+       {% endfor %}
+       {% endif %}              
+        <form action="" method='POST'>
+            {% csrf_token %}
+             <h2><b>Please enter in the fields that you want to update</b></h2></br>
+             <table class="table-body">
+              <tr class="table-row">
+                <td><strong>Name</strong></td>
+                <td class="table-data"><input class="input-field" type="text" autocomplete="off" name='name' autocomplete="off" value="{{director.name}}"/></td>
+              </tr>
+                <tr class="table-row">
+                  <td><strong>Change Password</strong></td>
+                  <td class="table-data"><input class="input-field" autocomplete="off" type="password" name="password1"/></td>
+                </tr>
+                <tr class="table-row">
+                    <td><strong>Confirm Password</strong></td>
+                    <td class="table-data"><input class="input-field" autocomplete="off" type="password" name="password2"/></td>
+                </tr>
+               </table>
+            <button type="submit" class="btn-primary btn btn-lg" name="update-director-profile-btn" autocomplete="off" style="margin-top:2%;"><h5>Update Profile</h5></button>
+        </form>
+      </div>
+    </div>
+</section>
+{% endblock %}
